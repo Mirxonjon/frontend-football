@@ -1,0 +1,109 @@
+
+.header_container{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1440px;
+    align-self: center;
+}
+.header_layout {
+    width: 690px;
+    height: 48px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #EEF1F2 ;
+    border-radius: 20px;
+
+}
+.header_layout_link {
+    color: #181818;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    text-decoration: none;
+    margin: 8px 0;
+    
+    
+}
+.container_signIn {
+    width: 230px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    align-items: center;
+
+}
+
+.header_lang{
+    &_select {
+        display: none;
+        width: 60px;
+        text-align: center;
+        border: 1px solid black;
+        // border-radius: 10px;
+        position: absolute;
+        top: 20px;
+        right: -12px;
+        .select_btn{
+            width: 100%;
+            background-color: white;
+            border: 0;
+            padding: 7px 4px;
+        }
+        .select_btn:hover {
+            border :1px solid black
+        }
+    }
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #181818;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px; 
+
+  
+}
+
+.header_singin{
+color: #65926B;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 10px; 
+text-decoration: none;
+ 
+}
+.header_singin:hover {
+text-decoration: underline;
+
+}
+.hamburger_menu {
+    display: none;
+}
+
+@media only screen and (max-width: 1050px) {
+    body {
+      background-color: lightblue;
+    }
+    .header_container {
+        position: relative;
+    }
+
+    .header_layout{
+        display: none;
+    }
+    .hamburger_menu {
+        display: block;
+    }
+    .hemburger_layout {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100px;
+    }
+  }
