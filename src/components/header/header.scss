@@ -1,8 +1,9 @@
-
+@import "../../assets/scss/variables.scss";
 .header_container{
+      max-width: 1170;
     display: flex;
     justify-content: space-between;
-    max-width: 1440px;
+    // max-width: 1440px;
     align-self: center;
 }
 .header_layout {
@@ -15,16 +16,18 @@
 
 }
 .header_layout_link {
-    color: #181818;
+    color: $black;
     font-family: Inter;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: 32px;
     text-decoration: none;
-    margin: 8px 0;
-    
-    
+    margin: 8px 0; 
+}
+.header_layout_link:hover {
+    text-decoration: underline;
+
 }
 .container_signIn {
     width: 230px;
@@ -35,41 +38,9 @@
 
 }
 
-.header_lang{
-    &_select {
-        display: none;
-        width: 60px;
-        text-align: center;
-        border: 1px solid black;
-        // border-radius: 10px;
-        position: absolute;
-        top: 20px;
-        right: -12px;
-        .select_btn{
-            width: 100%;
-            background-color: white;
-            border: 0;
-            padding: 7px 4px;
-        }
-        .select_btn:hover {
-            border :1px solid black
-        }
-    }
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #181818;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 10px; 
-
-  
-}
 
 .header_singin{
-color: #65926B;
+color: $lightGreen;
 font-family: Inter;
 font-size: 16px;
 font-style: normal;
@@ -85,11 +56,12 @@ text-decoration: underline;
 .hamburger_menu {
     display: none;
 }
+.hemburger_layout {
+    display: none;
+}
 
 @media only screen and (max-width: 1050px) {
-    body {
-      background-color: lightblue;
-    }
+
     .header_container {
         position: relative;
     }
@@ -100,10 +72,36 @@ text-decoration: underline;
     .hamburger_menu {
         display: block;
     }
+
     .hemburger_layout {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100px;
+        .header_layout_link {
+            width: 100%;
+                border-bottom: 1px solid black;
+                margin: 0;
+                padding: 10px 20px;
+               
+        }
+        .header_layout_link:hover {
+            text-decoration: underline;
+            color: $lightGreen;
+        }
+       background-color: $lightGray;
+       height: fit-content;
+       border: 1px solid $black;
+       width: 70%;
+       max-width: 240px;
+    //    display: flex;
+       flex-direction: column;
+       position: absolute;
+       top: -20px;
     }
   }
+
+.hemburger_layout :last-child {
+    border-bottom: none;
+}
+.hamburger_menu_close {
+    text-align: end;
+    border-bottom: 1px solid black;
+    padding: 20px 10px;
+}
