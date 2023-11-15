@@ -1,6 +1,3 @@
-@import "./../../assets/scss/variables.scss";
-.wrapper {
-}
 .hero {
   display: flex;
   align-items: center;
@@ -21,18 +18,7 @@
   line-height: 30px;
   margin-bottom: 42px;
 }
-.btn {
-  border-radius: 14px;
-  background: #709775;
-  max-width: 277px;
-  padding: 14px;
-  display: block;
-  width: 100%;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 15px;
-}
+
 .hero_content {
   max-width: 314px;
 }
@@ -44,9 +30,6 @@
   }
 }
 
-.row:last-child {
-  flex-direction: row-reverse;
-}
 .row {
   display: flex;
   align-items: center;
@@ -89,14 +72,15 @@
     max-width: 100%;
     text-align: center;
   }
-  .btn {
+  .btn button {
     margin: 0 auto;
   }
   .row {
     flex-direction: column;
     text-align: center;
-    &:last-child {
-      flex-direction: column;
+    gap: 20px;
+    &:nth-of-type(3) {
+      flex-direction: column-reverse;
     }
   }
   .content {
@@ -108,10 +92,10 @@
   .hero {
     padding: 50px 0;
   }
-  .hero{
+  .hero {
     gap: 10px;
   }
-  .row{
+  .row {
     gap: 10px;
   }
   .title {
@@ -129,9 +113,5 @@
     font-size: 15px;
     line-height: 150%;
   }
-  .btn {
-    font-size: 15px;
-    line-height: 120%;
-    padding: 10px;
-  }
 }
+

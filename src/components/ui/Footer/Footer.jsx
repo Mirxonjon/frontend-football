@@ -5,7 +5,7 @@ import {
   YoutubeFilled,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import LogoSvg from "../../icons/Logo";
+import Logo from "../Logo/Logo";
 import Container from "../Container/Container";
 
 function Footer() {
@@ -15,7 +15,7 @@ function Footer() {
         <div className="footer_container_wrapper">
           <div className="footer_conteirner">
             <div className="footer_conteirner_logo footer_conteirner_desc">
-              <LogoSvg />
+              <Logo large={true} />
               <p className="footer_conteirner_descrioption">
                 football tactics and coaching definitions
               </p>

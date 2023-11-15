@@ -1,8 +1,6 @@
+import c from "./MyButton.module.scss";
+const MyButton = ({ children }) => {
+  return <button className={c.btn}>{children}</button>;
+};
 
-const MyButton = () => {
-  return (
-    <div>MyButton</div>
-  )
-}
-
-export default MyButton
+export default MyButton;
