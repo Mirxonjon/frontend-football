@@ -8,10 +8,28 @@
 
 html {
   font-size: 62.5%;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  // max-width: 1170;
-  margin-top: 24px;
-} 
+  font-family: "Inter", sans-serif;
+}
+button,
+a,
+button {
+  font-family: inherit;
+  background: inherit;
+  cursor: pointer;
+}
+button {
+  border: none;
+  background: inherit;
+  transition: all 0.2s;
+  &:hover {
+    opacity: 0.7;
+  }
+  &:active {
+    opacity: 1;
+  }
+}

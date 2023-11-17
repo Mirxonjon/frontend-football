@@ -1,26 +1,20 @@
-import { Link, Route, Routes } from "react-router-dom"
-import Container from "./components/container/container"
-import Home from "./pages/home/home"
-import Header from "./components/header/header"
-import Footer from "./components/footer/footer"
-
-
+import { Route, Routes } from "react-router-dom";
+import Container from "./components/ui/Container/Container";
+import Header from "./components/ui/Header/Header";
+import HomePage from "./pages/HomePage/HomePage";
+import BooksPage from "./pages/BooksPage/BooksPage";
 
 function App() {
-
   return (
     <div>
-
-    <Container>
-    <Header />
-     <Routes>
-     <Route path="/" element = { <Home />} />
-     <Route path="/login" element = { <h1>hello</h1> } />
-    </Routes>
-  </Container>
-    <Footer />
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/books" element={<BooksPage />} />
+          <Route path="/login" element={<h1>hello</h1>} />
+        </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

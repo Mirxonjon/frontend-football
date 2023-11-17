@@ -9,4 +9,4 @@ const FT_API = axios.create({
     }
 }); 
 
-export default YT_API;
+export default FT_API;

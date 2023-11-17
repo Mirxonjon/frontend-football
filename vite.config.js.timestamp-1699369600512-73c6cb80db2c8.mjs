@@ -2,7 +2,7 @@
 import { defineConfig } from "file:///D:/projects/football/frontend-football/node_modules/vite/dist/node/index.js";
 import react from "file:///D:/projects/football/frontend-football/node_modules/@vitejs/plugin-react/dist/index.mjs";
 var vite_config_default = defineConfig({
-  plugins: [react()]
+  plugins: [react()],
 });
 export {
   vite_config_default as default
