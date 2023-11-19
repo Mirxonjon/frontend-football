@@ -1,11 +1,12 @@
 import c from "./Description.module.scss";
 
-import img from "./../../../assets/img/MaskGroup.png";
 import home1 from "./../../../assets/img/home-1.png";
 import home2 from "./../../../assets/img/home-2.png";
 import MyButton from "../MyButton/MyButton";
+import { useNavigate } from "react-router-dom";
 
 const Description = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div
@@ -15,18 +16,42 @@ const Description = () => {
         className={c.hero}
       >
         <div className={c.hero_content}>
-          <h1 className={c.title}>Free Coaching Course!</h1>
+          <h1 className={c.title}>
+            Murabbiylar zonasi platformasiga xush kelibsiz.
+          </h1>
           <p className={c.desc}>
-            Sign up below to watch our exclusive CV Academy coaching course with
-            Brentford B assistant coach Sam Saunders for free.
+            Yaxshi futbol murabbiyi bo’lish yo’li shu erdan boshlanadi. Biz
+            sizga dunyoning eng yaxshi futbol murabbiylarining strategiyalari,
+            taktikasi va amaliy mashg’ulotlari bilan tanishish imkoniyatini
+            beramiz.
           </p>
           <div className={c.btn}>
-            <MyButton>Sign Up Now!</MyButton>
+            <MyButton
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              Sign Up Now!
+            </MyButton>
           </div>
         </div>
 
         <div className={c.hero_img}>
-          <img src={img} alt="stedui img" />
+          <video
+            width="100%"
+            height="auto"
+            autoPlay="true"
+            playsInline
+            muted
+            loop
+            controls
+          >
+            <source
+              src="https://storage.googleapis.com/telecom2003/video_for_site.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
 
@@ -40,11 +65,10 @@ const Description = () => {
           <img src={home1} alt="home img ball" />
         </div>
         <div className={c.content}>
-          <h3 className={c.smTitle}>Coaching Knowledge</h3>
+          <h3 className={c.smTitle}>Jamoaviy mashg’ulotlar </h3>
           <p className={c.smDesc}>
-            Positional play, also known as juego de posición, is a principle of
-            play in football that many of the world’s top coaches adopt. When a
-            team uses positional play.
+            100 dan ortiq jamoaviy futbol mashqlari, taktika, texnika va
+            o’yinchilarni rivojlantirish mashg’ulotlari
           </p>
         </div>
       </div>
@@ -56,12 +80,13 @@ const Description = () => {
         className={c.row}
       >
         <div className={c.content}>
-          <h3 className={c.smTitle}>Exclusive coaching courses</h3>
+          <h3 className={c.smTitle}>
+            Yakkama-yakka va kichik guruh mashg’ulotlari{" "}
+          </h3>
           <p className={c.smDesc}>
-            Enjoy exclusive access to two in-depth video coaching courses each
-            month, delivered by elite professional and academy football coaches
-            with experience at levels including the Champions League, Premier
-            League and La Liga.
+            Bir qator yakkama-yakka va kichik guruh mashg’ulotlar video
+            sessiyalari, barchasi professional murabbiylar tomonidan olib
+            boriladi.
           </p>
         </div>
         <div className={c.img}>

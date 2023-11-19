@@ -1,7 +1,7 @@
 import FormWrapper from "../../components/ui/FormWrapper/FormWrapper";
 import MyButton from "../../components/ui/MyButton/MyButton";
 import s from "./RegisterPage.module.scss";
-import img from "./../../assets/img/bg3.png";
+import img from "./../../assets/img/bg1.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Input, message } from "antd";
@@ -16,7 +16,7 @@ const RegisterPage = () => {
     name: "Eshmat",
     surname: "Toshmatov",
     was_born: "08.08.2000",
-    number: "+998933843484",
+    number: "",
     gmail: "Eshmat@gmail.com",
     password: "123",
   });
@@ -31,14 +31,9 @@ const RegisterPage = () => {
         content: err.response.data.message,
       });
     });
-    if (res.status === 201) {
+    if (res?.status === 201) {
       localStorage.setItem("token", res.data.token);
       navigate("/");
-    } else {
-      messageApi.open({
-        type: "error",
-        content: res.data.message,
-      });
     }
   }
 
@@ -96,8 +91,10 @@ const RegisterPage = () => {
               required="this input required"
               value={userData.number}
               onChange={(e) => {
-                if (!e.target.value.includes("+998")) {
+                if (e.target.value.slice(0, 4) !== "+998") {
                   e.target.value = "+998";
+                } else if (e.target.value.length > 11) {
+                  e.target.value = e.target.value.slice(0, 13);
                 }
                 setUserData({ ...userData, number: e.target.value });
               }}
