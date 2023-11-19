@@ -13,45 +13,88 @@
   font-style: normal;
   font-weight: 600;
   line-height: 38px; /* 118.75% */
+}
+.row {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 32px;
+  gap: 20px;
 }
-.item {
-  border-radius: 20px;
-  background: #eef1f2;
-  max-width: 190px;
-  width: 100%;
-  padding: 16px;
+
+.pagination {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 560px;
+  margin-left: auto;
+  align-items: center;
 }
-.img {
-  border-radius: 12px;
-  overflow: hidden;
-  img {
-    width: 100%;
-    display: block;
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #709775;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 14px;
+  line-height: 100%;
+}
+.btns {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  button {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
   }
 }
-.name {
-  color: #000;
+.number {
+  display: block;
+  color: #5e5e5e;
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
-  font-weight: 500;
-  line-height: 24px; /* 150% */
-  margin-top: 16px;
+  font-weight: 400;
+  line-height: 12px; /* 75% */
+  span {
+    padding: 10px 23px;
+    border-radius: 10px;
+    border: 1px solid #5e5e5e;
+  }
 }
-.price {
-  margin-top: 8px;
-  margin-bottom: 16px;
-  color: #000;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px; /* 150% */
+@media (max-width: 991px) {
+  .list {
+    justify-content: center;
+  }
+  .pagination {
+    margin: 0 auto;
+    margin-top: 32px;
+  }
 }
-.list button {
-  font-size: 12px;
-  font-weight: 500;
-  padding: 10px;
+
+@media (max-width: 660px) {
+  .row {
+    flex-direction: column;
+    align-items: end;
+    max-width: 400px;
+  }
+  .select {
+    max-width: 368px;
+    width: 100%;
+  }
+
+  .title {
+    align-self: start;
+  }
+  .pagination {
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 50px; 
+  }
 }
 

@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
 import Aside from "../../components/ui/Aside/Aside";
 import BookList from "../../components/ui/BookList/BookList";
 import Container from "../../components/ui/Container/Container";
-import c from "./BooksPage.module.scss";
+import s from "./BooksPage.module.scss";
 const books = [
   { id: 1, name: "Taktikaga oid kitoblar" },
   { id: 2, name: "Taktikaga oid kitoblar" },
@@ -58,11 +59,23 @@ const data = [
   },
 ];
 const BooksPage = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <Container>
-      <div className={c.wrapper}>
-        <Aside list={books} title={"Kategoriyalar"} />
-        <BookList data={data} title="Kitoblar" />
+      <div className={s.wrapper}>
+        {windowWidth > 990 && <Aside list={books} title={"Kategoriyalar"} />}
+        <BookList windowWidth={windowWidth} list={books} data={data} title="Kitoblar" />
       </div>
     </Container>
   );

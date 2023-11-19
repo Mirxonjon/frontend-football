@@ -2,9 +2,24 @@ import c from "./Slider.module.scss";
 import img1 from "./../../../assets/img/slider.png";
 import img2 from "./../../../assets/img/slider2.png";
 import img3 from "./../../../assets/img/slider3.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getTrener } from "../../../store/trener/trenerSlice";
+import { useEffect } from "react";
 const MySilder = () => {
+  const dispatch = useDispatch();
+  const treners = useSelector((state) => state.treners.treners);
+  const loading = useSelector((state) => state.treners.loading);
+  const error = useSelector((state) => state.treners.error);
+
+  useEffect(() => {
+    dispatch(getTrener());
+  }, [dispatch]);
+  console.log(treners);
   return (
     <div className={c.row}>
+       {loading && <p>Loading...</p>}
+       {error && <p>Error: {error}</p>}
+
       <div
         data-aos-duration="1500"
         data-aos-offset="300"

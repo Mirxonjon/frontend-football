@@ -40,7 +40,7 @@ const Description = () => {
           <video
             width="100%"
             height="auto"
-            autoPlay="true"
+            autoPlay
             playsInline
             muted
             loop

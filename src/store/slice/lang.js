@@ -22,11 +22,6 @@ const initialState = {
 export const { actions: langActionst, reducer: langReducers } = createSlice({
   name: "lang",
   initialState,
-  reducers: {
-    sortUser: (state, action) => {
-      state.users = action.payload;
-    },
-  },
   extraReducers: {
     [editLang.pending]: (state) => {
       state.loading = true;
