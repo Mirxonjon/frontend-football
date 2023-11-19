@@ -14,12 +14,55 @@ const books = [
   { id: 9, name: "Taktikaga oid kitoblar" },
   { id: 10, name: "Taktikaga oid kitoblar" },
 ];
+
+const data = [
+  {
+    id: 1,
+    name: "Kitob nomi",
+    price: "47200",
+  },
+  {
+    id: 1,
+    name: "Kitob nomi",
+    price: "47200",
+  },
+  {
+    id: 1,
+    name: "Kitob nomi",
+    price: "47200",
+  },
+  {
+    id: 1,
+    name: "Kitob nomi",
+    price: "47200",
+  },
+  {
+    id: 1,
+    name: "Kitob nomi",
+    price: "47200",
+  },
+  {
+    id: 1,
+    name: "Kitob nomi",
+    price: "47200",
+  },
+  {
+    id: 1,
+    name: "Kitob nomi",
+    price: "47200",
+  },
+  {
+    id: 1,
+    name: "Kitob nomi",
+    price: "47200",
+  },
+];
 const BooksPage = () => {
   return (
     <Container>
       <div className={c.wrapper}>
         <Aside list={books} title={"Kategoriyalar"} />
-        <BookList title="Kitoblar" />
+        <BookList data={data} title="Kitoblar" />
       </div>
     </Container>
   );

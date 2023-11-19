@@ -18,6 +18,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(true);
   const loyaut = useRef(null);
   const location = useLocation();
+  
   const handleToggleMenu = () => {
     if (isOpen) {
       document.querySelector(".hemburger_layout").style.display = "flex";
@@ -62,9 +63,9 @@ function Header() {
             <SearchOutlined /> Search
           </div>
           <LangChange />
-          <a className="header_singin" href="#">
+          <Link className="header_singin" to="/login">
             Sign In
-          </a>
+          </Link>
           <div className="hamburger_menu" onClick={handleToggleMenu}>
             <MenuFoldOutlined />
           </div>
