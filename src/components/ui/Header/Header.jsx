@@ -45,7 +45,7 @@ function Header() {
           <Link className="header_layout_link" to={"/training"}>
             Mashg‘ulotlar
           </Link>
-          <Link className="header_layout_link" to={"/tactic"}>
+          <Link className="header_layout_link" to={"/contests"}>
             Taktika
           </Link>
           <Link className="header_layout_link" to={"/books"}>
