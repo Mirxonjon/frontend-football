@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import {
-  SearchOutlined,
+  // SearchOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
@@ -18,7 +18,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(true);
   const loyaut = useRef(null);
   const location = useLocation();
-  
+
   const handleToggleMenu = () => {
     if (isOpen) {
       document.querySelector(".hemburger_layout").style.display = "flex";
@@ -46,22 +46,22 @@ function Header() {
             Mashg‘ulotlar
           </Link>
           <Link className="header_layout_link" to={"/contests"}>
-            Taktika
+            Musobaqalar
           </Link>
           <Link className="header_layout_link" to={"/books"}>
             Kitoblar
           </Link>
-          <Link className="header_layout_link" to={"/Masterclass"}>
+          <Link className="header_layout_link" to={"/masterclass"}>
             Masterclass
           </Link>
-          <Link className="header_layout_link" to={"/Copies"}>
+          <Link className="header_layout_link" to={"/copies"}>
             Konspektlar
           </Link>
         </div>
         <div className="container_signIn">
-          <div className="header_search">
+          {/* <div className="header_search">
             <SearchOutlined /> Search
-          </div>
+          </div> */}
           <LangChange />
           <Link className="header_singin" to="/login">
             Sign In

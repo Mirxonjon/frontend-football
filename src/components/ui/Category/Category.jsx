@@ -18,7 +18,7 @@ const category = [
 const Category = ({isLeft}) => {
   return (
     <div className={s.wrapper}>
-      <h2 className={s.title}>Barcha Kategoriyalar</h2>
+      <h2 className={cs(s.title, isLeft ? s.title_left : "")}>Barcha Kategoriyalar</h2>
       <div className={cs(s.row, isLeft ? s.left : "")}>
         {category.length &&
           category.map((c) => (

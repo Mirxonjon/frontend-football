@@ -1,4 +1,4 @@
-import c from "./Description.module.scss";
+import s from "./Description.module.scss";
 
 import home1 from "./../../../assets/img/home-1.png";
 import home2 from "./../../../assets/img/home-2.png";
@@ -13,19 +13,19 @@ const Description = () => {
         data-aos-duration="1300"
         data-aos-offset="500"
         data-aos="fade-down"
-        className={c.hero}
+        className={s.hero}
       >
-        <div className={c.hero_content}>
-          <h1 className={c.title}>
+        <div className={s.hero_content}>
+          <h1 className={s.title}>
             Murabbiylar zonasi platformasiga xush kelibsiz.
           </h1>
-          <p className={c.desc}>
+          <p className={s.desc}>
             Yaxshi futbol murabbiyi bo’lish yo’li shu erdan boshlanadi. Biz
             sizga dunyoning eng yaxshi futbol murabbiylarining strategiyalari,
             taktikasi va amaliy mashg’ulotlari bilan tanishish imkoniyatini
             beramiz.
           </p>
-          <div className={c.btn}>
+          <div className={s.btn}>
             <MyButton
               onClick={() => {
                 navigate("/register");
@@ -36,7 +36,7 @@ const Description = () => {
           </div>
         </div>
 
-        <div className={c.hero_img}>
+        <div className={s.hero_img}>
           <video
             width="100%"
             height="auto"
@@ -59,14 +59,14 @@ const Description = () => {
         data-aos-duration="1300"
         data-aos-offset="200"
         data-aos="fade-left"
-        className={c.row}
+        className={s.row}
       >
-        <div className={c.img}>
+        <div className={s.img}>
           <img src={home1} alt="home img ball" />
         </div>
-        <div className={c.content}>
-          <h3 className={c.smTitle}>Jamoaviy mashg’ulotlar </h3>
-          <p className={c.smDesc}>
+        <div className={s.content}>
+          <h3 className={s.smTitle}>Jamoaviy mashg’ulotlar </h3>
+          <p className={s.smDesc}>
             100 dan ortiq jamoaviy futbol mashqlari, taktika, texnika va
             o’yinchilarni rivojlantirish mashg’ulotlari
           </p>
@@ -77,19 +77,19 @@ const Description = () => {
         data-aos-duration="1300"
         data-aos-offset="200"
         data-aos="fade-right"
-        className={c.row}
+        className={s.row}
       >
-        <div className={c.content}>
-          <h3 className={c.smTitle}>
+        <div className={s.content}>
+          <h3 className={s.smTitle}>
             Yakkama-yakka va kichik guruh mashg’ulotlari{" "}
           </h3>
-          <p className={c.smDesc}>
+          <p className={s.smDesc}>
             Bir qator yakkama-yakka va kichik guruh mashg’ulotlar video
             sessiyalari, barchasi professional murabbiylar tomonidan olib
             boriladi.
           </p>
         </div>
-        <div className={c.img}>
+        <div className={s.img}>
           <img src={home2} alt="home img ball" />
         </div>
       </div>

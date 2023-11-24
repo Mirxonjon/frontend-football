@@ -7,6 +7,9 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import BookSinglePage from "./pages/BookSinglePage/BookSinglePage";
 import TrainingPage from "./pages/TrainingPage/TrainingPage";
 import ContestPage from "./pages/ContestPage/ContestPage";
+import TraningVideoPage from "./pages/TraningVideoPage/TraningVideoPage";
+import ContestVideoPage from "./pages/ContestVideoPage/ContestVideoPage";
+import MasterclassPage from "./pages/MasterclassPage/MasterclassPage";
 
 function App() {
   return (
@@ -21,9 +24,13 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/books" element={<BooksPage />} />
-              <Route path="/training" element={<TrainingPage />} />
-              <Route path="/contests" element={<ContestPage />} />
               <Route path="/books/:id" element={<BookSinglePage />} />
+              <Route path="/training" element={<TrainingPage />} />
+              <Route path="/training/:id" element={<TraningVideoPage />} />
+              <Route path="/contests" element={<ContestPage />} />
+              <Route path="/contests/:id" element={<ContestVideoPage />} />
+              <Route path="/masterclass" element={<MasterclassPage />} />
+              <Route path="/masterclass/:id" element={<MasterclassPage />} />
             </Routes>
           </>
         }

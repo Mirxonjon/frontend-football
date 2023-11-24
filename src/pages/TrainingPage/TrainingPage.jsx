@@ -6,8 +6,10 @@ import s from "./TrainingPage.module.scss";
 const TrainingPage = () => {
   return (
     <Container>
-      <AgesCategory />
-      <Category />
+      <div className={s.wrapper}>
+        <AgesCategory />
+        <Category  />
+      </div>
     </Container>
   );
 };
