@@ -3,7 +3,27 @@ import s from "./TraningVideoPage.module.scss";
 import img from "./../../assets/img/training.png";
 import PlayList from "../../components/ui/PlayList/PlayList";
 import TimeIcon from "../../components/svg/Tiime";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+// import { getTreningSubCatWithCateg } from "../../store/trening/treningSubCatSlice";
+// import { useParams } from "react-router-dom";
+// import MySelect from "../../components/ui/MySelect/MySelect";
 const TraningVideoPage = () => {
+  // const dispatch = useDispatch();
+  // const { id } = useParams();
+  const treners = useSelector(
+    (state) => state.treningSubCategory.treningSubCategory
+  );
+  // const loading = useSelector((state) => state.treningSubCategory.loading);
+  // const error = useSelector((state) => state.treningSubCategory.error);
+  // function ChangeAge(value) {
+  //   setAge(value);
+  //   dispatch(getTreningCategoryWithAge(value));
+  // }
+  useEffect(() => {
+    // dispatch(getTreningSubCatWithCateg(id));
+    console.log(treners);
+  }, []);
   return (
     <Container>
       <div className={s.row}>
@@ -49,6 +69,7 @@ const TraningVideoPage = () => {
           </div>
         </div>
         <div className={s.right}>
+          {/* <MySelect options={} /> */}
           <PlayList title="Mashg‘ulotlar video to‘plami" />
           <div className={s.time}>
             <div className={s.row_time}>

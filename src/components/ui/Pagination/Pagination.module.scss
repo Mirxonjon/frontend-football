@@ -38,11 +38,16 @@
   font-style: normal;
   font-weight: 400;
   line-height: 12px; /* 75% */
-  span {
+  display: flex;
+  align-items: center;
+  .span {
     padding: 10px 23px;
     border-radius: 10px;
     border: 1px solid #5e5e5e;
   }
+}
+.select {
+  max-width: 100px;
 }
 
 @media (max-width: 991px) {

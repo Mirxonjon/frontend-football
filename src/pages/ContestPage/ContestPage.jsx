@@ -7,7 +7,7 @@ const ContestPage = () => {
   return (
     <Container>
       <div className={s.wrapper}>
-        <Category isLeft={true} />
+        <Category  isLeft={true} />
         <SaidbarCategories title={"Taktika toifalari"} />
       </div>
     </Container>

@@ -1,23 +1,23 @@
 import s from "./BookList.module.scss";
 import Card from "../Card/Card";
 import Search from "../Search/Search";
-import { Select } from "antd";
 import Pagination from "../Pagination/Pagination";
+import MySelect from "../MySelect/MySelect";
+import { useState } from "react";
 const BookList = ({ title, list, data, windowWidth }) => {
+  const [selectedValue, setSelectedValue] = useState(null);
+  const handleSelect = (value) => {
+    setSelectedValue(value);
+  };
+  console.log(selectedValue);
   return (
     <div className={s.wrapper}>
       <div className={s.row}>
         <div className={s.title}>{title}</div>
         {windowWidth <= 990 && (
-          <Select
-            className={s.select}
-            defaultValue={1}
-            onChange={(e) => console.log(e.target.value)}
-            options={list.map((el) => ({
-              value: el.id,
-              label: el.name,
-            }))}
-          />
+          <div className={s.select}>
+            <MySelect options={list} onSelect={handleSelect} />
+          </div>
         )}
         <Search />
       </div>

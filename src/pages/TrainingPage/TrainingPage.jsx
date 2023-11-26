@@ -6,31 +6,29 @@ import s from "./TrainingPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getTreningCategory,
-  getTreningCategoryWithAge,
 } from "../../store/trening/treningCategoriesSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 const TrainingPage = () => {
   const dispatch = useDispatch();
-  const treners = useSelector((state) => state.treningCategory.treningCategory);
+  const categories = useSelector(
+    (state) => state.treningCategory.treningCategory
+  );
   const loading = useSelector((state) => state.treningCategory.loading);
   const error = useSelector((state) => state.treningCategory.error);
-  const [age, setAge] = useState("5-8");
 
-  function ChangeAge(value) {
-    setAge(value);
-    dispatch(getTreningCategoryWithAge(value));
-  }
+
   useEffect(() => {
     dispatch(getTreningCategory());
-  }, [dispatch]);
+  }, []);
+  console.log(categories);
   return (
     <Container>
       <div className={s.wrapper}>
-        <AgesCategory age={age} ChangeAge={ChangeAge} />
+        <AgesCategory />
 
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        {treners && <Category category={treners} />}
+        {categories && <Category category={categories} />}
       </div>
     </Container>
   );

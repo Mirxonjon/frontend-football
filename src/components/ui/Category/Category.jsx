@@ -2,15 +2,27 @@ import s from "./Category.module.scss";
 import Pagination from "../Pagination/Pagination";
 import cs from "classnames";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getTreningCategoryWithAge, treningCategoryActions } from "../../../store/trening/treningCategoriesSlice";
 
 const Category = ({ isLeft, category }) => {
+  const dispatch = useDispatch();
+  const paginationParams = useSelector(
+    (state) => state.treningCategory.pagination
+  );
+  function setPaginationParams(paginationParams) {
+   
+    dispatch(treningCategoryActions.setPagination(paginationParams))
+    dispatch(getTreningCategoryWithAge());
+  }
+  console.log(paginationParams);
   return (
     <div className={s.wrapper}>
       <h2 className={cs(s.title, isLeft ? s.title_left : "")}>
         Barcha Kategoriyalar
       </h2>
       <div className={cs(s.row, isLeft ? s.left : "")}>
-        {category.length &&
+        {category?.length &&
           category.map((c) => (
             <Link to={c.id} key={c.id} className={s.category}>
               <div className={s.img}>
@@ -25,7 +37,10 @@ const Category = ({ isLeft, category }) => {
           ))}
       </div>
 
-      <Pagination />
+      <Pagination
+        paginationParams={paginationParams}
+        setPaginationParams={setPaginationParams}
+      />
     </div>
   );
 };
