@@ -41,14 +41,13 @@ const Pagination = ({ paginationParams, setPaginationParams }) => {
       <div className={s.number}>
         <span>Sahifa</span>
         <span className={s.span}>{paginationParams.currentPage}</span>
-        <span className={s.span}>{paginationParams.totalPages}</span>
 
-        <span>ta dan</span>
+        <span>{paginationParams.totalPages} ta dan</span>
 
         <div className={s.select}>
           <MySelect
             onSelect={(v) =>
-              setPaginationParams({ ...paginationParams, pageSize: v })
+              setPaginationParams({ ...paginationParams,currentPage:1, pageSize: v })
             }
             defaultValue={+paginationParams.pageSize}
             options={[
