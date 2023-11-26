@@ -4,19 +4,23 @@ import Container from "../../components/ui/Container/Container";
 import s from "./TrainingPage.module.scss";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getTreningCategory,
-} from "../../store/trening/treningCategoriesSlice";
+import { getTreningCategory } from "../../store/trening/treningCategoriesSlice";
 import { useEffect } from "react";
+import { message } from "antd";
 const TrainingPage = () => {
   const dispatch = useDispatch();
+  const [messageApi, contextHolder] = message.useMessage();
   const categories = useSelector(
     (state) => state.treningCategory.treningCategory
   );
   const loading = useSelector((state) => state.treningCategory.loading);
   const error = useSelector((state) => state.treningCategory.error);
 
-
+  useEffect(() => {
+    if (error?.message?.length) {
+      messageApi.info(error.message);
+    }
+  }, [error]);
   useEffect(() => {
     dispatch(getTreningCategory());
   }, []);
@@ -27,7 +31,7 @@ const TrainingPage = () => {
         <AgesCategory />
 
         {loading && <p>Loading...</p>}
-        {error && <p>Error: {error}</p>}
+        {contextHolder}
         {categories && <Category category={categories} />}
       </div>
     </Container>

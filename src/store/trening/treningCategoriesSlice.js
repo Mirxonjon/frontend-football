@@ -88,7 +88,7 @@ export const {
     },
     setPagination: (state, action) => {
       state.pagination = {
-        ...state.treningCategory.pagination,
+        ...state.pagination,
         ...action.payload,
       };
     },

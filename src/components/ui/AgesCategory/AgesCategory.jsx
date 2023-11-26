@@ -19,6 +19,9 @@ const AgesCategory = () => {
         ages.map((age) => (
           <div
             onClick={() => {
+              dispatch(
+                treningCategoryActions.setPagination({ currentPage: 1 })
+              );
               dispatch(treningCategoryActions.setAge(age.value));
               dispatch(getTreningCategoryWithAge());
             }}
