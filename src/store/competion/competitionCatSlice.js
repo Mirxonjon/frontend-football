@@ -51,18 +51,18 @@ export const {
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(getTreningCategoryWithAge.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getTreningCategoryWithAge.fulfilled, (state, action) => {
-        state.loading = false;
-        state.treningCategory = action.payload.results; // Перезаписываем массив тренеров, так как, вероятно, это полный список
-        state.pagination = action.payload.pagination;
-      })
-      .addCase(getTreningCategoryWithAge.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
+      // .addCase(getTreningCategoryWithAge.pending, (state) => {
+      //   state.loading = true;
+      // })
+      // .addCase(getTreningCategoryWithAge.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   state.treningCategory = action.payload.results; // Перезаписываем массив тренеров, так как, вероятно, это полный список
+      //   state.pagination = action.payload.pagination;
+      // })
+      // .addCase(getTreningCategoryWithAge.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.error = action.payload;
+      // });
   },
   reducers: {
     setAge: (state, action) => {

@@ -1,19 +1,14 @@
 import TimeIcon from "../../svg/Tiime";
 import s from "./PlayList.module.scss";
 import cn from "classnames";
-const PlayList = ({ title }) => {
-  const data = [
-    { id: 1, name: "Barcha taktikalar" },
-    { id: 2, name: "Barcha taktikalar" },
-    { id: 3, name: "Barcha taktikalar" },
-    { id: 4, name: "Barcha taktikalar" },
-  ];
+const PlayList = ({ title,videos }) => {
+  
   return (
     <div className={s.wrapper}>
       <h4 className={s.title}>{title}</h4>
       <ul className={s.list}>
-        {data.length &&
-          data.map((el) => (
+        {videos.length &&
+          videos.map((el) => (
             <button
               key={el.id}
               className={cn(s.item, el.id === 1 ? s.active : "")}
@@ -49,13 +44,13 @@ const PlayList = ({ title }) => {
                 )}
               </span>
 
-              <div className={s.name}>{el.name}</div>
+              <div className={s.name}>{el.title}</div>
 
               <div className={s.time}>
                 <span className={s.time_icon}>
                   <TimeIcon />
                 </span>
-                <div className={s.time_number}>10:00</div>
+                <div className={s.time_number}>{el.duration}</div>
               </div>
             </button>
           ))}

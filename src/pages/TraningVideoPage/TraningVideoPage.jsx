@@ -4,13 +4,14 @@ import img from "./../../assets/img/training.png";
 import PlayList from "../../components/ui/PlayList/PlayList";
 import TimeIcon from "../../components/svg/Tiime";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   getTreningSubCatWithCateg,
+  getVideoWithSubCat,
   treningSubCategoryActions,
 } from "../../store/trening/treningSubCatSlice";
 import { useParams } from "react-router-dom";
-import { Select } from "antd";
+import { Select, message } from "antd";
 const TraningVideoPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -20,16 +21,42 @@ const TraningVideoPage = () => {
   const selectedSubCat = useSelector(
     (state) => state.treningSubCategory.subCategory
   );
-  // const loading = useSelector((state) => state.treningSubCategory.loading);
-  // const error = useSelector((state) => state.treningSubCategory.error);
-  // function ChangeAge(value) {
-  //   setAge(value);
-  //   dispatch(getTreningCategoryWithAge(value));
-  // }
-  console.log(selectedSubCat);
+  const loading = useSelector((state) => state.treningSubCategory.loading);
+  const error = useSelector((state) => state.treningSubCategory.error);
+  const videos = useSelector((state) => state.treningSubCategory.videos);
+  const loading_video = useSelector(
+    (state) => state.treningSubCategory.loading_video
+  );
+  const error_video = useSelector(
+    (state) => state.treningSubCategory.error_video
+  );
+
+  const [messageApi, contextHolder] = message.useMessage();
+
   useEffect(() => {
-    dispatch(getTreningSubCatWithCateg(id));
-  }, []);
+    if (error?.message?.length) {
+      messageApi.info(error.message);
+    }
+
+    if (error_video?.message?.length) {
+      messageApi.info(error_video.message);
+    }
+  }, [error, error_video]);
+console.log(videos);
+  useEffect(() => {
+    dispatch(getTreningSubCatWithCateg(id))
+      .unwrap()
+      .then((result) => {
+        const currentSelectedSubCat = result.length > 0 ? result[0].id : null;
+        if (currentSelectedSubCat) {
+          dispatch(treningSubCategoryActions.setSubCat(currentSelectedSubCat));
+          dispatch(getVideoWithSubCat());
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [dispatch, id]);
   return (
     <Container>
       <div className={s.row}>
@@ -75,13 +102,15 @@ const TraningVideoPage = () => {
           </div>
         </div>
         <div className={s.right}>
-          {subCategories.length && (
+          {loading && <p>Loading...</p>}
+          {contextHolder}
+          {subCategories.length > 0 && (
             <Select
               className={s.select}
-              defaultValue={subCategories?.[0]?.id}
+              defaultValue={selectedSubCat}
               onChange={(selectedValue) => {
-                console.log(selectedValue);
                 dispatch(treningSubCategoryActions.setSubCat(selectedValue));
+                dispatch(getVideoWithSubCat());
               }}
               options={subCategories.map((el) => ({
                 value: el.id,
@@ -89,7 +118,11 @@ const TraningVideoPage = () => {
               }))}
             />
           )}
-          <PlayList title="Mashg‘ulotlar video to‘plami" />
+
+          {loading_video && <p>Loading...</p>}
+          {videos.length > 0 && (
+            <PlayList videos={videos} title="Mashg‘ulotlar video to‘plami" />
+          )}
           <div className={s.time}>
             <div className={s.row_time}>
               <TimeIcon />
@@ -99,7 +132,7 @@ const TraningVideoPage = () => {
             <div className={s.row_time}>
               <TimeIcon />
               <div className={s.label}>Videodarsliklar soni</div>
-              <div className={s.value}>10 ta</div>
+              <div className={s.value}>{videos.length} ta</div>
             </div>
           </div>
         </div>

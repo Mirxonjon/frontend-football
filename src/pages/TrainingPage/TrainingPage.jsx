@@ -24,7 +24,6 @@ const TrainingPage = () => {
   useEffect(() => {
     dispatch(getTreningCategory());
   }, []);
-  console.log(categories);
   return (
     <Container>
       <div className={s.wrapper}>
