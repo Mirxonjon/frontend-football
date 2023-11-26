@@ -2,14 +2,9 @@ import Container from "../../components/ui/Container/Container";
 import s from "./MasterclassPage.module.scss";
 import img from "./../../assets/img/trener.png";
 import img2 from "./../../assets/img/trener2.png";
-const aside = [
-  { id: 1, name: "Xavi" },
-  { id: 2, name: "Xavi" },
-  { id: 3, name: "Xavi" },
-  { id: 4, name: "Xavi" },
-  { id: 5, name: "Xavi" },
-  { id: 6, name: "Xavi" },
-];
+import Pagination from "../../components/ui/Pagination/Pagination";
+import TrenersList from "../../components/ui/TrenersList/TrenersList";
+
 const treners = [
   { id: 1, name: "Xavi" },
   { id: 2, name: "Jose Mourinho" },
@@ -43,19 +38,9 @@ const MasterclassPage = () => {
                 </div>
               ))}
           </div>
+          <Pagination />
         </div>
-        <div className={s.right}>
-          <div className={s.aside_title}>Taniqli murabbiylar</div>
-          <div className={s.list}>
-            {aside.length &&
-              aside.map((el) => (
-                <div key={el.id} className={s.item}>
-                  <div className={s.item_name}>{el.name}</div>
-                  <div className={s.item_role}>Masterclass</div>
-                </div>
-              ))}
-          </div>
-        </div>
+        <TrenersList />
       </div>
     </Container>
   );

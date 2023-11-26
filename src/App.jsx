@@ -10,6 +10,7 @@ import ContestPage from "./pages/ContestPage/ContestPage";
 import TraningVideoPage from "./pages/TraningVideoPage/TraningVideoPage";
 import ContestVideoPage from "./pages/ContestVideoPage/ContestVideoPage";
 import MasterclassPage from "./pages/MasterclassPage/MasterclassPage";
+import MasterclassSinglePage from "./pages/MasterclassSinglePage/MasterclassSinglePage";
 
 function App() {
   return (
@@ -30,7 +31,10 @@ function App() {
               <Route path="/contests" element={<ContestPage />} />
               <Route path="/contests/:id" element={<ContestVideoPage />} />
               <Route path="/masterclass" element={<MasterclassPage />} />
-              <Route path="/masterclass/:id" element={<MasterclassPage />} />
+              <Route path="/masterclass/:id" element={<MasterclassSinglePage />} />
+              
+              <Route path="/copies" element={<BooksPage />} />
+              <Route path="/copies/:id" element={<BookSinglePage />} />
             </Routes>
           </>
         }

@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   gap: 30px;
-  margin-top: 50px;
+  padding: 50px 0;
 }
 .title {
   color: #181818;
@@ -61,33 +61,17 @@
   font-size: 20px;
   font-weight: 500;
 }
-.right {
-  border-radius: 20px;
-  background: #eef1f2;
-  padding: 24px;
-  width: 100%;
-  max-width: 270px;
-  height: max-content;
+@media (max-width: 720px) {
+  .wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+  }
 }
-.aside_title {
-  color: #65926b;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 24px;
-  margin-bottom: 24px;
-}
-.item {
-  border-top: 1px solid #18272916;
-  padding: 24px 0;
-}
-.item_name {
-  color: #181818;
-  font-size: 20px;
-  font-weight: 400;
-}
-.item_role {
-  color: #5d5d5d;
-  font-size: 14px;
-  font-weight: 600;
+
+@media (max-width: 450px) {
+  .treners_list {
+    grid-template-columns: repeat(1, minmax(auto, 320px));
+    justify-content: center;
+  }
 }
 
