@@ -5,14 +5,20 @@ import PlayList from "../../components/ui/PlayList/PlayList";
 import TimeIcon from "../../components/svg/Tiime";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-// import { getTreningSubCatWithCateg } from "../../store/trening/treningSubCatSlice";
-// import { useParams } from "react-router-dom";
-// import MySelect from "../../components/ui/MySelect/MySelect";
+import {
+  getTreningSubCatWithCateg,
+  treningSubCategoryActions,
+} from "../../store/trening/treningSubCatSlice";
+import { useParams } from "react-router-dom";
+import { Select } from "antd";
 const TraningVideoPage = () => {
-  // const dispatch = useDispatch();
-  // const { id } = useParams();
-  const treners = useSelector(
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const subCategories = useSelector(
     (state) => state.treningSubCategory.treningSubCategory
+  );
+  const selectedSubCat = useSelector(
+    (state) => state.treningSubCategory.subCategory
   );
   // const loading = useSelector((state) => state.treningSubCategory.loading);
   // const error = useSelector((state) => state.treningSubCategory.error);
@@ -20,9 +26,9 @@ const TraningVideoPage = () => {
   //   setAge(value);
   //   dispatch(getTreningCategoryWithAge(value));
   // }
+  console.log(selectedSubCat);
   useEffect(() => {
-    // dispatch(getTreningSubCatWithCateg(id));
-    console.log(treners);
+    dispatch(getTreningSubCatWithCateg(id));
   }, []);
   return (
     <Container>
@@ -69,7 +75,20 @@ const TraningVideoPage = () => {
           </div>
         </div>
         <div className={s.right}>
-          {/* <MySelect options={} /> */}
+          {subCategories.length && (
+            <Select
+              className={s.select}
+              defaultValue={subCategories?.[0]?.id}
+              onChange={(selectedValue) => {
+                console.log(selectedValue);
+                dispatch(treningSubCategoryActions.setSubCat(selectedValue));
+              }}
+              options={subCategories.map((el) => ({
+                value: el.id,
+                label: el.title,
+              }))}
+            />
+          )}
           <PlayList title="Mashg‘ulotlar video to‘plami" />
           <div className={s.time}>
             <div className={s.row_time}>

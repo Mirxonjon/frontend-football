@@ -71,7 +71,10 @@
   flex: 1 1 ;
   width: 100%;
 }
-
+.select{
+  width: 100%;
+  margin-bottom: 20px;
+}
 @media (max-width:1180px) {
   .row{
     flex-direction: column-reverse;

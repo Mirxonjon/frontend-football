@@ -8,7 +8,7 @@ const FT_API = axios.create({
     key: import.meta.env.VITE_YT_API_KEY,
   },
   headers: {
-    access_token: localStorage.getItem("token"),
+    Authorization: "Bearer " + localStorage.getItem("token"),
   },
 });
 

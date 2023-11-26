@@ -6,7 +6,7 @@ export const getTreningSubCatWithCateg = createAsyncThunk(
   async (age, { rejectWithValue }) => {
     try {
       const response = await FT_API.get(
-        `/api/v1/trainingSubCategories/filterByCategory/${age}`
+        `/trainingSubCategories/filterByCategory/${age}`
       );
       return response.data;
     } catch (error) {
@@ -17,6 +17,7 @@ export const getTreningSubCatWithCateg = createAsyncThunk(
 
 const initialState = {
   treningSubCategory: [],
+  subCategory: null,
   loading: false,
   error: "",
 };
@@ -40,6 +41,11 @@ export const {
         state.loading = false;
         state.error = action.payload;
       });
+  },
+  reducers: {
+    setSubCat: (state, action) => {
+      state.subCategory = action.payload;
+    },
   },
 });
 
