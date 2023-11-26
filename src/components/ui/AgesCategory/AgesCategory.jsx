@@ -6,10 +6,10 @@ import {
   treningCategoryActions,
 } from "../../../store/trening/treningCategoriesSlice";
 const ages = [
-  { id: 1, value: "5-8" },
-  { id: 2, value: "9-13" },
-  { id: 3, value: "14-17" },
-  { id: 4, value: "18-21" },
+  { id: 1, value: "5-8", name: "5-8 yoshdagilar" },
+  { id: 2, value: "9-13", name: "9-13 yoshdagilar" },
+  { id: 3, value: "14-17", name: "14-17 yoshdagilar" },
+  { id: 4, value: "18-21", name: "18-21 yoshdagilar" },
 ];
 const AgesCategory = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const AgesCategory = () => {
             className={s.item}
           >
             <img src={img} alt={age.value} />
-            <span>{`U ${age.value} yoshdagilar`}</span>
+            <span>{age.name}</span>
           </div>
         ))}
     </div>

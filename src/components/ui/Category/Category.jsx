@@ -3,7 +3,10 @@ import Pagination from "../Pagination/Pagination";
 import cs from "classnames";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getTreningCategoryWithAge, treningCategoryActions } from "../../../store/trening/treningCategoriesSlice";
+import {
+  getTreningCategoryWithAge,
+  treningCategoryActions,
+} from "../../../store/trening/treningCategoriesSlice";
 
 const Category = ({ isLeft, category }) => {
   const dispatch = useDispatch();
@@ -11,11 +14,9 @@ const Category = ({ isLeft, category }) => {
     (state) => state.treningCategory.pagination
   );
   function setPaginationParams(paginationParams) {
-   
-    dispatch(treningCategoryActions.setPagination(paginationParams))
+    dispatch(treningCategoryActions.setPagination(paginationParams));
     dispatch(getTreningCategoryWithAge());
   }
-  console.log(paginationParams);
   return (
     <div className={s.wrapper}>
       <h2 className={cs(s.title, isLeft ? s.title_left : "")}>
