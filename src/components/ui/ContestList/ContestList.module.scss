@@ -1,4 +1,7 @@
 .wrapper {
+  width: 100%;
+  flex: 1 0 max-content;
+  // max-width: 870px;
 }
 .title {
   margin-bottom: 30px;
@@ -19,7 +22,7 @@
 }
 .row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(auto, 270px));
   gap: 30px;
   max-width: max-content;
   margin: 0 auto;
@@ -43,7 +46,6 @@
 .category {
   max-width: 270px;
   width: 100%;
-
 }
 .name {
   color: #181818;

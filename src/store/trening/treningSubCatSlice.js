@@ -5,14 +5,7 @@ export const getTreningSubCatWithCateg = createAsyncThunk(
   "getTreningSubCatWithCateg",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await FT_API.get(
-        `/trainingCategories/one/${id}`,
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await FT_API.get(`/trainingCategories/one/${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -42,7 +35,7 @@ export const getVideoWithSubCat = createAsyncThunk(
 );
 const initialState = {
   treningSubCategory: [],
-  selectedCategory:null,
+  selectedCategory: null,
   subCategory: null,
   loading: false,
   error: "",
@@ -65,9 +58,9 @@ export const {
       })
       .addCase(getTreningSubCatWithCateg.fulfilled, (state, action) => {
         state.loading = false;
-        
+
         if (action.payload.Training_sub_category.length > 0) {
-        const { Training_sub_category, ...props } = action.payload;
+          const { Training_sub_category, ...props } = action.payload;
           state.selectedCategory = { ...props };
           console.log(Training_sub_category);
           state.treningSubCategory = Training_sub_category;

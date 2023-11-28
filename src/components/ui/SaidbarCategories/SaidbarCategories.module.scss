@@ -5,6 +5,8 @@
   align-items: start;
   height: max-content;
   padding: 24px;
+  max-width: 350px;
+  margin: 0 auto;
 }
 .title {
   color: #000;
@@ -12,8 +14,8 @@
   font-weight: 500;
   line-height: 24px; /* 120% */
 }
-.list li {
-  list-style: none;
+.list a {
+  display: block;
   color: #181818;
   font-size: 16px;
   font-weight: 500;
@@ -30,9 +32,3 @@
   }
 }
 
-
-@media (max-width: 850px) {
-  .wrapper {
-    width: 100%;
-  }
-}

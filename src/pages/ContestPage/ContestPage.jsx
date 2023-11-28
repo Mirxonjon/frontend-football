@@ -1,20 +1,27 @@
-import { useSelector } from "react-redux";
-import Category from "../../components/ui/Category/Category";
+import { useDispatch, useSelector } from "react-redux";
 import Container from "../../components/ui/Container/Container";
 import ContestList from "../../components/ui/ContestList/ContestList";
-import SaidbarCategories from "../../components/ui/SaidbarCategories/SaidbarCategories";
+// import SaidbarCategories from "../../components/ui/SaidbarCategories/SaidbarCategories";
 import s from "./ContestPage.module.scss";
+import { useEffect } from "react";
+import { getCompetitionCategory } from "../../store/competion/competitionCatSlice";
 
 const ContestPage = () => {
-  const categories = useSelector(
-    (state) => state.treningCategory.treningCategory
+  const dispatch = useDispatch();
+
+  const competition = useSelector(
+    (state) => state.competition.competitionCategory
   );
-  console.log(1111,categories);
+  useEffect(() => {
+    dispatch(getCompetitionCategory());
+  }, []);
+  console.log(competition);
+
   return (
     <Container>
       <div className={s.wrapper}>
-        {/* <ContestList category={categories} isLeft={true} /> */}
-        <SaidbarCategories title={"Taktika toifalari"} />
+        <ContestList category={competition} isLeft={true} />
+        {/* <SaidbarCategories title={"Taktika toifalari"} /> */}
       </div>
     </Container>
   );

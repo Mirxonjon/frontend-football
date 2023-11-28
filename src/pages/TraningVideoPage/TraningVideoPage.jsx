@@ -1,6 +1,5 @@
 import Container from "../../components/ui/Container/Container";
 import s from "./TraningVideoPage.module.scss";
-import img from "./../../assets/img/training.png";
 import PlayList from "../../components/ui/PlayList/PlayList";
 import TimeIcon from "../../components/svg/Tiime";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,11 +9,12 @@ import {
   getVideoWithSubCat,
   treningSubCategoryActions,
 } from "../../store/trening/treningSubCatSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Select, message } from "antd";
 const TraningVideoPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
   const subCategories = useSelector(
     (state) => state.treningSubCategory.treningSubCategory
   );
@@ -22,7 +22,9 @@ const TraningVideoPage = () => {
     (state) => state.treningSubCategory.subCategory
   );
   const loading = useSelector((state) => state.treningSubCategory.loading);
-  const error = useSelector((state) => state.treningSubCategory.error);
+  const error_video = useSelector(
+    (state) => state.treningSubCategory.error_video
+  );
   const videos = useSelector((state) => state.treningSubCategory.videos);
   const selectedCategory = useSelector(
     (state) => state.treningSubCategory.selectedCategory
@@ -37,10 +39,14 @@ const TraningVideoPage = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    if (error?.message?.length) {
-      messageApi.info(error.message);
+    if (error_video?.message?.length) {
+      messageApi.info(error_video.message);
+      if (error_video.status == 401) {
+        navigate("/login");
+      }
     }
-  }, [error]);
+  }, [error_video]);
+
   useEffect(() => {
     dispatch(getTreningSubCatWithCateg(params.id))
       .unwrap()
@@ -116,7 +122,6 @@ const TraningVideoPage = () => {
         </div>
         <div className={s.right}>
           {loading && <p>Loading...</p>}
-          {contextHolder}
           {subCategories.length > 0 && (
             <Select
               className={s.select}
@@ -141,6 +146,8 @@ const TraningVideoPage = () => {
           )}
 
           {loading_video && <p>Loading...</p>}
+
+          {contextHolder}
           {videos.length > 0 && (
             <PlayList videos={videos} title="Mashg‘ulotlar video to‘plami" />
           )}

@@ -23,12 +23,13 @@ function LangChange() {
   const handleLanguageSelect = (selectedLang) => {
     dispatch(editLang(selectedLang));
   };
-  
+
   useEffect(() => {
     document.body.addEventListener("click", (e) => {
       if (
         !e.target.closest(".header_lang") &&
-        document.querySelector(".header_lang_select").style.display === "block"
+        document.querySelector(".header_lang_select")?.style?.display ===
+          "block"
       ) {
         document.querySelector(".header_lang_select").style.display = "none";
         setIsOpenLang(false);
