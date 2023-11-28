@@ -15,9 +15,17 @@ const LoginPage = () => {
   });
   async function LoginFunc(e) {
     e.preventDefault();
-    FT_API.post("/Auth/SignIn", {
-      ...userData,
-    }).catch((err) => {
+    FT_API.post(
+      "/Auth/SignIn",
+      {
+        ...userData,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    ).catch((err) => {
       if (err.response.status === 302) {
         localStorage.setItem("token", err.response.data.token);
         navigate("/");

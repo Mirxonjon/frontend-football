@@ -6,7 +6,12 @@ export const getTreningSubCatWithCateg = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await FT_API.get(
-        `/trainingSubCategories/filterByCategory/${id}`
+        `/trainingCategories/one/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
       );
       return response.data;
     } catch (error) {
@@ -22,7 +27,12 @@ export const getVideoWithSubCat = createAsyncThunk(
       const state = getState();
       const { subCategory } = state.treningSubCategory;
       const response = await FT_API.get(
-        `/TrainingVideos/filterBySubCategory/${subCategory}`
+        `/TrainingVideos/filterBySubCategory/${subCategory}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
       );
       return response.data;
     } catch (error) {
@@ -30,15 +40,16 @@ export const getVideoWithSubCat = createAsyncThunk(
     }
   }
 );
-
 const initialState = {
   treningSubCategory: [],
+  selectedCategory:null,
   subCategory: null,
   loading: false,
   error: "",
   videos: [],
   loading_video: false,
   error_video: "",
+  selected_video: null,
 };
 
 export const {
@@ -54,9 +65,13 @@ export const {
       })
       .addCase(getTreningSubCatWithCateg.fulfilled, (state, action) => {
         state.loading = false;
-        state.treningSubCategory = action.payload;
-        if (action.payload.length > 0) {
-          state.subCategory = action.payload[0].id;
+        
+        if (action.payload.Training_sub_category.length > 0) {
+        const { Training_sub_category, ...props } = action.payload;
+          state.selectedCategory = { ...props };
+          console.log(Training_sub_category);
+          state.treningSubCategory = Training_sub_category;
+          state.subCategory = Training_sub_category[0].id;
         }
       })
       .addCase(getTreningSubCatWithCateg.rejected, (state, action) => {
@@ -78,6 +93,9 @@ export const {
   reducers: {
     setSubCat: (state, action) => {
       state.subCategory = action.payload;
+    },
+    setSelectedVideo: (state, action) => {
+      state.selected_video = action.payload;
     },
   },
 });

@@ -6,6 +6,9 @@ import ToRight from "../../svg/ToRight";
 import MySelect from "../MySelect/MySelect";
 
 const Pagination = ({ paginationParams, setPaginationParams }) => {
+  if(!paginationParams ){
+    return <div>Loading ...</div>
+  }
   return (
     <div className={s.pagination}>
       <div className={s.btns}>

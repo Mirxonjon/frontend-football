@@ -1,20 +1,30 @@
+import { useDispatch, useSelector } from "react-redux";
 import TimeIcon from "../../svg/Tiime";
 import s from "./PlayList.module.scss";
 import cn from "classnames";
-const PlayList = ({ title,videos }) => {
+import { treningSubCategoryActions } from "../../../store/trening/treningSubCatSlice";
+const PlayList = ({ title, videos, ...props }) => {
+  const dispatch = useDispatch();
   
+  const selected_video = useSelector(
+    (state) => state.treningSubCategory.selected_video
+  );
   return (
-    <div className={s.wrapper}>
+    <div {...props} className={s.wrapper}>
       <h4 className={s.title}>{title}</h4>
       <ul className={s.list}>
         {videos.length &&
           videos.map((el) => (
             <button
               key={el.id}
-              className={cn(s.item, el.id === 1 ? s.active : "")}
+              className={cn(s.item, el.id === selected_video?.id ? s.active : "")}
+              onClick={() => {
+                dispatch(treningSubCategoryActions.setSelectedVideo(el));
+                console.log(el.id === selected_video?.id);
+              }}
             >
               <span className={s.icon}>
-                {el.id === 1 ? (
+                {el.id === selected_video?.id ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="28"
