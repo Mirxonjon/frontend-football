@@ -7,7 +7,6 @@ export const getCompetitionCategory = createAsyncThunk(
     try {
       const state = getState();
       const { currentPage, pageSize } = state.competition.pagination;
-      console.log(11111111111);
       const response = await FT_API.get(
         `/competitionCategories/allWithPage?pageNumber=${currentPage}&pageSize=${pageSize}`
       );

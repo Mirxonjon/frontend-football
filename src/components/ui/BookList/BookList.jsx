@@ -2,30 +2,73 @@ import s from "./BookList.module.scss";
 import Card from "../Card/Card";
 import Search from "../Search/Search";
 import Pagination from "../Pagination/Pagination";
-import MySelect from "../MySelect/MySelect";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  booksActions,
+  getBookWithCategory,
+} from "../../../store/books/booksSlice";
+import { Select } from "antd";
+import NotFound from "../404/404";
 const BookList = ({ title, list, data, windowWidth }) => {
-  const [selectedValue, setSelectedValue] = useState(null);
+  const dispatch = useDispatch();
+  const pagination = useSelector((state) => state.books.pagination);
+  const loading_books = useSelector((state) => state.books.loading_books);
+  const search = useSelector((state) => state.books.search);
   const handleSelect = (value) => {
-    setSelectedValue(value);
+    dispatch(booksActions.setSelectedCategory(value));
+    dispatch(getBookWithCategory());
   };
-  console.log(selectedValue);
+
+  function setPaginationParams(paginationParams) {
+    dispatch(booksActions.setPagination(paginationParams));
+    dispatch(getBookWithCategory());
+  }
+
   return (
     <div className={s.wrapper}>
       <div className={s.row}>
         <div className={s.title}>{title}</div>
-        {windowWidth <= 990 && (
+        {list.length > 0 && windowWidth <= 990 && (
           <div className={s.select}>
-            <MySelect options={list} onSelect={handleSelect} />
+            <Select
+              className={s.select}
+              defaultValue={list[0].id}
+              onChange={handleSelect}
+              options={list.map((el) => ({
+                value: el.id,
+                label: el.title,
+              }))}
+            />
           </div>
         )}
-        <Search />
+        <Search
+          value={search}
+          onChange={(e) => {
+            dispatch(booksActions.setSearch(e.target.value));
+            dispatch(getBookWithCategory());
+          }}
+        />
       </div>
+
       <div className={s.list}>
-        {data?.length &&
-          data.map((el, index) => <Card key={el.id + index} data={el} />)}
+        {loading_books ? (
+          <h2>Loading ...</h2>
+        ) : data?.length > 0 ? (
+          data.map((el) => <Card key={el.id} data={el} />)
+        ) : (
+          <NotFound
+            subTitle={"Bu categoriya uchun kitob topilmadi"}
+            style={{ height: 300 }}
+          />
+        )}
       </div>
-      <Pagination />
+
+      {data?.length > 0 && (
+        <Pagination
+          paginationParams={pagination}
+          setPaginationParams={setPaginationParams}
+        />
+      )}
     </div>
   );
 };

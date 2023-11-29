@@ -62,7 +62,6 @@ export const {
         if (action.payload.Training_sub_category.length > 0) {
           const { Training_sub_category, ...props } = action.payload;
           state.selectedCategory = { ...props };
-          console.log(Training_sub_category);
           state.treningSubCategory = Training_sub_category;
           state.subCategory = Training_sub_category[0].id;
         }

@@ -38,7 +38,8 @@
     max-width: 400px;
   }
   .select {
-    max-width: 368px;
+    max-width: 370px;
+    width: 100%;
   }
 
   .title {
@@ -47,7 +48,7 @@
   .pagination {
     flex-direction: column;
     gap: 40px;
-    margin-top: 50px; 
+    margin-top: 50px;
   }
 }
 

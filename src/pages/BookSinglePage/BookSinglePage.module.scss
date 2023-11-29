@@ -12,12 +12,16 @@
   padding: 16px;
   border-radius: 20px;
   background: #eef1f2;
+  max-width: 560px;
   img {
     border-radius: 14px;
     background: #eef1f2;
     display: block;
     width: 100%;
   }
+}
+.body {
+  width: 100%;
 }
 .name {
   color: #181818;
@@ -110,6 +114,12 @@
   }
   .img {
     max-width: 100%;
+  }
+  .body {
+    text-align: center;
+  }
+  .btn button{
+    margin: 0 auto;
   }
 }
 

@@ -2,20 +2,22 @@
   display: flex;
   gap: 30px;
   padding: 30px 0 50px;
+  justify-content: space-around;
+  width: 100%;
 }
 .left {
   max-width: 770px;
   width: 100%;
 }
 .right {
-  width: 370px;
-  flex: 1 0 370px;
+  width: 100%;
+  max-width: 370px;
 }
 .video {
   margin-bottom: 30px;
   max-width: 770px;
   height: 430px;
-  
+
   border-radius: 20px;
   overflow: hidden;
   iframe {
@@ -32,12 +34,14 @@
   line-height: 24px; /* 150% */
   margin-bottom: 25px;
 }
-.select{
+.select {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
 }
-
+.notFound {
+  max-width: 500px;
+}
 @media (max-width: 991px) {
   .row {
     flex-direction: column-reverse;

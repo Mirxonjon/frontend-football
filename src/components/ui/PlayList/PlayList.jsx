@@ -20,7 +20,6 @@ const PlayList = ({ title, videos, ...props }) => {
               className={cn(s.item, el.id === selected_video?.id ? s.active : "")}
               onClick={() => {
                 dispatch(treningSubCategoryActions.setSelectedVideo(el));
-                console.log(el.id === selected_video?.id);
               }}
             >
               <span className={s.icon}>

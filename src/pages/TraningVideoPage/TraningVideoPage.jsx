@@ -71,9 +71,7 @@ const TraningVideoPage = () => {
       });
   }, [dispatch, params]);
   if (selected_video)
-    console.log(
-      "https://storage.googleapis.com/telecom2003/" + selected_video.video_link
-    );
+   
 
   return (
     <Container>

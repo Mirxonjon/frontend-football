@@ -40,7 +40,6 @@ const ContestVideoPage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  console.log(selectedVideo);
   return (
     <Container>
       <div className={s.row}>
@@ -60,7 +59,10 @@ const ContestVideoPage = () => {
             </div>
           </div>
         ) : (
+          <div className={s.notFound}>
+
           <NotFound subTitle={"Bu categoriya uchun video topilmadi"} />
+          </div>
         )}
         <div className={s.right}>
           {windowWidth >= 991 && competitionAllCategory && (
@@ -74,7 +76,6 @@ const ContestVideoPage = () => {
               className={s.select}
               defaultValue={params?.id}
               onChange={(selectedValue) => {
-                console.log(selectedValue);
                 navigate("/contests/" + selectedValue);
               }}
               options={competitionAllCategory.map((el) => ({

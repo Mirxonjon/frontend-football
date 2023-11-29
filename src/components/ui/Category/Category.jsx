@@ -17,7 +17,6 @@ const Category = ({ isLeft, category }) => {
     dispatch(treningCategoryActions.setPagination(paginationParams));
     dispatch(getTreningCategoryWithAge());
   }
-  console.log(paginationParams);
   return (
     <div className={s.wrapper}>
       <h2 className={cs(s.title, isLeft ? s.title_left : "")}>
