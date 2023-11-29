@@ -15,7 +15,6 @@ const ContestPage = () => {
   useEffect(() => {
     dispatch(getCompetitionCategory());
   }, []);
-  console.log(competition);
 
   return (
     <Container>

@@ -3,29 +3,44 @@ import s from "./ContestVideoPage.module.scss";
 import SaidbarCategories from "../../components/ui/SaidbarCategories/SaidbarCategories";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getCompetitionCategory,
+  getCompetitionAllCategory,
+  // getCompetitionCategory,
   getCompetitionVideos,
 } from "../../store/competion/competitionCatSlice";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import NotFound from "../../components/ui/404/404";
+import { Select } from "antd";
 const ContestVideoPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
   const selectedVideo = useSelector(
     (state) => state.competition.competitionVideos?.Tactic_videos
   );
-  const categories = useSelector(
-    (state) => state.competition.competitionCategory
+  const competitionAllCategory = useSelector(
+    (state) => state.competition.competitionAllCategory
   );
   useEffect(() => {
     dispatch(getCompetitionVideos(params.id));
   }, [params.id]);
   useEffect(() => {
-    if (categories.length < 1) {
-      dispatch(getCompetitionCategory());
-    }
-  }, [categories]);
+    dispatch(getCompetitionAllCategory());
+  }, []);
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  console.log(selectedVideo);
   return (
     <Container>
       <div className={s.row}>
@@ -35,7 +50,7 @@ const ContestVideoPage = () => {
               <iframe
                 width="100%"
                 height={"320"}
-                src="https://www.youtube.com/embed/mDKfhL7iJT0?si=o85VWmKGFgEQFuXu"
+                src={selectedVideo.video_link}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
               ></iframe>
@@ -45,11 +60,28 @@ const ContestVideoPage = () => {
             </div>
           </div>
         ) : (
-          <NotFound subTitle={'Bu categoriya uchun video topilmadi'} />
+          <NotFound subTitle={"Bu categoriya uchun video topilmadi"} />
         )}
         <div className={s.right}>
-          {categories && (
-            <SaidbarCategories list={categories} title={"Taktika toifalari"} />
+          {windowWidth >= 991 && competitionAllCategory && (
+            <SaidbarCategories
+              list={competitionAllCategory}
+              title={"Taktika toifalari"}
+            />
+          )}
+          {windowWidth < 991 && competitionAllCategory.length > 0 && (
+            <Select
+              className={s.select}
+              defaultValue={params?.id}
+              onChange={(selectedValue) => {
+                console.log(selectedValue);
+                navigate("/contests/" + selectedValue);
+              }}
+              options={competitionAllCategory.map((el) => ({
+                value: el.id,
+                label: el.title,
+              }))}
+            />
           )}
         </div>
       </div>

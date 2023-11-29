@@ -18,6 +18,19 @@ export const getCompetitionCategory = createAsyncThunk(
   }
 );
 
+export const getCompetitionAllCategory = createAsyncThunk(
+  "getCompetitionAllCategory",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await FT_API.get(`/competitionCategories/all`);
+      
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const getCompetitionVideos = createAsyncThunk(
   "getCompetitionVideos",
   async (categoryId, { rejectWithValue }) => {
@@ -34,6 +47,7 @@ export const getCompetitionVideos = createAsyncThunk(
 
 const initialState = {
   competitionCategory: [],
+  competitionAllCategory: [],
   pagination: {
     currentPage: 1,
     pageSize: 5,
@@ -77,6 +91,17 @@ export const {
       .addCase(getCompetitionVideos.rejected, (state, action) => {
         state.loading_videos = false;
         state.error_videos = action.payload;
+      })
+      .addCase(getCompetitionAllCategory.pending, (state) => {
+        state.loading_all_cat = true;
+      })
+      .addCase(getCompetitionAllCategory.fulfilled, (state, action) => {
+        state.loading_all_cat = false;
+        state.competitionAllCategory = action.payload;
+      })
+      .addCase(getCompetitionAllCategory.rejected, (state, action) => {
+        state.loading_all_cat = false;
+        state.error_all_cat = action.payload;
       });
   },
   reducers: {
