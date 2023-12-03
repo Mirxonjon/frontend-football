@@ -5,6 +5,7 @@ import img3 from "./../../../assets/img/slider3.png";
 const MySilder = () => {
   return (
     <div className={c.row}>
+
       <div
         data-aos-duration="1500"
         data-aos-offset="300"

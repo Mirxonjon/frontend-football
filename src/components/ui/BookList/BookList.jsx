@@ -1,21 +1,74 @@
-import MyButton from "../MyButton/MyButton";
-import c from "./BookList.module.scss";
+import s from "./BookList.module.scss";
+import Card from "../Card/Card";
+import Search from "../Search/Search";
+import Pagination from "../Pagination/Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  booksActions,
+  getBookWithCategory,
+} from "../../../store/books/booksSlice";
+import { Select } from "antd";
+import NotFound from "../404/404";
+const BookList = ({ title, list, data, windowWidth }) => {
+  const dispatch = useDispatch();
+  const pagination = useSelector((state) => state.books.pagination);
+  const loading_books = useSelector((state) => state.books.loading_books);
+  const search = useSelector((state) => state.books.search);
+  const handleSelect = (value) => {
+    dispatch(booksActions.setSelectedCategory(value));
+    dispatch(getBookWithCategory());
+  };
 
-const BookList = ({ title, data }) => {
+  function setPaginationParams(paginationParams) {
+    dispatch(booksActions.setPagination(paginationParams));
+    dispatch(getBookWithCategory());
+  }
+
   return (
-    <div className={c.list}>
-      <div className={c.title}>{title}</div>
-      {data?.length &&
-        data.map((el) => (
-          <div className={c.item} key={el.id}>
-            <div className={c.img}>
-              <img src={el.img} alt={"book"} />
-              <div className={c.name}>{el.name}</div>
-              <div className={c.price}>{el.price}</div>
-              <MyButton>{el.price}</MyButton>
-            </div>
+    <div className={s.wrapper}>
+      <div className={s.row}>
+        <div className={s.title}>{title}</div>
+        {list.length > 0 && windowWidth <= 990 && (
+          <div className={s.select}>
+            <Select
+              className={s.select}
+              defaultValue={list[0].id}
+              onChange={handleSelect}
+              options={list.map((el) => ({
+                value: el.id,
+                label: el.title,
+              }))}
+            />
           </div>
-        ))}
+        )}
+        <Search
+          value={search}
+          onChange={(e) => {
+            dispatch(booksActions.setSearch(e.target.value));
+            dispatch(getBookWithCategory());
+          }}
+        />
+      </div>
+
+      <div className={s.list}>
+        {loading_books ? (
+          <h2>Loading ...</h2>
+        ) : data?.length > 0 ? (
+          data.map((el) => <Card key={el.id} data={el} />)
+        ) : (
+          <NotFound
+            subTitle={"Bu categoriya uchun kitob topilmadi"}
+            style={{ height: 300 }}
+          />
+        )}
+      </div>
+
+      {data?.length > 0 && (
+        <Pagination
+          paginationParams={pagination}
+          setPaginationParams={setPaginationParams}
+        />
+      )}
     </div>
   );
 };
