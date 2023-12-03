@@ -43,7 +43,7 @@ const ContestVideoPage = () => {
   return (
     <Container>
       <div className={s.row}>
-        {selectedVideo ? (
+        {selectedVideo?.video_link?.slice(0, 4) === "http" ? (
           <div className={s.left}>
             <div className={s.video}>
               <iframe
@@ -55,13 +55,12 @@ const ContestVideoPage = () => {
               ></iframe>
             </div>
             <div className={s.description}>
-              {selectedVideo && selectedVideo.description_video}
+              {selectedVideo ? selectedVideo.description_video : ""}
             </div>
           </div>
         ) : (
           <div className={s.notFound}>
-
-          <NotFound subTitle={"Bu categoriya uchun video topilmadi"} />
+            <NotFound subTitle={"Bu categoriya uchun video topilmadi"} />
           </div>
         )}
         <div className={s.right}>

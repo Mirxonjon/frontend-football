@@ -1,33 +1,37 @@
 import { useNavigate, useParams } from "react-router-dom";
-import s from "./BookSinglePage.module.scss";
-import Card from "../../components/ui/Card/Card";
+import s from "./CopySinglePage.module.scss";
 import Container from "../../components/ui/Container/Container";
 import imgBook from "./../../assets/img/bookFrame.png";
 import MyButton from "../../components/ui/MyButton/MyButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
-  getRecomendBooks,
-  randomBooksActions,
-  singleBook,
-} from "../../store/books/randomBook";
-const BookSinglePage = () => {
+  getRecomendCopies,
+  randomCopiesActions,
+  singleCopy,
+} from "../../store/copy/randomCopy.js";
+import CardCopy from "../../components/ui/CardCopy/CardCopy";
+
+const CopySinglePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const RandomBooks = useSelector((state) => state.randomBooks.recomendBooks);
-  const book = useSelector((state) => state.randomBooks.singleBook?.findBook);
+  const RandomCopies = useSelector(
+    (state) => state.randomCopies.recomendCopies
+  );
+  const copy = useSelector(
+    (state) => state.randomCopies.singleCopy?.findShortBook
+  );
   const isFollow =
-    useSelector((state) => state.randomBooks.singleBook?.follow) === "true"
+    useSelector((state) => state.randomCopies.singleCopy?.follow) === "true"
       ? true
       : false;
 
-  console.log(useSelector((state) => state.randomBooks.singleBook?.follow));
+  console.log(isFollow);
   const { id } = useParams();
   const downloadFile = () => {
     if (isFollow) {
       const url =
-        "https://storage.googleapis.com/telecom2003/" + book.book_link;
+        "https://storage.googleapis.com/telecom2003/" + copy.short_book_link;
       const link = document.createElement("a");
       link.href = url;
       link.download = "your_file_name.pdf";
@@ -39,29 +43,24 @@ const BookSinglePage = () => {
     }
   };
   useEffect(() => {
-    dispatch(singleBook(id));
-    if (RandomBooks?.length) {
-      dispatch(randomBooksActions.getRandomBooks());
+    dispatch(singleCopy(id));
+    if (RandomCopies?.length) {
+      dispatch(randomCopiesActions.getRandomCopies());
     } else {
-      dispatch(getRecomendBooks())
+      dispatch(getRecomendCopies())
         .unwrap()
         .then((result) => {
-          dispatch(randomBooksActions.getRandomBooks(result));
-        })
-        .catch((error) => {
-          console.log(error);
+          dispatch(randomCopiesActions.getRandomCopies(result));
         });
     }
   }, [id]);
-  if (!book) {
+  if (!copy) {
     return (
       <h2 style={{ textAlign: "center", fontSize: 22, marginTop: 50 }}>
         Loading ...
       </h2>
     );
   }
-
-  console.log(book);
   return (
     <Container>
       <div className={s.wrapper}>
@@ -70,38 +69,38 @@ const BookSinglePage = () => {
             <div className={s.img}>
               <img
                 src={
-                  book?.book_img
+                  copy?.short_book_img
                     ? "https://storage.googleapis.com/telecom2003/" +
-                      book?.book_img
+                      copy?.short_book_img
                     : imgBook
                 }
-                alt="book"
+                alt="copy"
               />
             </div>
             <div className={s.body}>
-              <div className={s.name}>{book.title}</div>
+              <div className={s.name}>{copy.title}</div>
               <div className={s.price}>
-                {book.book_lang == "ru" ? "Ruscha" : "O`zbekcha"}
+                {copy.short_book_lang == "ru" ? "Ruscha" : "O`zbekcha"}
               </div>
               <div className={s.info}>
                 {!isFollow ? "Yuklab olish uchun tizimga kirish keark" : ""}
               </div>
               <div className={s.btn}>
-                <MyButton onClick={downloadFile}>Yuklab olish</MyButton>
+                <MyButton onClick={downloadFile}>{"Yuklab olish"}</MyButton>
               </div>
             </div>
           </div>
           <div className={s.descrip}>
             <h2 className={s.descripTitle}>Mahsulot tavsifi</h2>
-            <p>{book.description_book}</p>
+            <p>{copy.description_book}</p>
           </div>
         </div>
         <aside className={s.aside}>
           <h2 className={s.titleRecomend}>Tavsiya etamiz</h2>
           <div className={s.list}>
-            {RandomBooks?.length &&
-              RandomBooks.map((book) => (
-                <Card withOutBtn={true} key={book.id} data={book} />
+            {RandomCopies?.length &&
+              RandomCopies.map((copy) => (
+                <CardCopy withOutBtn={true} key={copy.id} data={copy} />
               ))}
           </div>
         </aside>
@@ -110,5 +109,5 @@ const BookSinglePage = () => {
   );
 };
 
-export default BookSinglePage;
+export default CopySinglePage;
 

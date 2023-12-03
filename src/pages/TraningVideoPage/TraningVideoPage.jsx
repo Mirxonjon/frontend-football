@@ -11,6 +11,7 @@ import {
 } from "../../store/trening/treningSubCatSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { Select, message } from "antd";
+import NotFound from "../../components/ui/404/404";
 const TraningVideoPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -46,11 +47,11 @@ const TraningVideoPage = () => {
       }
     }
   }, [error_video]);
-
   useEffect(() => {
     dispatch(getTreningSubCatWithCateg(params.id))
       .unwrap()
       .then((result) => {
+        
         const currentSelectedSubCat =
           result.Training_sub_category.length > 0
             ? result.Training_sub_category[0].id
@@ -63,6 +64,9 @@ const TraningVideoPage = () => {
               if (result.length > 0) {
                 dispatch(treningSubCategoryActions.setSelectedVideo(result[0]));
               }
+            })
+            .catch((error) => {
+              console.log(error);
             });
         }
       })
@@ -73,13 +77,14 @@ const TraningVideoPage = () => {
   if (selected_video)
    
 
+  console.log(subCategories); 
   return (
     <Container>
       <div className={s.row}>
         <div className={s.left}>
           <div className={s.video}>
             {loading_video && <p>Loading...</p>}
-            {selected_video && (
+            {selected_video ? (
               <video
                 width="100%"
                 height="auto"
@@ -93,7 +98,7 @@ const TraningVideoPage = () => {
                   selected_video.video_link
                 }
               />
-            )}
+            ): <NotFound style={{padding:50}} />}
           </div>
           <div className={s.img}>
             {selected_video && (
@@ -134,6 +139,9 @@ const TraningVideoPage = () => {
                         treningSubCategoryActions.setSelectedVideo(result[0])
                       );
                     }
+                  })
+                  .catch((error) => {
+                    console.log(error);
                   });
               }}
               options={subCategories.map((el) => ({

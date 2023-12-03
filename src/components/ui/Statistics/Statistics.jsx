@@ -9,7 +9,7 @@ const Statistics = () => {
         data-aos-offset="300"
         className={c.item}
       >
-        <div className={c.number}>42k</div>
+        <div className={c.number}>102</div>
         <div className={c.string}>members</div>
       </div>
       <div
@@ -18,7 +18,7 @@ const Statistics = () => {
         data-aos-offset="300"
         className={c.item}
       >
-        <div className={c.number}>38k</div>
+        <div className={c.number}>50</div>
         <div className={c.string}>units sold</div>
       </div>
       <div
@@ -27,7 +27,7 @@ const Statistics = () => {
         data-aos-offset="300"
         className={c.item}
       >
-        <div className={c.number}>62</div>
+        <div className={c.number}>22</div>
         <div className={c.string}>head coachs</div>
       </div>
       <div
@@ -36,7 +36,7 @@ const Statistics = () => {
         data-aos-offset="300"
         className={c.item}
       >
-        <div className={c.number}>220</div>
+        <div className={c.number}>20</div>
         <div className={c.string}>masterclass</div>
       </div>
     </div>

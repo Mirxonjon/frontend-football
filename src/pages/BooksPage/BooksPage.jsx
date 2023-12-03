@@ -25,7 +25,7 @@ const BooksPage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
+  
   return (
     <Container>
       <div className={s.wrapper}>

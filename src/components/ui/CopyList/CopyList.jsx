@@ -1,29 +1,29 @@
-import s from "./BookList.module.scss";
-import Card from "../Card/Card";
+import s from "./CopyList.module.scss";
 import Search from "../Search/Search";
 import Pagination from "../Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  booksActions,
-  getBookWithCategory,
-} from "../../../store/books/booksSlice";
+  copiesActions,
+  getCopyWithCategory
+} from "../../../store/copy/copiesSlice";
 import { Select } from "antd";
 import NotFound from "../404/404";
-const BookList = ({ title, list, data, windowWidth }) => {
+import CardCopy from "../CardCopy/CardCopy";
+const CopyList = ({ title, list, data, windowWidth }) => {
   const dispatch = useDispatch();
-  const pagination = useSelector((state) => state.books.pagination);
-  const loading_books = useSelector((state) => state.books.loading_books);
-  const search = useSelector((state) => state.books.search);
+  const pagination = useSelector((state) => state.copies.pagination);
+  const loading_copies = useSelector((state) => state.copies.loading_copies);
+  const search = useSelector((state) => state.copies.search);
   const handleSelect = (value) => {
-    dispatch(booksActions.setSelectedCategory(value));
-    dispatch(getBookWithCategory());
+    dispatch(copiesActions.setSelectedCategory(value));
+    dispatch(getCopyWithCategory());
   };
 
   function setPaginationParams(paginationParams) {
-    dispatch(booksActions.setPagination(paginationParams));
-    dispatch(getBookWithCategory());
+    dispatch(copiesActions.setPagination(paginationParams));
+    dispatch(getCopyWithCategory());
   }
-  console.log(pagination);
+
   return (
     <div className={s.wrapper}>
       <div className={s.row}>
@@ -44,20 +44,20 @@ const BookList = ({ title, list, data, windowWidth }) => {
         <Search
           value={search}
           onChange={(e) => {
-            dispatch(booksActions.setSearch(e.target.value));
-            dispatch(getBookWithCategory());
+            dispatch(copiesActions.setSearch(e.target.value));
+            dispatch(getCopyWithCategory());
           }}
         />
       </div>
 
       <div className={s.list}>
-        {loading_books ? (
+        {loading_copies ? (
           <h2>Loading ...</h2>
         ) : data?.length > 0 ? (
-          data.map((el) => <Card key={el.id} data={el} />)
+          data.map((el) => <CardCopy key={el.id} data={el} />)
         ) : (
           <NotFound
-            subTitle={"Bu categoriya uchun kitob topilmadi"}
+            subTitle={"Bu categoriya uchun konspekt topilmadi"}
             style={{ height: 300 }}
           />
         )}
@@ -73,5 +73,5 @@ const BookList = ({ title, list, data, windowWidth }) => {
   );
 };
 
-export default BookList;
+export default CopyList;
 

@@ -19,29 +19,25 @@ function getRandomElements(arr) {
   return randomElements;
 }
 
-export const getRecomendBooks = createAsyncThunk(
-  "getAllBooks",
+export const getRecomendCopies = createAsyncThunk(
+  "getAllCopies",
   async (_, { rejectWithValue }) => {
     try {
       const response = await FT_API.get(
-        `/Books/allWithPage?pageNumber=1&pageSize=100`
+        `/ShortBooks/all`
       );
-      return response?.data.results;
+      return response?.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
 
-export const singleBook = createAsyncThunk(
-  "singleBook",
+export const singleCopy = createAsyncThunk(
+  "singleCopy",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await FT_API.get(`/Books/one/` + id, {
-        headers: {
-          autharization: localStorage.getItem("token"),
-        },
-      });
+      const response = await FT_API.get(`ShortBooks/one/` + id);
       return response?.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -50,50 +46,50 @@ export const singleBook = createAsyncThunk(
 );
 
 const initialState = {
-  allBooks: [],
-  recomendBooks: [],
+  allCopies: [],
+  recomendCopies: [],
   loading: false,
   error: "",
-  singleBook: null,
+  singleCopy: null,
   loading_single: false,
   error_single: "",
 };
 
-export const { actions: randomBooksActions, reducer: randomBooksReducers } =
+export const { actions: randomCopiesActions, reducer: randomCopiesReducers } =
   createSlice({
-    name: "randomBooks",
+    name: "randomCopies",
     initialState,
     extraReducers: (builder) => {
       builder
-        .addCase(getRecomendBooks.pending, (state) => {
+        .addCase(getRecomendCopies.pending, (state) => {
           state.loading = true;
         })
-        .addCase(getRecomendBooks.fulfilled, (state, action) => {
+        .addCase(getRecomendCopies.fulfilled, (state, action) => {
           state.loading = false;
-          state.allBooks = action.payload;
+          state.allCopies = action.payload;
         })
-        .addCase(getRecomendBooks.rejected, (state, action) => {
+        .addCase(getRecomendCopies.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload;
         })
-        .addCase(singleBook.pending, (state) => {
+        .addCase(singleCopy.pending, (state) => {
           state.loading_single = true;
         })
-        .addCase(singleBook.fulfilled, (state, action) => {
+        .addCase(singleCopy.fulfilled, (state, action) => {
           state.loading_single = false;
-          state.singleBook = action.payload;
+          state.singleCopy = action.payload;
         })
-        .addCase(singleBook.rejected, (state, action) => {
+        .addCase(singleCopy.rejected, (state, action) => {
           state.loading_single = false;
           state.error_single = action.payload;
         });
     },
     reducers: {
-      getRandomBooks: (state, action) => {
+      getRandomCopies: (state, action) => {
         if (action.payload) {
-          state.recomendBooks = getRandomElements(action.payload);
+          state.recomendCopies = getRandomElements(action.payload);
         } else {
-          state.recomendBooks = getRandomElements(state.allBooks);
+          state.recomendCopies = getRandomElements(state.allCopies);
         }
       },
     },

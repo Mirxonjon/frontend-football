@@ -25,17 +25,20 @@ const LoginPage = () => {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       }
-    ).catch((err) => {
-      if (err.response.status === 302) {
-        localStorage.setItem("token", err.response.data.token);
-        navigate("/");
-      } else {
+    )
+      .then((data) => {
+        if (data.status === 200) {
+          localStorage.setItem("token", data.data.token);
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
         messageApi.open({
           type: "error",
           content: err.response.data.message,
         });
-      }
-    });
+      });
   }
   return (
     <FormWrapper

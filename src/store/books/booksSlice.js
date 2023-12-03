@@ -85,6 +85,8 @@ export const { actions: booksActions, reducer: booksReducers } = createSlice({
   reducers: {
     setSelectedCategory: (state, action) => {
       state.selected_category = action.payload;
+      state.pagination.currentPage = 1;
+      state.search = "";
     },
     setSelectedBook: (state, action) => {
       state.selected_book = action.payload;
