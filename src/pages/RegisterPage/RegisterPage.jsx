@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Input, message } from "antd";
 import moment from "moment";
-import FT_API from "../../api/api";
+import FT_API, { updateHeadersWithToken } from "../../api/api";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -33,6 +33,8 @@ const RegisterPage = () => {
     });
     if (res?.status === 201) {
       localStorage.setItem("token", res.data.token);
+      updateHeadersWithToken();
+
       navigate("/");
     }
   }

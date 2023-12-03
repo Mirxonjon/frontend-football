@@ -4,9 +4,13 @@ import home1 from "./../../../assets/img/home-1.png";
 import home2 from "./../../../assets/img/home-2.png";
 import MyButton from "../MyButton/MyButton";
 import { useNavigate } from "react-router-dom";
+import { heroText, offers } from "../../../content/homePage";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 
 const Description = () => {
   const navigate = useNavigate();
+
+  const langChange = useLocalizedText();
   return (
     <>
       <div
@@ -16,22 +20,15 @@ const Description = () => {
         className={s.hero}
       >
         <div className={s.hero_content}>
-          <h1 className={s.title}>
-            Murabbiylar zonasi platformasiga xush kelibsiz.
-          </h1>
-          <p className={s.desc}>
-            Yaxshi futbol murabbiyi bo’lish yo’li shu erdan boshlanadi. Biz
-            sizga dunyoning eng yaxshi futbol murabbiylarining strategiyalari,
-            taktikasi va amaliy mashg’ulotlari bilan tanishish imkoniyatini
-            beramiz.
-          </p>
+          <h1 className={s.title}>{heroText[langChange("hero")]}</h1>
+          <p className={s.desc}>{heroText[langChange("desc")]}</p>
           <div className={s.btn}>
             <MyButton
               onClick={() => {
                 navigate("/register");
               }}
             >
-              Sign Up Now!
+              {heroText[langChange("btn")]}
             </MyButton>
           </div>
         </div>
@@ -65,11 +62,8 @@ const Description = () => {
           <img src={home1} alt="home img ball" />
         </div>
         <div className={s.content}>
-          <h3 className={s.smTitle}>Jamoaviy mashg’ulotlar </h3>
-          <p className={s.smDesc}>
-            100 dan ortiq jamoaviy futbol mashqlari, taktika, texnika va
-            o’yinchilarni rivojlantirish mashg’ulotlari
-          </p>
+          <h3 className={s.smTitle}>{offers[0][langChange("title")]} </h3>
+          <p className={s.smDesc}>{offers[0][langChange("desc")]}</p>
         </div>
       </div>
 
@@ -80,14 +74,8 @@ const Description = () => {
         className={s.row}
       >
         <div className={s.content}>
-          <h3 className={s.smTitle}>
-            Yakkama-yakka va kichik guruh mashg’ulotlari{" "}
-          </h3>
-          <p className={s.smDesc}>
-            Bir qator yakkama-yakka va kichik guruh mashg’ulotlar video
-            sessiyalari, barchasi professional murabbiylar tomonidan olib
-            boriladi.
-          </p>
+          <h3 className={s.smTitle}>{offers[0][langChange("title")]} </h3>
+          <p className={s.smDesc}>{offers[0][langChange("desc")]}</p>
         </div>
         <div className={s.img}>
           <img src={home2} alt="home img ball" />

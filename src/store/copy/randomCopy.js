@@ -3,7 +3,7 @@ import FT_API from "../../api/api";
 
 function getRandomElements(arr) {
   if (!Array.isArray(arr) || arr.length < 2) {
-    console.error("Input should be an array with at least two elements");
+    
     return null;
   }
 

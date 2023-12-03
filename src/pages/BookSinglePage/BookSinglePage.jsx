@@ -22,7 +22,7 @@ const BookSinglePage = () => {
       ? true
       : false;
 
-  console.log(useSelector((state) => state.randomBooks.singleBook?.follow));
+  
   const { id } = useParams();
   const downloadFile = () => {
     if (isFollow) {
@@ -49,7 +49,7 @@ const BookSinglePage = () => {
           dispatch(randomBooksActions.getRandomBooks(result));
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     }
   }, [id]);
@@ -61,7 +61,7 @@ const BookSinglePage = () => {
     );
   }
 
-  console.log(book);
+  
   return (
     <Container>
       <div className={s.wrapper}>

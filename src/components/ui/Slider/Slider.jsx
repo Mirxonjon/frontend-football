@@ -1,23 +1,29 @@
 import c from "./Slider.module.scss";
 import img1 from "./../../../assets/img/slider.png";
-import img2 from "./../../../assets/img/slider2.png";
-import img3 from "./../../../assets/img/slider3.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getMasterclassCategory } from "../../../store/masterclass/masterclassSlice";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
+
+const content = {
+  masterclass: "Masterclass",
+  masterclass_ru: "Мастерклассы",
+};
 const MySilder = () => {
   const dispatch = useDispatch();
   const treners = useSelector((state) => state.masterclass.masterclassCategory);
-  console.log(treners);
+
+  const langChange = useLocalizedText();
   useEffect(() => {
     dispatch(getMasterclassCategory());
   }, []);
   return (
     <div className={c.row}>
       {treners.length > 0
-        ? treners.slice(0,3).map((el) => (
-            <Link to={'/masterclass/' + el.id}
+        ? treners.slice(0, 3).map((el) => (
+            <Link
+              to={"/masterclass/" + el.id}
               data-aos-duration="1500"
               data-aos-offset="300"
               data-aos="fade-right"
@@ -27,9 +33,11 @@ const MySilder = () => {
               <div className={c.img}>
                 <img src={img1} alt="trener photo" />
               </div>
-              <div className={c.role}>Masterclass</div>
-              <div className={c.name}>{el.title}</div>
-              <div className={c.description}>{el.title_descrioption}</div>
+              <div className={c.role}>{content[langChange("masterclass")]}</div>
+              <div className={c.name}>{el[langChange("title")]}</div>
+              <div className={c.description}>
+                {el[langChange("title_descrioption")]}
+              </div>
             </Link>
           ))
         : ""}

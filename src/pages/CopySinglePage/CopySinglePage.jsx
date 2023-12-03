@@ -26,7 +26,7 @@ const CopySinglePage = () => {
       ? true
       : false;
 
-  console.log(isFollow);
+  
   const { id } = useParams();
   const downloadFile = () => {
     if (isFollow) {

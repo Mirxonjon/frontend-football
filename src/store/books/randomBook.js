@@ -3,7 +3,7 @@ import FT_API from "../../api/api";
 
 function getRandomElements(arr) {
   if (!Array.isArray(arr) || arr.length < 2) {
-    console.error("Input should be an array with at least two elements");
+    
     return null;
   }
 
@@ -37,11 +37,7 @@ export const singleBook = createAsyncThunk(
   "singleBook",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await FT_API.get(`/Books/one/` + id, {
-        headers: {
-          autharization: localStorage.getItem("token"),
-        },
-      });
+      const response = await FT_API.get(`/Books/one/` + id);
       return response?.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

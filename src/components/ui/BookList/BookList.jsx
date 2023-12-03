@@ -23,7 +23,7 @@ const BookList = ({ title, list, data, windowWidth }) => {
     dispatch(booksActions.setPagination(paginationParams));
     dispatch(getBookWithCategory());
   }
-  console.log(pagination);
+  
   return (
     <div className={s.wrapper}>
       <div className={s.row}>

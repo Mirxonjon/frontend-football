@@ -66,7 +66,7 @@ const TraningVideoPage = () => {
               }
             })
             .catch((error) => {
-              console.log(error);
+              console.error(error);
             });
         }
       })
@@ -77,7 +77,7 @@ const TraningVideoPage = () => {
   if (selected_video)
    
 
-  console.log(subCategories); 
+   
   return (
     <Container>
       <div className={s.row}>
@@ -141,7 +141,7 @@ const TraningVideoPage = () => {
                     }
                   })
                   .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                   });
               }}
               options={subCategories.map((el) => ({

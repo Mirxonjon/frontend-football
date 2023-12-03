@@ -5,7 +5,7 @@ import img from "./../../assets/img/bg2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Input, message } from "antd";
 import { useState } from "react";
-import FT_API from "../../api/api";
+import FT_API, { updateHeadersWithToken } from "../../api/api";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -15,25 +15,19 @@ const LoginPage = () => {
   });
   async function LoginFunc(e) {
     e.preventDefault();
-    FT_API.post(
-      "/Auth/SignIn",
-      {
-        ...userData,
-      },
-      {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
-    )
+    FT_API.post("/Auth/SignIn", {
+      ...userData,
+    })
       .then((data) => {
         if (data.status === 200) {
           localStorage.setItem("token", data.data.token);
+          updateHeadersWithToken();
+
           navigate("/");
         }
       })
       .catch((err) => {
-        console.log(err);
+        
         messageApi.open({
           type: "error",
           content: err.response.data.message,

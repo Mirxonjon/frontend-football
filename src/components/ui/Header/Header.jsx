@@ -13,6 +13,8 @@ import Logo from "./../Logo/Logo";
 import { useRef } from "react";
 import { useEffect } from "react";
 import Container from "../Container/Container";
+import { menu } from "../../../content/pages";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(true);
@@ -20,6 +22,7 @@ function Header() {
   const location = useLocation();
   const openIcon = useRef(null);
 
+  const langChange = useLocalizedText();
   const handleToggleMenu = () => {
     if (isOpen) {
       document.querySelector(".hemburger_layout").style.display = "flex";
@@ -28,7 +31,6 @@ function Header() {
     }
     setIsOpen(!isOpen);
   };
-
   useEffect(() => {
     loyaut.current.childNodes.forEach((el) => {
       if (window.location.href.toLowerCase() === el.href.toLowerCase()) {
@@ -43,21 +45,12 @@ function Header() {
       <header className="header_container">
         <Logo className={"header_logo"} />
         <div ref={loyaut} className="header_layout">
-          <Link className="header_layout_link" to={"/training"}>
-            Mashg‘ulotlar
-          </Link>
-          <Link className="header_layout_link" to={"/contests"}>
-            Musobaqalar
-          </Link>
-          <Link className="header_layout_link" to={"/books"}>
-            Kitoblar
-          </Link>
-          <Link className="header_layout_link" to={"/masterclass"}>
-            Masterclass
-          </Link>
-          <Link className="header_layout_link" to={"/copies"}>
-            Konspektlar
-          </Link>
+          {menu.length > 0 &&
+            menu.map((el) => (
+              <Link key={el.id} className="header_layout_link" to={el.path}>
+                {el[langChange("name")]}
+              </Link>
+            ))}
         </div>
         <div className="container_signIn">
           {/* <div className="header_search">
@@ -79,21 +72,17 @@ function Header() {
               <MenuUnfoldOutlined />
             </div>
             <div className="hamburger_list">
-              <Link onClick={handleToggleMenu}  className="header_layout_link" to={"/training"}>
-                Mashg‘ulotlar
-              </Link>
-              <Link onClick={handleToggleMenu} className="header_layout_link" to={"/contests"}>
-                Musobaqalar
-              </Link>
-              <Link onClick={handleToggleMenu} className="header_layout_link" to={"/books"}>
-                Kitoblar
-              </Link>
-              <Link onClick={handleToggleMenu} className="header_layout_link" to={"/masterclass"}>
-                Masterclass
-              </Link>
-              <Link onClick={handleToggleMenu} className="header_layout_link" to={"/copies"}>
-                Konspektlar
-              </Link>
+              {menu.length > 0 &&
+                menu.map((el) => (
+                  <Link
+                    onClick={handleToggleMenu}
+                    key={el.id}
+                    className="header_layout_link"
+                    to={el.path}
+                  >
+                    {el[langChange("name")]}
+                  </Link>
+                ))}
             </div>
           </div>
         </div>
