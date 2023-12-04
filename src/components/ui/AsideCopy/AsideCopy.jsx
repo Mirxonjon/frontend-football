@@ -5,8 +5,10 @@ import {
   copiesActions,
   getCopyWithCategory,
 } from "../../../store/copy/copiesSlice";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 const AsideCopy = ({ title, list }) => {
   const dispatch = useDispatch();
+  const changaLang = useLocalizedText();
 
   const selectedCategoryId = useSelector(
     (state) => state.copies.selected_category
@@ -24,7 +26,7 @@ const AsideCopy = ({ title, list }) => {
             }}
             key={i.id}
           >
-            {i.title}
+          {i[changaLang("title")]}
           </button>
         ))}
     </div>

@@ -4,11 +4,16 @@ import BookList from "../../components/ui/BookList/BookList";
 import Container from "../../components/ui/Container/Container";
 import s from "./BooksPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookAllCategory, getBookWithCategory } from "../../store/books/booksSlice";
+import {
+  getBookAllCategory,
+  getBookWithCategory,
+} from "../../store/books/booksSlice";
+import { useLocalizedText } from "../../hook/useLocalizedText";
 
 const BooksPage = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
+  const changaLang = useLocalizedText();
 
   const bookCategory = useSelector((state) => state.books.bookCategory);
   const books = useSelector((state) => state.books.books);
@@ -25,16 +30,23 @@ const BooksPage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
+  const content = {
+    title: "Kitoblar",
+    title_ru: "Книги",
+    category: "Kategoriyalar",
+    category_ru: "Категории",
+  };
   return (
     <Container>
       <div className={s.wrapper}>
-        {bookCategory && windowWidth > 990 && <Aside list={bookCategory} title={"Kategoriyalar"} />}
+        {bookCategory && windowWidth > 990 && (
+          <Aside list={bookCategory} title={content[changaLang("category")]} />
+        )}
         <BookList
           windowWidth={windowWidth}
           list={bookCategory}
           data={books}
-          title="Kitoblar"
+          title={content[changaLang("title")]}
         />
       </div>
     </Container>

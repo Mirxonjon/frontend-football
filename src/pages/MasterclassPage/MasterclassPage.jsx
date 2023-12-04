@@ -9,13 +9,14 @@ import {
 } from "../../store/masterclass/masterclassSlice";
 import NotFound from "../../components/ui/404/404";
 import { Link } from "react-router-dom";
+import { useLocalizedText } from "../../hook/useLocalizedText";
 // import TrenersList from "../../components/ui/TrenersList/TrenersList";
 
 const MasterclassPage = () => {
   const dispatch = useDispatch();
   const treners = useSelector((state) => state.masterclass.masterclassCategory);
   const pagination = useSelector((state) => state.masterclass.pagination);
-  console.log(treners[0]);
+  const changaLang = useLocalizedText();
   useEffect(() => {
     dispatch(getMasterclassCategory());
   }, []);
@@ -24,12 +25,20 @@ const MasterclassPage = () => {
     dispatch(masterclassCategoryActions.setPagination(paginationParams));
     dispatch(getMasterclassCategory());
   }
+  const content = {
+    title: "Masterclasslar",
+    title_ru: "Мастерклассы",
+    subtitle: "Masterclass",
+    subtitle_ru: "Мастеркласс",
+    uz: "O`zbekcha",
+    uz_ru: "Узбекский",
+  };
   return (
     <Container>
       <div className={s.wrapper}>
         {treners?.length > 0 ? (
           <div className={s.left}>
-            <div className={s.title}>Masterclasslar</div>
+            <div className={s.title}>{content[changaLang('title')]}</div>
             <div className={s.hero}>
               <Link to={treners[0].id} className={s.img}>
                 <img
@@ -40,11 +49,11 @@ const MasterclassPage = () => {
                   alt="trener"
                 />
               </Link>
-              <div className={s.role}>Masterclass</div>
+              <div className={s.role}>{content[changaLang('subtitle')]}</div>
               <Link to={treners[0].id} className={s.name}>
-                {treners[0].title}
+                {treners[0][changaLang('title')]}
               </Link>
-              <div className={s.about}>{treners[0].title_descrioption}</div>
+              <div className={s.about}>{treners[0][changaLang('title_descrioption')]}</div>
             </div>
             <div className={s.treners_list}>
               {treners.slice(1).map((el) => (
@@ -58,8 +67,8 @@ const MasterclassPage = () => {
                       alt="trener"
                     />
                   </div>
-                  <div className={s.trener_role}>Masterclass</div>
-                  <div className={s.trener_name}>{el.title}</div>
+                  <div className={s.trener_role}>{content[changaLang('subtitle')]}</div>
+                  <div className={s.trener_name}>{el[changaLang('title')]}</div>
                 </Link>
               ))}
             </div>

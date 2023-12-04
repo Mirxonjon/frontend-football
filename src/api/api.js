@@ -15,6 +15,8 @@ const FT_API = axios.create({
 
 export const updateHeadersWithToken = () => {
   const newToken = localStorage.getItem("token");
+  location.reload();
+
   FT_API.defaults.headers.common["Authorization"] = "Bearer " + newToken;
   FT_API.defaults.headers.common["access_token"] = newToken;
 };

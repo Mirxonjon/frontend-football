@@ -11,6 +11,7 @@ import {
   singleCopy,
 } from "../../store/copy/randomCopy.js";
 import CardCopy from "../../components/ui/CardCopy/CardCopy";
+import { useLocalizedText } from "../../hook/useLocalizedText.jsx";
 
 const CopySinglePage = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ const CopySinglePage = () => {
   const RandomCopies = useSelector(
     (state) => state.randomCopies.recomendCopies
   );
+  const changaLang = useLocalizedText();
+
   const copy = useSelector(
     (state) => state.randomCopies.singleCopy?.findShortBook
   );
@@ -26,7 +29,6 @@ const CopySinglePage = () => {
       ? true
       : false;
 
-  
   const { id } = useParams();
   const downloadFile = () => {
     if (isFollow) {
@@ -61,6 +63,23 @@ const CopySinglePage = () => {
       </h2>
     );
   }
+
+  const content = {
+    view: "Ko`rish",
+    view_ru: "Смотреть",
+    ru: "Ruscha",
+    ru_ru: "Русский",
+    uz: "O`zbekcha",
+    uz_ru: "Узбекский",
+    info: "Yuklab olish uchun tizimga kirishiz kerak",
+    info_ru: "Вы должны войти в систему, чтобы скачать",
+    btn: "Yuklab olish",
+    btn_ru: "Скачать",
+    title: "Mahsulot tavsifi",
+    title_ru: "Описание продукта",
+    recomend: "Tavsiya etamiz",
+    recomend_ru: "Рекомендуем",
+  };
   return (
     <Container>
       <div className={s.wrapper}>
@@ -78,25 +97,30 @@ const CopySinglePage = () => {
               />
             </div>
             <div className={s.body}>
-              <div className={s.name}>{copy.title}</div>
+              <div className={s.name}>{copy[changaLang("title")]}</div>
               <div className={s.price}>
-                {copy.short_book_lang == "ru" ? "Ruscha" : "O`zbekcha"}
+                {copy.book_lang == "ru"
+                  ? content[changaLang("ru")]
+                  : content[changaLang("uz")]}
               </div>
               <div className={s.info}>
-                {!isFollow ? "Yuklab olish uchun tizimga kirish keark" : ""}
+                {!isFollow ? content[changaLang("info")] : ""}
               </div>
               <div className={s.btn}>
-                <MyButton onClick={downloadFile}>{"Yuklab olish"}</MyButton>
+                <MyButton onClick={downloadFile}>
+                  {" "}
+                  {content[changaLang("btn")]}
+                </MyButton>
               </div>
             </div>
           </div>
           <div className={s.descrip}>
-            <h2 className={s.descripTitle}>Mahsulot tavsifi</h2>
-            <p>{copy.description_book}</p>
+            <h2 className={s.descripTitle}>{content[changaLang("title")]}</h2>
+            <p>{copy[changaLang("description_book")]}</p>
           </div>
         </div>
         <aside className={s.aside}>
-          <h2 className={s.titleRecomend}>Tavsiya etamiz</h2>
+          <h2 className={s.titleRecomend}>{content[changaLang("recomend")]}</h2>
           <div className={s.list}>
             {RandomCopies?.length &&
               RandomCopies.map((copy) => (

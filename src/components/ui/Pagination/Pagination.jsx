@@ -4,11 +4,32 @@ import ToLeft from "../../svg/ToLeft";
 import MyButton from "../MyButton/MyButton";
 import ToRight from "../../svg/ToRight";
 import MySelect from "../MySelect/MySelect";
+import { useSelector } from "react-redux";
 
 const Pagination = ({ paginationParams, setPaginationParams }) => {
-  if(!paginationParams ){
-    return <div>Loading ...</div>
+  const lang = useSelector((state) => state.lang.lang);
+  const getLocalizedText = (content) => {
+    return content && content[lang] ? content[lang] : content;
+  };
+
+  if (!paginationParams) {
+    return <div>Loading ...</div>;
   }
+
+  const content = {
+    title: {
+      uz: "Keyingi sahifa",
+      ru: "Следуюшая страница",
+    },
+    page: {
+      uz: "Sahifa",
+      ru: "Страница",
+    },
+    from: {
+      uz: paginationParams.totalPages + " ta dan",
+      ru: "из " + paginationParams.totalPages,
+    },
+  };
   return (
     <div className={s.pagination}>
       <div className={s.btns}>
@@ -36,21 +57,25 @@ const Pagination = ({ paginationParams, setPaginationParams }) => {
           className={s.btn}
           type="primary"
         >
-          <span>Keyingi sahifa</span>
+          <span> {getLocalizedText(content.title)}</span>
           <ToRight />
         </MyButton>
       </div>
 
       <div className={s.number}>
-        <span>Sahifa</span>
+        <span> {getLocalizedText(content.page)}</span>
         <span className={s.span}>{paginationParams.currentPage}</span>
 
-        <span>{paginationParams.totalPages} ta dan</span>
+        <span> {getLocalizedText(content.from)}</span>
 
         <div className={s.select}>
           <MySelect
             onSelect={(v) =>
-              setPaginationParams({ ...paginationParams,currentPage:1, pageSize: v })
+              setPaginationParams({
+                ...paginationParams,
+                currentPage: 1,
+                pageSize: v,
+              })
             }
             defaultValue={+paginationParams.pageSize}
             options={[

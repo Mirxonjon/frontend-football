@@ -4,11 +4,12 @@ import Pagination from "../Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import {
   copiesActions,
-  getCopyWithCategory
+  getCopyWithCategory,
 } from "../../../store/copy/copiesSlice";
 import { Select } from "antd";
 import NotFound from "../404/404";
 import CardCopy from "../CardCopy/CardCopy";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 const CopyList = ({ title, list, data, windowWidth }) => {
   const dispatch = useDispatch();
   const pagination = useSelector((state) => state.copies.pagination);
@@ -18,12 +19,17 @@ const CopyList = ({ title, list, data, windowWidth }) => {
     dispatch(copiesActions.setSelectedCategory(value));
     dispatch(getCopyWithCategory());
   };
+  const changaLang = useLocalizedText();
 
   function setPaginationParams(paginationParams) {
     dispatch(copiesActions.setPagination(paginationParams));
     dispatch(getCopyWithCategory());
   }
 
+  const content = {
+    error: "Bu categoriya uchun video topilmadi",
+    error_ru: "Для этой категории видео не найдено",
+  };
   return (
     <div className={s.wrapper}>
       <div className={s.row}>
@@ -36,7 +42,7 @@ const CopyList = ({ title, list, data, windowWidth }) => {
               onChange={handleSelect}
               options={list.map((el) => ({
                 value: el.id,
-                label: el.title,
+                label: el[changaLang("title")],
               }))}
             />
           </div>
@@ -57,7 +63,7 @@ const CopyList = ({ title, list, data, windowWidth }) => {
           data.map((el) => <CardCopy key={el.id} data={el} />)
         ) : (
           <NotFound
-            subTitle={"Bu categoriya uchun konspekt topilmadi"}
+            subTitle={content[changaLang("error")]}
             style={{ height: 300 }}
           />
         )}

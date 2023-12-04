@@ -5,8 +5,9 @@ export const getTreningSubCatWithCateg = createAsyncThunk(
   "getTreningSubCatWithCateg",
   async (id, { rejectWithValue }) => {
     try {
+      
       const response = await FT_API.get(`/trainingCategories/one/${id}`);
-
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

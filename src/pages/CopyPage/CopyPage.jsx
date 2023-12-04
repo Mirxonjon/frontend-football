@@ -5,10 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCopyAllCategory, getCopyWithCategory } from "../../store/copy/copiesSlice";
 import AsideCopy from "../../components/ui/AsideCopy/AsideCopy";
 import CopyList from "../../components/ui/CopyList/CopyList";
+import { useLocalizedText } from "../../hook/useLocalizedText";
 
 const CopyPage = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
+
+  const changaLang = useLocalizedText();
 
   const copyCategory = useSelector((state) => state.copies.copyCategory);
   const copies = useSelector((state) => state.copies.copies);
@@ -26,15 +29,21 @@ const CopyPage = () => {
     };
   }, []);
 
+  const content = {
+    title: "Kitoblar",
+    title_ru: "Книги",
+    category: "Kategoriyalar",
+    category_ru: "Категории",
+  };
   return (
     <Container>
       <div className={s.wrapper}>
-        {copyCategory && windowWidth > 990 && <AsideCopy list={copyCategory} title={"Kategoriyalar"} />}
+        {copyCategory && windowWidth > 990 && <AsideCopy list={copyCategory} title={content[changaLang("category")]} />}
         <CopyList
           windowWidth={windowWidth}
           list={copyCategory}
           data={copies}
-          title="Konspektar"
+          title={content[changaLang("title")]}
         />
       </div>
     </Container>

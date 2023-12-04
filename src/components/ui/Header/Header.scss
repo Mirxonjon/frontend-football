@@ -73,6 +73,7 @@
 @media only screen and (max-width: 1050px) {
   .header_container {
     position: relative;
+    z-index: 10;
   }
 
   .header_layout {
@@ -117,13 +118,15 @@
     position: absolute;
     top: 10px;
     right: 0;
+    z-index: 10;
     .header_layout_link {
       padding: 5px 20px;
       margin: 10px 0;
       border: none;
     }
   }
-  
-.container_signIn {
-  max-width: 230px;}
+
+  .container_signIn {
+    max-width: 230px;
+  }
 }

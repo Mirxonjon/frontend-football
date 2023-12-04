@@ -1,7 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import s from "./SaidbarCategories.module.scss";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 const SaidbarCategories = ({ title, list }) => {
   const { id } = useParams();
+
+  const changaLang = useLocalizedText();
   return (
     <div className={s.wrapper}>
       <h4 className={s.title}>{title}</h4>
@@ -13,7 +16,7 @@ const SaidbarCategories = ({ title, list }) => {
               key={el.id}
               className={el.id === id ? s.active : ""}
             >
-              {el.title}
+              {el[changaLang("title")]}
             </Link>
           ))}
       </ul>

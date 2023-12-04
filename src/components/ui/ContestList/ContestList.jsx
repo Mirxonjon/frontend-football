@@ -7,10 +7,19 @@ import {
   competitionCategoryActions,
   getCompetitionCategory,
 } from "../../../store/competion/competitionCatSlice";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 
 const ContestList = ({ isLeft, category }) => {
   const dispatch = useDispatch();
+  const changeLang = useLocalizedText();
+
+  const content = {
+    title: "Barcha Kategoriyalar",
+    title_ru: "Все категории",
+  };
+
   const paginationParams = useSelector((state) => state.competition.pagination);
+
   function setPaginationParams(paginationParams) {
     dispatch(competitionCategoryActions.setPagination(paginationParams));
     dispatch(getCompetitionCategory());
@@ -19,7 +28,7 @@ const ContestList = ({ isLeft, category }) => {
   return (
     <div className={s.wrapper}>
       <h2 className={cs(s.title, isLeft ? s.title_left : "")}>
-        Barcha Kategoriyalar
+        {content[changeLang("title")]}
       </h2>
       <div className={cs(s.row, isLeft ? s.left : "")}>
         {category?.length &&
@@ -32,7 +41,7 @@ const ContestList = ({ isLeft, category }) => {
                   alt={"category"}
                 />
               </div>
-              <div className={s.name}>{c.title}</div>
+              <div className={s.name}>{c[changeLang("title")]}</div>
             </Link>
           ))}
       </div>

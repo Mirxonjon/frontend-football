@@ -11,10 +11,14 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import NotFound from "../../components/ui/404/404";
 import { Select } from "antd";
+import { useLocalizedText } from "../../hook/useLocalizedText";
 const MasterclassSinglePage = () => {
   const { id } = useParams();
   const navigatio = useNavigate();
   const dispatch = useDispatch();
+
+  const changaLang = useLocalizedText();
+
   const singleMasterclassCategory = useSelector(
     (state) => state.masterclass.masterclassVideos?.[0]
   );
@@ -37,6 +41,14 @@ const MasterclassSinglePage = () => {
       <h1 style={{ padding: "20px 0", textAlign: "center" }}>Loading ...</h1>
     );
   }
+  const content = {
+    popular: "Taniqli murabbiylar",
+    popular_ru: "Популярные тренеры",
+    massterclass: "Masterclass",
+    massterclass_ru: "Мастеркласс",
+    notFound: "Bu categoriya bo'yicha masterclass topilmadi",
+    notFound_ru: "Для этой категории мастер-классов не найдено",
+  };
   return (
     <div className={s.wrapper}>
       {singleMasterclassCategory ? (
@@ -54,8 +66,12 @@ const MasterclassSinglePage = () => {
           </div>
 
           <Container>
-            <h3 className={s.top_role}>Masterclass</h3>
-            <h5 className={s.top_name}>{singleMasterclassCategory.title}</h5>
+            <h3 className={s.top_role}>
+              {content[changaLang("massterclass")]}
+            </h3>
+            <h5 className={s.top_name}>
+              {singleMasterclassCategory[changaLang("title")]}
+            </h5>
           </Container>
         </div>
       ) : (
@@ -68,20 +84,20 @@ const MasterclassSinglePage = () => {
               className={s.select}
               defaultValue={id}
               onChange={(selectedValue) => {
-                navigatio('/masterclass/'+selectedValue);
+                navigatio("/masterclass/" + selectedValue);
               }}
               options={allCategory.map((el) => ({
                 value: el.id,
-                label: el.title,
+                label: el[changaLang("title")],
               }))}
             />
           )}
           {singleMasterclass ? (
             <div className={s.left}>
               <div className={s.info}>
-                <h2 className={s.title}>{singleMasterclass.title}</h2>
+                <h2 className={s.title}>{singleMasterclass[changaLang("title")]}</h2>
                 <h4 className={s.sub_title}>
-                  {singleMasterclass.description_title}
+                  {singleMasterclass[changaLang("description_title")]}
                 </h4>
                 <p className={s.descr}>
                   {singleMasterclass.description_tactic}
@@ -104,6 +120,7 @@ const MasterclassSinglePage = () => {
                 margin: "0 auto",
                 padding: "100px 0px",
               }}
+              subTitle={content[changaLang("notFound")]}
             />
           )}
           <div className={s.right}>

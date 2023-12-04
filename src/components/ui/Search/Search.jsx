@@ -1,12 +1,19 @@
 import { Input } from "antd";
 import s from "./Search.module.scss";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 
 const Search = ({ ...props }) => {
+  const changaLang = useLocalizedText();
+
+  const content = {
+    search: "Izlash",
+    search_ru: "Найти",
+  };
   return (
     <Input
       size="large"
       className={s.input}
-      placeholder="Izlash"
+      placeholder={content[changaLang("search")]}
       {...props}
       prefix={
         <svg

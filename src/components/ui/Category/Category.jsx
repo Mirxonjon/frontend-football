@@ -7,20 +7,29 @@ import {
   getTreningCategoryWithAge,
   treningCategoryActions,
 } from "../../../store/trening/treningCategoriesSlice";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 
 const Category = ({ isLeft, category }) => {
   const dispatch = useDispatch();
+  const changeLang = useLocalizedText();
   const paginationParams = useSelector(
     (state) => state.treningCategory.pagination
   );
+
+  const content = {
+    title: "Barcha Kategoriyalar",
+    title_ru: "Все категории",
+  };
+
   function setPaginationParams(paginationParams) {
     dispatch(treningCategoryActions.setPagination(paginationParams));
     dispatch(getTreningCategoryWithAge());
   }
+
   return (
     <div className={s.wrapper}>
       <h2 className={cs(s.title, isLeft ? s.title_left : "")}>
-        Barcha Kategoriyalar
+        {content[changeLang("title")]}
       </h2>
       <div className={cs(s.row, isLeft ? s.left : "")}>
         {category?.length &&
@@ -33,7 +42,9 @@ const Category = ({ isLeft, category }) => {
                   alt={"category"}
                 />
               </div>
-              <div className={s.name}>{c.title}</div>
+              <div className={s.name}>
+                {category[0][changeLang("title")]}
+              </div>
             </Link>
           ))}
       </div>
