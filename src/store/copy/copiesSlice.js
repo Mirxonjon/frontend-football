@@ -20,10 +20,11 @@ export const getCopyWithCategory = createAsyncThunk(
       const state = getState();
       const { currentPage, pageSize } = state.copies.pagination;
       const selectCategory = state.copies.selected_category;
+      const { lang } = state.lang;
       const search = state.copies.search;
       let url = `/ShortBooks/allWithPage?pageNumber=${currentPage}&pageSize=${pageSize}`;
       if (search.length > 0) {
-        url = `/ShortBooks/filter/uz?title=${search}&pageNumber=${currentPage}&pageSize=${pageSize}`;
+        url = `/ShortBooks/filter/${lang}?title=${search}&pageNumber=${currentPage}&pageSize=${pageSize}`;
       } else if (selectCategory !== null) {
         url = `/ShortBooks/withCategory/allWithPage/${selectCategory}?pageNumber=${currentPage}&pageSize=${pageSize}`;
       }
