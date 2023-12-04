@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import s from "./BookSinglePage.module.scss";
 import Card from "../../components/ui/Card/Card";
 import Container from "../../components/ui/Container/Container";
@@ -11,20 +11,35 @@ import {
   randomBooksActions,
   singleBook,
 } from "../../store/books/randomBook";
-
+import { useLocalizedText } from "../../hook/useLocalizedText";
+import { message } from "antd";
 const BookSinglePage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const changaLang = useLocalizedText();
+
+  const [messageApi, contextHolder] = message.useMessage();
   const RandomBooks = useSelector((state) => state.randomBooks.recomendBooks);
-  const book = useSelector((state) => state.randomBooks.singleBook);
+  const book = useSelector((state) => state.randomBooks.singleBook?.findBook);
+  const isFollow =
+    useSelector((state) => state.randomBooks.singleBook?.follow) === "true"
+      ? true
+      : false;
+
   const { id } = useParams();
   const downloadFile = () => {
-    const url = 'https://storage.googleapis.com/telecom2003/'+ book.book_link;
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'your_file_name.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    if (isFollow) {
+      const url =
+        "https://storage.googleapis.com/telecom2003/" + book.book_link;
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "your_file_name.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      navigate("/login");
+    }
   };
   useEffect(() => {
     dispatch(singleBook(id));
@@ -35,17 +50,42 @@ const BookSinglePage = () => {
         .unwrap()
         .then((result) => {
           dispatch(randomBooksActions.getRandomBooks(result));
+        })
+        .catch((error) => {
+          messageApi.info(error.message);
         });
     }
   }, [id]);
-  if(!book){
-    return <h2 style={{textAlign:'center',fontSize:22,marginTop:50}}>Loading ...</h2>
+  if (!book) {
+    return (
+      <h2 style={{ textAlign: "center", fontSize: 22, marginTop: 50 }}>
+        Loading ...
+      </h2>
+    );
   }
+
+  const content = {
+    view: "Ko`rish",
+    view_ru: "Смотреть",
+    ru: "Ruscha",
+    ru_ru: "Русский",
+    uz: "O`zbekcha",
+    uz_ru: "Узбекский",
+    info: "Yuklab olish uchun tizimga kirishiz kerak",
+    info_ru: "Вы должны войти в систему, чтобы скачать",
+    btn: "Yuklab olish",
+    btn_ru: "Скачать",
+    title: "Mahsulot tavsifi",
+    title_ru: "Описание продукта",
+    recomend: "Tavsiya etamiz",
+    recomend_ru: "Рекомендуем",
+  };
   return (
     <Container>
       <div className={s.wrapper}>
         <div className={s.main}>
           <div className={s.row}>
+            {contextHolder}
             <div className={s.img}>
               <img
                 src={
@@ -58,22 +98,29 @@ const BookSinglePage = () => {
               />
             </div>
             <div className={s.body}>
-              <div className={s.name}>{book.title}</div>
+              <div className={s.name}>{book[changaLang("title")]}</div>
               <div className={s.price}>
-                {book.book_lang == "ru" ? "Ruscha" : "O`zbekcha"}
+                {book.book_lang == "ru"
+                  ? content[changaLang("ru")]
+                  : content[changaLang("uz")]}
+              </div>
+              <div className={s.info}>
+                {!isFollow ? content[changaLang("info")] : ""}
               </div>
               <div className={s.btn}>
-                <MyButton onClick={downloadFile}>Yuklab olish</MyButton>
+                <MyButton onClick={downloadFile}>
+                  {content[changaLang("btn")]}
+                </MyButton>
               </div>
             </div>
           </div>
           <div className={s.descrip}>
-            <h2 className={s.descripTitle}>Mahsulot tavsifi</h2>
-            <p>{book.description_book}</p>
+            <h2 className={s.descripTitle}>{content[changaLang("title")]}</h2>
+            <p>{book[changaLang("description_book")]}</p>
           </div>
         </div>
         <aside className={s.aside}>
-          <h2 className={s.titleRecomend}>Tavsiya etamiz</h2>
+          <h2 className={s.titleRecomend}>{content[changaLang("recomend")]}</h2>
           <div className={s.list}>
             {RandomBooks?.length &&
               RandomBooks.map((book) => (

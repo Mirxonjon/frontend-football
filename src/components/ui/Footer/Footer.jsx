@@ -1,14 +1,16 @@
 import "./footer.scss";
-import {
-  FacebookFilled,
-  InstagramFilled,
-  YoutubeFilled,
-} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import Container from "../Container/Container";
+import { useSelector } from "react-redux";
+import content from "./content";
 
 function Footer() {
+  const lang = useSelector((state) => state.lang.lang);
+
+  const getLocalizedText = (content) => {
+    return content && content[lang] ? content[lang] : content;
+  };
   return (
     <footer>
       <Container>
@@ -17,84 +19,75 @@ function Footer() {
             <div className="footer_conteirner_logo footer_conteirner_desc">
               <Logo large={true} />
               <p className="footer_conteirner_descrioption">
-                football tactics and coaching definitions
+                {getLocalizedText(content.description)}
               </p>
             </div>
 
             <div className="footer_info">
-              <h2 className="footer_info_title">For customers</h2>
+              {/* <h2 className="footer_info_title">For customers</h2> */}
+              <h2 className="footer_info_title">
+                {getLocalizedText(content.customerInfo.title)}
+              </h2>
+
               <div className="info__container">
-                <Link href="/#" className="info__container_link">
-                  How to choose a product
-                </Link>
-                <Link href="/#" className="info__container_link">
-                  Payment and delivery
-                </Link>
-                <Link href="/#" className="info__container_link">
-                  Feedback
-                </Link>
-                <Link href="/#" className="info__container_link">
-                  Buy as a legal entity
-                </Link>
-                <Link href="/#" className="info__container_link">
-                  About the service
-                </Link>
+                {content.customerInfo.links.map((link, index) => (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className="info__container_link"
+                  >
+                    {getLocalizedText(link.label)}
+                  </Link>
+                ))}
               </div>
             </div>
 
             <div className="footer_info">
-              <h2 className="footer_info_title">Cooperation</h2>
+              <h2 className="footer_info_title">
+                {getLocalizedText(content.cooperation.title)}
+              </h2>
               <div className="info__container">
-                <Link href="/#" className="info__container_link">
-                  Company News
-                </Link>
-                <Link href="/#" className="info__container_link">
-                  Affiliate program
-                </Link>
-                <Link href="/#" className="info__container_link">
-                  A program for bloggers
-                </Link>
-                <Link href="/#" className="info__container_link">
-                  For manufacturers
-                </Link>
+                {content.cooperation.links.map((link, index) => (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className="info__container_link"
+                  >
+                    {getLocalizedText(link.label)}
+                  </Link>
+                ))}
               </div>
             </div>
 
             <div className="footer_info  footer_container_social">
-              <h2 className="footer_info_title">Contact</h2>
+              <h2 className="footer_info_title">
+                {getLocalizedText(content.contact.title)}
+              </h2>
               <div className="info__container info__container_social">
-                <a href="/#" className="info__container_link">
-                  Coaching@mail.com
+                <a
+                  href={"mailto:" + content.contact.links.label}
+                  className="info__container_link"
+                >
+                  {content.contact.links.label}
                 </a>
                 <div className="social_media_container">
-                  <Link
-                    style={{ fontSize: "20px" }}
-                    href="/#"
-                    className="social_media_container_link"
-                  >
-                    <FacebookFilled />
-                  </Link>
-                  <Link
-                    style={{ fontSize: "20px" }}
-                    href="/#"
-                    className="social_media_container_link"
-                  >
-                    <InstagramFilled />
-                  </Link>
-                  <Link
-                    style={{ fontSize: "20px" }}
-                    href="/#"
-                    className="social_media_container_link"
-                  >
-                    <YoutubeFilled />
-                  </Link>
+                  {content.contact.socialMedia.map((media, index) => (
+                    <Link
+                      key={index}
+                      style={{ fontSize: "20px" }}
+                      href={media.href}
+                      className="social_media_container_link"
+                    >
+                      {<media.icon />}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
 
           <div className="footer_container_end">
-            Copyright © 2023 Coaching. All rights reserved.
+            {getLocalizedText(content.end)}
           </div>
         </div>
       </Container>

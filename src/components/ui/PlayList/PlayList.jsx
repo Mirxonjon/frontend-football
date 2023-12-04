@@ -3,9 +3,10 @@ import TimeIcon from "../../svg/Tiime";
 import s from "./PlayList.module.scss";
 import cn from "classnames";
 import { treningSubCategoryActions } from "../../../store/trening/treningSubCatSlice";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 const PlayList = ({ title, videos, ...props }) => {
   const dispatch = useDispatch();
-  
+  const changLang = useLocalizedText();
   const selected_video = useSelector(
     (state) => state.treningSubCategory.selected_video
   );
@@ -53,7 +54,7 @@ const PlayList = ({ title, videos, ...props }) => {
                 )}
               </span>
 
-              <div className={s.name}>{el.title}</div>
+              <div className={s.name}>{el[changLang('title')]}</div>
 
               <div className={s.time}>
                 <span className={s.time_icon}>

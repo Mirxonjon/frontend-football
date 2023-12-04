@@ -3,8 +3,8 @@ import { GlobalOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./LangChange.scss";
-import { editLang } from "../../../store/slice/lang";
 import { useEffect } from "react";
+import { langActions } from "../../../store/slice/lang";
 function LangChange() {
   const [isOpenLang, setIsOpenLang] = useState(false);
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function LangChange() {
   };
 
   const handleLanguageSelect = (selectedLang) => {
-    dispatch(editLang(selectedLang));
+    dispatch(langActions.setLang(selectedLang));
   };
 
   useEffect(() => {
@@ -43,13 +43,13 @@ function LangChange() {
       <div className="header_lang_select">
         <button
           className="select_btn"
-          onClick={() => handleLanguageSelect("Uz")}
+          onClick={() => handleLanguageSelect("uz")}
         >
           Uz
         </button>
         <button
           className="select_btn"
-          onClick={() => handleLanguageSelect("Ru")}
+          onClick={() => handleLanguageSelect("ru")}
         >
           Ru
         </button>

@@ -11,6 +11,8 @@ import {
 } from "../../store/trening/treningSubCatSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { Select, message } from "antd";
+import NotFound from "../../components/ui/404/404";
+import { useLocalizedText } from "../../hook/useLocalizedText";
 const TraningVideoPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -18,6 +20,8 @@ const TraningVideoPage = () => {
   const subCategories = useSelector(
     (state) => state.treningSubCategory.treningSubCategory
   );
+
+  const changaLang = useLocalizedText();
   const selectedSubCat = useSelector(
     (state) => state.treningSubCategory.subCategory
   );
@@ -63,23 +67,46 @@ const TraningVideoPage = () => {
               if (result.length > 0) {
                 dispatch(treningSubCategoryActions.setSelectedVideo(result[0]));
               }
+            })
+            .catch((error) => {
+              messageApi.info(error.message);
             });
         }
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        messageApi.info(error.message);
       });
-  }, [dispatch, params]);
-  if (selected_video)
-   
+  }, [dispatch, params.id]);
 
+  const content = {
+    error: "Bu categoriya uchun sub categoriya topilmadi",
+    error_ru: "Для этой категории суб-категория не найдено",
+    title: "Mashg‘ulotlar video to‘plami",
+    title_ru: "Видео сборник упражнений.",
+    videos: "Videodarsliklar soni",
+    videos_ru: "Количество видеоуроков",
+    count: videos.length + " ta",
+    count_ru: videos.length,
+    cours_info: "Kurs haqida ma’lumot",
+    cours_info_ru: "Информация о курсе",
+  };
+
+  
+  if (!(subCategories.length > 0)) {
+    return (
+      <NotFound
+        style={{ margin: "40px 0px" }}
+        subTitle={content[changaLang("error")]}
+      />
+    );
+  }
   return (
     <Container>
       <div className={s.row}>
         <div className={s.left}>
           <div className={s.video}>
             {loading_video && <p>Loading...</p>}
-            {selected_video && (
+            {selected_video ? (
               <video
                 width="100%"
                 height="auto"
@@ -93,6 +120,8 @@ const TraningVideoPage = () => {
                   selected_video.video_link
                 }
               />
+            ) : (
+              <NotFound style={{ padding: 50 }} />
             )}
           </div>
           <div className={s.img}>
@@ -107,13 +136,13 @@ const TraningVideoPage = () => {
             )}
           </div>
           <div className={s.description}>
-            {selected_video && selected_video.description_tactic}
+            {selected_video && selected_video[changaLang("description_tactic")]}
           </div>
           {selectedCategory && (
             <div className={s.post}>
-              <h2 className={s.title}>Kurs haqida ma’lumot</h2>
+              <h2 className={s.title}>{content[changaLang("cours_info")]} </h2>
               <div className={s.text}>
-                {selectedCategory.description_training}
+                {selectedCategory[changaLang("description_training")]}
               </div>
             </div>
           )}
@@ -134,11 +163,14 @@ const TraningVideoPage = () => {
                         treningSubCategoryActions.setSelectedVideo(result[0])
                       );
                     }
+                  })
+                  .catch((error) => {
+                    messageApi.info(error.message);
                   });
               }}
               options={subCategories.map((el) => ({
                 value: el.id,
-                label: el.title,
+                label: el[changaLang("title")],
               }))}
             />
           )}
@@ -147,13 +179,13 @@ const TraningVideoPage = () => {
 
           {contextHolder}
           {videos.length > 0 && (
-            <PlayList videos={videos} title="Mashg‘ulotlar video to‘plami" />
+            <PlayList videos={videos} title={content[changaLang("title")]} />
           )}
           <div className={s.time}>
             <div className={s.row_time}>
               <TimeIcon />
-              <div className={s.label}>Videodarsliklar soni</div>
-              <div className={s.value}>{videos.length} ta</div>
+              <div className={s.label}>{content[changaLang("videos")]}</div>
+              <div className={s.value}>{content[changaLang("count")]}</div>
             </div>
           </div>
         </div>

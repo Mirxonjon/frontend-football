@@ -1,46 +1,86 @@
 import Container from "../../components/ui/Container/Container";
 import s from "./MasterclassPage.module.scss";
-import img from "./../../assets/img/trener.png";
-import img2 from "./../../assets/img/trener2.png";
 import Pagination from "../../components/ui/Pagination/Pagination";
-import TrenersList from "../../components/ui/TrenersList/TrenersList";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  getMasterclassCategory,
+  masterclassCategoryActions,
+} from "../../store/masterclass/masterclassSlice";
+import NotFound from "../../components/ui/404/404";
+import { Link } from "react-router-dom";
+import { useLocalizedText } from "../../hook/useLocalizedText";
+// import TrenersList from "../../components/ui/TrenersList/TrenersList";
 
-const treners = [
-  { id: 1, name: "Xavi" },
-  { id: 2, name: "Jose Mourinho" },
-  { id: 3, name: "XaJose Mourinhovi" },
-  { id: 4, name: "Jose Mourinho" },
-];
 const MasterclassPage = () => {
+  const dispatch = useDispatch();
+  const treners = useSelector((state) => state.masterclass.masterclassCategory);
+  const pagination = useSelector((state) => state.masterclass.pagination);
+  const changaLang = useLocalizedText();
+  useEffect(() => {
+    dispatch(getMasterclassCategory());
+  }, []);
+
+  function setPaginationParams(paginationParams) {
+    dispatch(masterclassCategoryActions.setPagination(paginationParams));
+    dispatch(getMasterclassCategory());
+  }
+  const content = {
+    title: "Masterclasslar",
+    title_ru: "Мастерклассы",
+    subtitle: "Masterclass",
+    subtitle_ru: "Мастеркласс",
+    uz: "O`zbekcha",
+    uz_ru: "Узбекский",
+  };
   return (
     <Container>
       <div className={s.wrapper}>
-        <div className={s.left}>
-          <div className={s.title}>Masterclasslar</div>
-          <div className={s.hero}>
-            <img src={img} alt="trener" />
-            <div className={s.role}>Masterclass</div>
-            <div className={s.name}>Rafa Benitez</div>
-            <div className={s.about}>
-              Rafa Benitez on a famous Champions League win against Real Madrid
-              for a Liverpool...
+        {treners?.length > 0 ? (
+          <div className={s.left}>
+            <div className={s.title}>{content[changaLang('title')]}</div>
+            <div className={s.hero}>
+              <Link to={treners[0].id} className={s.img}>
+                <img
+                  src={
+                    "https://storage.googleapis.com/telecom2003/" +
+                    treners[0].img_link
+                  }
+                  alt="trener"
+                />
+              </Link>
+              <div className={s.role}>{content[changaLang('subtitle')]}</div>
+              <Link to={treners[0].id} className={s.name}>
+                {treners[0][changaLang('title')]}
+              </Link>
+              <div className={s.about}>{treners[0][changaLang('title_descrioption')]}</div>
             </div>
-          </div>
-          <div className={s.treners_list}>
-            {treners.length &&
-              treners.map((el) => (
-                <div key={el.id} className={s.trener}>
+            <div className={s.treners_list}>
+              {treners.slice(1).map((el) => (
+                <Link to={el.id} key={el.id} className={s.trener}>
                   <div className={s.trener_img}>
-                    <img src={img2} alt="trener" />
+                    <img
+                      src={
+                        "https://storage.googleapis.com/telecom2003/" +
+                        el.img_link
+                      }
+                      alt="trener"
+                    />
                   </div>
-                  <div className={s.trener_role}>Masterclass</div>
-                  <div className={s.trener_name}>{el.name}</div>
-                </div>
+                  <div className={s.trener_role}>{content[changaLang('subtitle')]}</div>
+                  <div className={s.trener_name}>{el[changaLang('title')]}</div>
+                </Link>
               ))}
+            </div>
+            <Pagination
+              paginationParams={pagination}
+              setPaginationParams={setPaginationParams}
+            />
           </div>
-          <Pagination />
-        </div>
-        <TrenersList />
+        ) : (
+          <NotFound />
+        )}
+        {/* <TrenersList /> */}
       </div>
     </Container>
   );

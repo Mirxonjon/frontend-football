@@ -9,11 +9,14 @@ import {
 } from "../../../store/books/booksSlice";
 import { Select } from "antd";
 import NotFound from "../404/404";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 const BookList = ({ title, list, data, windowWidth }) => {
   const dispatch = useDispatch();
   const pagination = useSelector((state) => state.books.pagination);
   const loading_books = useSelector((state) => state.books.loading_books);
   const search = useSelector((state) => state.books.search);
+  const changaLang = useLocalizedText();
+
   const handleSelect = (value) => {
     dispatch(booksActions.setSelectedCategory(value));
     dispatch(getBookWithCategory());
@@ -24,6 +27,10 @@ const BookList = ({ title, list, data, windowWidth }) => {
     dispatch(getBookWithCategory());
   }
 
+  const content = {
+    error: "Bu categoriya uchun video topilmadi",
+    error_ru: "Для этой категории видео не найдено",
+  };
   return (
     <div className={s.wrapper}>
       <div className={s.row}>
@@ -36,7 +43,7 @@ const BookList = ({ title, list, data, windowWidth }) => {
               onChange={handleSelect}
               options={list.map((el) => ({
                 value: el.id,
-                label: el.title,
+                label: el[changaLang("title")],
               }))}
             />
           </div>
@@ -57,7 +64,7 @@ const BookList = ({ title, list, data, windowWidth }) => {
           data.map((el) => <Card key={el.id} data={el} />)
         ) : (
           <NotFound
-            subTitle={"Bu categoriya uchun kitob topilmadi"}
+            subTitle={content[changaLang("error")]}
             style={{ height: 300 }}
           />
         )}

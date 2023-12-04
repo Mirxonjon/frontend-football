@@ -7,6 +7,18 @@ const FT_API = axios.create({
   params: {
     key: import.meta.env.VITE_YT_API_KEY,
   },
+  headers: {
+    Authorization: "Bearer " + localStorage.getItem("token"),
+    access_token: localStorage.getItem("token"),
+  },
 });
+
+export const updateHeadersWithToken = () => {
+  const newToken = localStorage.getItem("token");
+  location.reload();
+
+  FT_API.defaults.headers.common["Authorization"] = "Bearer " + newToken;
+  FT_API.defaults.headers.common["access_token"] = newToken;
+};
 
 export default FT_API;

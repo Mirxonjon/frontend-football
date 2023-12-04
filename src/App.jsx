@@ -11,6 +11,8 @@ import TraningVideoPage from "./pages/TraningVideoPage/TraningVideoPage";
 import ContestVideoPage from "./pages/ContestVideoPage/ContestVideoPage";
 import MasterclassPage from "./pages/MasterclassPage/MasterclassPage";
 import MasterclassSinglePage from "./pages/MasterclassSinglePage/MasterclassSinglePage";
+import CopyPage from "./pages/CopyPage/CopyPage";
+import CopySinglePage from "./pages/CopySinglePage/CopySinglePage";
 
 function App() {
   return (
@@ -31,10 +33,13 @@ function App() {
               <Route path="/contests" element={<ContestPage />} />
               <Route path="/contests/:id" element={<ContestVideoPage />} />
               <Route path="/masterclass" element={<MasterclassPage />} />
-              <Route path="/masterclass/:id" element={<MasterclassSinglePage />} />
-              
-              <Route path="/copies" element={<BooksPage />} />
-              <Route path="/copies/:id" element={<BookSinglePage />} />
+              <Route
+                path="/masterclass/:id"
+                element={<MasterclassSinglePage />}
+              />
+
+              <Route path="/copies" element={<CopyPage />} />
+              <Route path="/copies/:id" element={<CopySinglePage />} />
             </Routes>
           </>
         }

@@ -5,7 +5,9 @@ export const getTreningSubCatWithCateg = createAsyncThunk(
   "getTreningSubCatWithCateg",
   async (id, { rejectWithValue }) => {
     try {
+      
       const response = await FT_API.get(`/trainingCategories/one/${id}`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -19,14 +21,11 @@ export const getVideoWithSubCat = createAsyncThunk(
     try {
       const state = getState();
       const { subCategory } = state.treningSubCategory;
+
       const response = await FT_API.get(
-        `/TrainingVideos/filterBySubCategory/${subCategory}`,
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
+        `/TrainingVideos/filterBySubCategory/${subCategory}`
       );
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

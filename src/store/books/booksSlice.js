@@ -16,14 +16,16 @@ export const getBookAllCategory = createAsyncThunk(
 export const getBookWithCategory = createAsyncThunk(
   "getBookWithCategory",
   async (_, { getState, rejectWithValue }) => {
+    
     try {
       const state = getState();
       const { currentPage, pageSize } = state.books.pagination;
+      const { lang } = state.lang;
       const selectCategory = state.books.selected_category;
       const search = state.books.search;
       let url = `/Books/allWithPage?pageNumber=${currentPage}&pageSize=${pageSize}`;
       if (search.length > 0) {
-        url = `/Books/filter/uz?title=${search}&pageNumber=${currentPage}&pageSize=${pageSize}`;
+        url = `/Books/filter/${lang}?title=${search}&pageNumber=${currentPage}&pageSize=${pageSize}`;
       } else if (selectCategory !== null) {
         url = `/Books/withCategory/allWithPage/${selectCategory}?pageNumber=${currentPage}&pageSize=${pageSize}`;
       }
@@ -85,6 +87,8 @@ export const { actions: booksActions, reducer: booksReducers } = createSlice({
   reducers: {
     setSelectedCategory: (state, action) => {
       state.selected_category = action.payload;
+      state.pagination.currentPage = 1;
+      state.search = "";
     },
     setSelectedBook: (state, action) => {
       state.selected_book = action.payload;

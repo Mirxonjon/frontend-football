@@ -8,6 +8,9 @@
   display: flex;
   gap: 50px;
 }
+.main {
+  width: 100%;
+}
 .img {
   padding: 16px;
   border-radius: 20px;
@@ -40,6 +43,14 @@
   font-weight: 500;
   line-height: 36px; /* 150% */
   margin-bottom: 24px;
+}
+.info {
+  color: #c6432c;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 .btn button {
   padding: 10px 20px;
@@ -118,7 +129,7 @@
   .body {
     text-align: center;
   }
-  .btn button{
+  .btn button {
     margin: 0 auto;
   }
 }

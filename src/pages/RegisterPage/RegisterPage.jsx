@@ -6,12 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Input, message } from "antd";
 import moment from "moment";
-import FT_API from "../../api/api";
+import FT_API, { updateHeadersWithToken } from "../../api/api";
+import { useLocalizedText } from "../../hook/useLocalizedText";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
 
+  const changaLang = useLocalizedText();
   const [userData, setUserData] = useState({
     name: "Eshmat",
     surname: "Toshmatov",
@@ -33,28 +35,61 @@ const RegisterPage = () => {
     });
     if (res?.status === 201) {
       localStorage.setItem("token", res.data.token);
+      updateHeadersWithToken();
+
       navigate("/");
     }
   }
 
+  const content = {
+    title: "Xush kelibsiz!",
+    title_ru: "Добро пожаловать!",
+    subtitle:
+      "Kuchli futbol mashg’ulotlari va taktikalardan foydalangan holda yuqori marralarni zabt eting!",
+    subtitle_ru:
+      "Доберитесь до вершины, используя мощную футбольную подготовку и тактику!",
+    email: "Emailingizni kiriting",
+    email_ru: "Введите электронной почты",
+    password: "Parolni kiriting",
+    password_ru: "Введите пароль",
+    date: "Tug‘ilgan sana",
+    date_ru: "Дата рождения",
+    number: "Telefon nomer",
+    number_ru: "Телефон номер",
+    lastname: "Familiyangizni kiriting",
+    lastname_ru: "Введите свою фамилию",
+    lastname_label: "Familiya",
+    lastname_label_ru: "Фамилия",
+    name: "Ismingizni kiriting",
+    name_ru: "Введите свою имию",
+    name_label: "Ism",
+    name_label_ru: "Имя",
+    password_label: "Parol",
+    password_label_ru: "Пароль",
+    login: "Kirish",
+    login_ru: "Ввойти",
+    isodd: "Platformamizda ro‘yhatdan o‘tganmisiz?",
+    isodd_ru: "Вы зарегистрированы на нашей платформе?",
+    register: "Ro‘yhatdan o‘tish",
+    register_ru: "Регистрация",
+  };
   return (
     <FormWrapper
-      title={"Xush kelibsiz!"}
-      subTitle={`Kuchli futbol mashg’ulotlari va taktikalardan foydalangan
-      holda yuqori marralarni zabt eting!`}
+      title={content[changaLang("title")]}
+      subTitle={content[changaLang("subtitle")]}
       img={img}
     >
       {contextHolder}
       <form onSubmit={RegisterFunc} className={s.form}>
-        <div className={s.label}>Ism</div>
+        <div className={s.label}>{content[changaLang("name_label")]}</div>
         <Input
           required="this input required"
           value={userData.name}
           onChange={(e) => setUserData({ ...userData, name: e.target.value })}
           className={s.input}
-          placeholder="Ismingizni kiriting"
+          placeholder={content[changaLang("name")]}
         />
-        <div className={s.label}>Familiya</div>
+        <div className={s.label}>{content[changaLang("lastname_label")]}</div>
         <Input
           required="this input required"
           value={userData.surname}
@@ -62,11 +97,11 @@ const RegisterPage = () => {
             setUserData({ ...userData, surname: e.target.value })
           }
           className={s.input}
-          placeholder="Familiyangizni kiriting"
+          placeholder={content[changaLang("lastname")]}
         />
         <div className={s.row}>
           <div>
-            <div className={s.label}>Tug‘ilgan sana</div>
+            <div className={s.label}>{content[changaLang("date")]}</div>
             <Input
               required="this input required"
               value={moment(userData.was_born, "DD.MM.YYYY").format(
@@ -86,7 +121,7 @@ const RegisterPage = () => {
             />
           </div>
           <div>
-            <div className={s.label}>Telefon nomer</div>
+            <div className={s.label}>{content[changaLang("number")]}</div>
             <Input
               required="this input required"
               value={userData.number}
@@ -110,10 +145,10 @@ const RegisterPage = () => {
           value={userData.gmail}
           onChange={(e) => setUserData({ ...userData, gmail: e.target.value })}
           className={s.input}
-          placeholder="Emailingizni kiriting"
+          placeholder={content[changaLang("email")]}
         />
 
-        <div className={s.label}>Parol</div>
+        <div className={s.label}>{content[changaLang("password_label")]}</div>
         <Input.Password
           required="this input required"
           value={userData.password}
@@ -121,14 +156,14 @@ const RegisterPage = () => {
             setUserData({ ...userData, password: e.target.value })
           }
           className={s.input}
-          placeholder="Parolni kiriting"
+          placeholder={content[changaLang("password")]}
         />
         <div className={s.btn}>
-          <MyButton>Kirish</MyButton>
+          <MyButton>{content[changaLang("register")]}</MyButton>
         </div>
         <div className={s.register}>
-          Platformamizda ro‘yhatdan o‘tganmisiz?
-          <Link to="/login"> Kirish</Link>
+          {content[changaLang("isodd")]}
+          <Link to="/login"> {content[changaLang("login")]}</Link>
         </div>
       </form>
     </FormWrapper>

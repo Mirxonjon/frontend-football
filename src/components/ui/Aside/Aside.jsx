@@ -5,8 +5,10 @@ import {
   booksActions,
   getBookWithCategory,
 } from "../../../store/books/booksSlice";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 const Aside = ({ title, list }) => {
   const dispatch = useDispatch();
+  const changaLang = useLocalizedText();
 
   const selectedCategoryId = useSelector(
     (state) => state.books.selected_category
@@ -25,7 +27,7 @@ const Aside = ({ title, list }) => {
             }}
             key={i.id}
           >
-            {i.title}
+            {i[changaLang("title")]}
           </button>
         ))}
     </div>

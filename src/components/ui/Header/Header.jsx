@@ -13,12 +13,16 @@ import Logo from "./../Logo/Logo";
 import { useRef } from "react";
 import { useEffect } from "react";
 import Container from "../Container/Container";
+import { menu } from "../../../content/pages";
+import { useLocalizedText } from "../../../hook/useLocalizedText";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(true);
   const loyaut = useRef(null);
   const location = useLocation();
+  const openIcon = useRef(null);
 
+  const langChange = useLocalizedText();
   const handleToggleMenu = () => {
     if (isOpen) {
       document.querySelector(".hemburger_layout").style.display = "flex";
@@ -27,7 +31,6 @@ function Header() {
     }
     setIsOpen(!isOpen);
   };
-
   useEffect(() => {
     loyaut.current.childNodes.forEach((el) => {
       if (window.location.href.toLowerCase() === el.href.toLowerCase()) {
@@ -42,21 +45,12 @@ function Header() {
       <header className="header_container">
         <Logo className={"header_logo"} />
         <div ref={loyaut} className="header_layout">
-          <Link className="header_layout_link" to={"/training"}>
-            Mashg‘ulotlar
-          </Link>
-          <Link className="header_layout_link" to={"/contests"}>
-            Musobaqalar
-          </Link>
-          <Link className="header_layout_link" to={"/books"}>
-            Kitoblar
-          </Link>
-          <Link className="header_layout_link" to={"/masterclass"}>
-            Masterclass
-          </Link>
-          <Link className="header_layout_link" to={"/copies"}>
-            Konspektlar
-          </Link>
+          {menu.length > 0 &&
+            menu.map((el) => (
+              <Link key={el.id} className="header_layout_link" to={el.path}>
+                {el[langChange("name")]}
+              </Link>
+            ))}
         </div>
         <div className="container_signIn">
           {/* <div className="header_search">
@@ -66,28 +60,30 @@ function Header() {
           <Link className="header_singin" to="/login">
             Sign In
           </Link>
-          <div className="hamburger_menu" onClick={handleToggleMenu}>
+          <div
+            ref={openIcon}
+            className="hamburger_menu"
+            onClick={handleToggleMenu}
+          >
             <MenuFoldOutlined />
           </div>
           <div className="hemburger_layout">
             <div className="hamburger_menu_close" onClick={handleToggleMenu}>
-              <MenuUnfoldOutlined />{" "}
+              <MenuUnfoldOutlined />
             </div>
-            <Link className="header_layout_link" href="#">
-              Mashg‘ulotlar
-            </Link>
-            <Link className="header_layout_link" href="#">
-              Taktika
-            </Link>
-            <Link className="header_layout_link" href="#">
-              Kitoblar
-            </Link>
-            <Link className="header_layout_link" href="#">
-              Masterclass
-            </Link>
-            <Link className="header_layout_link" href="#">
-              Konspektlar
-            </Link>
+            <div className="hamburger_list">
+              {menu.length > 0 &&
+                menu.map((el) => (
+                  <Link
+                    onClick={handleToggleMenu}
+                    key={el.id}
+                    className="header_layout_link"
+                    to={el.path}
+                  >
+                    {el[langChange("name")]}
+                  </Link>
+                ))}
+            </div>
           </div>
         </div>
       </header>

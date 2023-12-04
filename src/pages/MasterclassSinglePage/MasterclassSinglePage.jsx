@@ -2,56 +2,129 @@ import Container from "../../components/ui/Container/Container";
 import TrenersList from "../../components/ui/TrenersList/TrenersList";
 import s from "./MasterclassSinglePage.module.scss";
 import bg from "./../../assets/img/bg.png";
-import plan from "./../../assets/img/plan.png";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getMasterclassAllCategory,
+  getMasterclassVideos,
+} from "../../store/masterclass/masterclassSlice";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import NotFound from "../../components/ui/404/404";
+import { Select } from "antd";
+import { useLocalizedText } from "../../hook/useLocalizedText";
 const MasterclassSinglePage = () => {
+  const { id } = useParams();
+  const navigatio = useNavigate();
+  const dispatch = useDispatch();
+
+  const changaLang = useLocalizedText();
+
+  const singleMasterclassCategory = useSelector(
+    (state) => state.masterclass.masterclassVideos?.[0]
+  );
+  const loading_videos = useSelector(
+    (state) => state.masterclass.loading_videos
+  );
+
+  const singleMasterclass = useSelector(
+    (state) => state.masterclass.masterclassVideos?.[0]?.MasterclassVideos?.[0]
+  );
+  const allCategory = useSelector(
+    (state) => state.masterclass.masterclassAllCategory
+  );
+  useEffect(() => {
+    dispatch(getMasterclassAllCategory());
+    dispatch(getMasterclassVideos(id));
+  }, [id]);
+  if (loading_videos) {
+    return (
+      <h1 style={{ padding: "20px 0", textAlign: "center" }}>Loading ...</h1>
+    );
+  }
+  const content = {
+    popular: "Taniqli murabbiylar",
+    popular_ru: "Популярные тренеры",
+    massterclass: "Masterclass",
+    massterclass_ru: "Мастеркласс",
+    notFound: "Bu categoriya bo'yicha masterclass topilmadi",
+    notFound_ru: "Для этой категории мастер-классов не найдено",
+  };
   return (
     <div className={s.wrapper}>
-      <div className={s.top}>
-        <div className={s.img}>
-          <img src={bg} alt="trener" />
-        </div>
+      {singleMasterclassCategory ? (
+        <div className={s.top}>
+          <div className={s.img}>
+            <img
+              src={
+                singleMasterclassCategory
+                  ? "https://storage.googleapis.com/telecom2003/" +
+                    singleMasterclassCategory.img_link
+                  : bg
+              }
+              alt="trener"
+            />
+          </div>
 
-        <Container>
-          <h3 className={s.top_role}>Masterclass</h3>
-          <h5 className={s.top_name}>Rafa Benítez</h5>
-        </Container>
-      </div>
+          <Container>
+            <h3 className={s.top_role}>
+              {content[changaLang("massterclass")]}
+            </h3>
+            <h5 className={s.top_name}>
+              {singleMasterclassCategory[changaLang("title")]}
+            </h5>
+          </Container>
+        </div>
+      ) : (
+        ""
+      )}
       <Container>
         <div className={s.row}>
-          <div className={s.left}>
-            <div className={s.info}>
-              <h2 className={s.title}>RAFA BENÍTEZ</h2>
-              <h4 className={s.sub_title}>
-                Valencia, 2001-2004; Liverpool, 2004-2010
-              </h4>
-              <p className={s.descr}>
-                Over a top-level coaching career spanning almost three decades,
-                Rafa Benítez has built his reputation on an ability to deliver
-                success. A two-time Spanish league and UEFA Cup winner as head
-                coach of Valencia, he subsequently led Liverpool to two
-                Champions League finals, despite trailing 3-0 at half-time. He
-                has also won silverware with Inter Milan, Chelsea, Napoli and
-                Newcastle. In the first of two exclusive Masterclass features
-                with The Coaches’ Voice, Benítez gives a fascinating insight
-                into the key principles – both in and out of possession – of the
-                he has used to such great effect throughout his career. He
-                considers the team with which he won two league titles in Spain,
-                paying particular attention to the roles of the two central
-                midfielders who formed the David Albelda and Rubén Baraja. He
-                goes on to explain the evolution of his team, with a specific
-                focus on how the team developed after the 2007 signings of
-                Fernando Torres and Javier Mascherano – and the impact that had
-                on the role of Steven Gerrard. It’s a brilliant insight into the
-                tactical mind of one of the modern game’s most respected
-                coaches. We hope you enjoy it!
-              </p>
+          {allCategory.length > 0 && (
+            <Select
+              className={s.select}
+              defaultValue={id}
+              onChange={(selectedValue) => {
+                navigatio("/masterclass/" + selectedValue);
+              }}
+              options={allCategory.map((el) => ({
+                value: el.id,
+                label: el[changaLang("title")],
+              }))}
+            />
+          )}
+          {singleMasterclass ? (
+            <div className={s.left}>
+              <div className={s.info}>
+                <h2 className={s.title}>{singleMasterclass[changaLang("title")]}</h2>
+                <h4 className={s.sub_title}>
+                  {singleMasterclass[changaLang("description_title")]}
+                </h4>
+                <p className={s.descr}>
+                  {singleMasterclass.description_tactic}
+                </p>
+              </div>
+              <div className={s.img_plan}>
+                <img
+                  src={
+                    "https://storage.googleapis.com/telecom2003/" +
+                    singleMasterclass.tactic_img
+                  }
+                  alt="plan"
+                />
+              </div>
             </div>
-            <div className={s.img_plan}>
-              <img src={plan} alt="plan" />
-            </div>
-          </div>
+          ) : (
+            <NotFound
+              style={{
+                maxWidth: "50%",
+                margin: "0 auto",
+                padding: "100px 0px",
+              }}
+              subTitle={content[changaLang("notFound")]}
+            />
+          )}
           <div className={s.right}>
-            <TrenersList />
+            <TrenersList data={allCategory} />
           </div>
         </div>
       </Container>

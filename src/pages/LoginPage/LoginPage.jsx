@@ -5,7 +5,8 @@ import img from "./../../assets/img/bg2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Input, message } from "antd";
 import { useState } from "react";
-import FT_API from "../../api/api";
+import FT_API, { updateHeadersWithToken } from "../../api/api";
+import { useLocalizedText } from "../../hook/useLocalizedText";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -13,34 +14,49 @@ const LoginPage = () => {
     gmail: "Eshmat@gmail.com",
     password: "123",
   });
+  const changaLang = useLocalizedText();
   async function LoginFunc(e) {
     e.preventDefault();
-    FT_API.post(
-      "/Auth/SignIn",
-      {
-        ...userData,
-      },
-      {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
-    ).catch((err) => {
-      if (err.response.status === 302) {
-        localStorage.setItem("token", err.response.data.token);
-        navigate("/");
-      } else {
+    FT_API.post("/Auth/SignIn", {
+      ...userData,
+    })
+      .then((data) => {
+        if (data.status === 200) {
+          localStorage.setItem("token", data.data.token);
+          updateHeadersWithToken();
+
+          navigate("/");
+        }
+      })
+      .catch((err) => {
         messageApi.open({
           type: "error",
           content: err.response.data.message,
         });
-      }
-    });
+      });
   }
+  const content = {
+    title: "Xush kelibsiz!",
+    title_ru: "Добро пожаловать!",
+    subtitle: "Iltimos, davom etish uchun maʼlumotlarni kiriting!",
+    subtitle_ru: "Пожалуйста, введите данные, чтобы продолжить!",
+    email: "Emailingizni kiriting",
+    email_ru: "Введите электронной почты",
+    password: "Parolni kiriting",
+    password_ru: "Введите пароль",
+    login: "Kirish",
+    login_ru: "Ввойти",
+    isnew: "Platformamizda yangimisiz?",
+    isnew_ru: "Впервые на нашей платформе?",
+    register: "Ro‘yhatdan o‘tish",
+    register_ru: "Регистрация",
+    password_label: "Parol",
+    password_label_ru: "Пароль",
+  };
   return (
     <FormWrapper
-      title={"Xush kelibsiz!"}
-      subTitle={"Iltimos, davom etish uchun maʼlumotlarni kiriting!"}
+      title={content[changaLang("title")]}
+      subTitle={content[changaLang("subtitle")]}
       img={img}
     >
       {contextHolder}
@@ -52,10 +68,10 @@ const LoginPage = () => {
           value={userData.gmail}
           onChange={(e) => setUserData({ ...userData, gmail: e.target.value })}
           className={s.input}
-          placeholder="Emailingizni kiriting"
+          placeholder={content[changaLang("email")]}
         />
 
-        <div className={s.label}>Parol</div>
+        <div className={s.label}>{content[changaLang("password_label")]}</div>
         <Input.Password
           required="this input required"
           value={userData.password}
@@ -63,14 +79,14 @@ const LoginPage = () => {
             setUserData({ ...userData, password: e.target.value })
           }
           className={s.input}
-          placeholder="Parolni kiriting"
+          placeholder={content[changaLang("password")]}
         />
         <div className={s.btn}>
-          <MyButton>Kirish</MyButton>
+          <MyButton>{content[changaLang("login")]}</MyButton>
         </div>
         <div className={s.register}>
-          Platformamizda yangimisiz?
-          <Link to="/register"> Ro‘yhatdan o‘tish</Link>
+          {content[changaLang("isnew")]}
+          <Link to="/register"> {content[changaLang("register")]}</Link>
         </div>
       </form>
     </FormWrapper>

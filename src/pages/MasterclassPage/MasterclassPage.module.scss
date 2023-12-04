@@ -1,5 +1,6 @@
 .wrapper {
   display: flex;
+  justify-content: center;
   gap: 30px;
   padding: 50px 0;
 }
@@ -11,11 +12,17 @@
 }
 .hero {
   margin-bottom: 50px;
-
+}
+.img {
+  display: block;
+  width: 100%;
+  border-radius: 20px;
+  background: #d9d9d9;
+  max-height: 588px;
+  overflow: hidden;
+  overflow: hidden;
   img {
     width: 100%;
-    border-radius: 20px;
-    background: #d9d9d9;
   }
 }
 .role {
@@ -46,7 +53,10 @@
   border-radius: 20px;
   background: #d9d9d9;
   overflow: hidden;
+  max-height: 280px;
+
   img {
+    object-fit: cover;
     width: 100%;
   }
 }
