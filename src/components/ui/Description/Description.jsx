@@ -3,7 +3,7 @@ import s from "./Description.module.scss";
 import home1 from "./../../../assets/img/home-1.png";
 import home2 from "./../../../assets/img/home-2.png";
 import MyButton from "../MyButton/MyButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { heroText, offers } from "../../../content/homePage";
 import { useLocalizedText } from "../../../hook/useLocalizedText";
 
@@ -62,7 +62,9 @@ const Description = () => {
           <img src={home1} alt="home img ball" />
         </div>
         <div className={s.content}>
-          <h3 className={s.smTitle}>{offers[0][langChange("title")]} </h3>
+          <Link to={"/masterclass"} className={s.smTitle}>
+            {offers[0][langChange("title")]}{" "}
+          </Link>
           <p className={s.smDesc}>{offers[0][langChange("desc")]}</p>
         </div>
       </div>
@@ -74,7 +76,9 @@ const Description = () => {
         className={s.row}
       >
         <div className={s.content}>
-          <h3 className={s.smTitle}>{offers[0][langChange("title")]} </h3>
+          <Link to={"/masterclass"} className={s.smTitle}>
+            {offers[0][langChange("title")]}{" "}
+          </Link>
           <p className={s.smDesc}>{offers[0][langChange("desc")]}</p>
         </div>
         <div className={s.img}>

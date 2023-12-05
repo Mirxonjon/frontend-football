@@ -3,7 +3,6 @@ import FT_API from "../../api/api";
 
 function getRandomElements(arr) {
   if (!Array.isArray(arr) || arr.length < 2) {
-    
     return null;
   }
 
@@ -23,9 +22,7 @@ export const getRecomendCopies = createAsyncThunk(
   "getAllCopies",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await FT_API.get(
-        `/ShortBooks/all`
-      );
+      const response = await FT_API.get(`/ShortBooks/all`);
       return response?.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -37,7 +34,10 @@ export const singleCopy = createAsyncThunk(
   "singleCopy",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await FT_API.get(`ShortBooks/one/` + id);
+      const response = await FT_API.get(`ShortBooks/one/` + id, {
+        headers: { access_token: localStorage.getItem("token") },
+      });
+      console.log(response);
       return response?.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

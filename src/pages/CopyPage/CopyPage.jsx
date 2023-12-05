@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import Container from "../../components/ui/Container/Container";
 import s from "./CopyPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getCopyAllCategory, getCopyWithCategory } from "../../store/copy/copiesSlice";
+import {
+  getCopyAllCategory,
+  getCopyWithCategory,
+} from "../../store/copy/copiesSlice";
 import AsideCopy from "../../components/ui/AsideCopy/AsideCopy";
 import CopyList from "../../components/ui/CopyList/CopyList";
 import { useLocalizedText } from "../../hook/useLocalizedText";
@@ -35,10 +38,16 @@ const CopyPage = () => {
     category: "Kategoriyalar",
     category_ru: "Категории",
   };
+  
   return (
     <Container>
       <div className={s.wrapper}>
-        {copyCategory && windowWidth > 990 && <AsideCopy list={copyCategory} title={content[changaLang("category")]} />}
+        {copyCategory && windowWidth > 990 && (
+          <AsideCopy
+            list={copyCategory}
+            title={content[changaLang("category")]}
+          />
+        )}
         <CopyList
           windowWidth={windowWidth}
           list={copyCategory}
