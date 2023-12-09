@@ -22,7 +22,6 @@ function Header() {
   const location = useLocation();
   const openIcon = useRef(null);
   const token = localStorage.getItem("token");
-  console.log(token);
   const langChange = useLocalizedText();
   const handleToggleMenu = () => {
     if (isOpen) {

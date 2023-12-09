@@ -24,7 +24,6 @@ const CopySinglePage = () => {
   const copy = useSelector(
     (state) => state.randomCopies.singleCopy?.findShortBook
   );
-  console.log(useSelector((state) => state.randomCopies.singleCopy));
   const isFollow =
     useSelector((state) => state.randomCopies.singleCopy?.follow) === "true"
       ? true
