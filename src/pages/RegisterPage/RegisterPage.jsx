@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Input, message } from "antd";
 import moment from "moment";
-import FT_API  from "../../api/api";
+import FT_API from "../../api/api";
 import { useLocalizedText } from "../../hook/useLocalizedText";
 
 const RegisterPage = () => {
@@ -15,12 +15,12 @@ const RegisterPage = () => {
 
   const changaLang = useLocalizedText();
   const [userData, setUserData] = useState({
-    name: "Eshmat",
-    surname: "Toshmatov",
-    was_born: "08.08.2000",
+    name: "",
+    surname: "",
+    was_born: "",
     number: "",
-    gmail: "Eshmat@gmail.com",
-    password: "123",
+    gmail: "",
+    password: "",
   });
 
   async function RegisterFunc(e) {

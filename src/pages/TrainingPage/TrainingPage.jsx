@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTreningCategory } from "../../store/trening/treningCategoriesSlice";
 import { useEffect } from "react";
 import { message } from "antd";
+import NotFound from "../../components/ui/404/404";
 const TrainingPage = () => {
   const dispatch = useDispatch();
   const [messageApi, contextHolder] = message.useMessage();
@@ -31,7 +32,7 @@ const TrainingPage = () => {
 
         {loading && <p>Loading...</p>}
         {contextHolder}
-        {categories && <Category category={categories} />}
+        {categories?.length ? <Category category={categories} /> : <NotFound subTitle={'not found category for this age'} />}
       </div>
     </Container>
   );

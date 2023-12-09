@@ -38,16 +38,18 @@ const CopyPage = () => {
     category: "Kategoriyalar",
     category_ru: "Категории",
   };
-  
+
   return (
     <Container>
       <div className={s.wrapper}>
-        {copyCategory && windowWidth > 990 && (
-          <AsideCopy
-            list={copyCategory}
-            title={content[changaLang("category")]}
-          />
-        )}
+        {copyCategory.length
+          ? windowWidth > 990 && (
+              <AsideCopy
+                list={copyCategory}
+                title={content[changaLang("category")]}
+              />
+            )
+          : ""}
         <CopyList
           windowWidth={windowWidth}
           list={copyCategory}

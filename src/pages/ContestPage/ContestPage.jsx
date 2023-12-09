@@ -5,6 +5,7 @@ import ContestList from "../../components/ui/ContestList/ContestList";
 import s from "./ContestPage.module.scss";
 import { useEffect } from "react";
 import { getCompetitionCategory } from "../../store/competion/competitionCatSlice";
+import NotFound from "../../components/ui/404/404";
 
 const ContestPage = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,11 @@ const ContestPage = () => {
   return (
     <Container>
       <div className={s.wrapper}>
-        <ContestList category={competition} isLeft={true} />
+        {competition?.length ? (
+          <ContestList category={competition} isLeft={true} />
+        ) : (
+          <NotFound subTitle={"not found competitions"} />
+        )}
         {/* <SaidbarCategories title={"Taktika toifalari"} /> */}
       </div>
     </Container>
