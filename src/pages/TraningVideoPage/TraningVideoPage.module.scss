@@ -52,7 +52,8 @@
   font-weight: 400;
   line-height: 24px; /* 171.429% */
 }
-.time {
+.time,
+.login {
   border-radius: 20px;
   background: #eef1f2;
   padding: 24px;
@@ -61,6 +62,17 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 24px; /* 150% */
+  button {
+    min-width: 320px;
+  }
+}
+.login {
+  margin: 0 auto;
+  margin-top: 24px;
+}
+.login_label {
+  color: red;
+  margin-bottom: 20px;
 }
 .row_time {
   display: flex;

@@ -9,7 +9,9 @@ const FT_API = axios.create({
   },
   headers: {
     Authorization: "Bearer " + localStorage.getItem("token"),
-    authorization: "Bearer " + localStorage.getItem("token"),
+    authorization: localStorage.getItem("token")
+      ? "Bearer " + localStorage.getItem("token")
+      : "",
   },
 });
 

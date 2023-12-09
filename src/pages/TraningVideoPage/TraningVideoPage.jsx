@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Select, message } from "antd";
 import NotFound from "../../components/ui/404/404";
 import { useLocalizedText } from "../../hook/useLocalizedText";
+import MyButton from "../../components/ui/MyButton/MyButton";
 const TraningVideoPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -89,9 +90,10 @@ const TraningVideoPage = () => {
     count_ru: videos.length,
     cours_info: "Kurs haqida ma’lumot",
     cours_info_ru: "Информация о курсе",
+    login_text: "To'liq videolarni olish uchun tizimga kiring",
+    login_text_ru: "Войдите, чтобы получить полные видео",
   };
 
-  
   if (!(subCategories.length > 0)) {
     return (
       <NotFound
@@ -188,6 +190,16 @@ const TraningVideoPage = () => {
               <div className={s.value}>{content[changaLang("count")]}</div>
             </div>
           </div>
+          {!videos?.[3]?.active ? (
+            <div className={s.login}>
+              <div className={s.login_label}>
+                {content[changaLang("login_text")]}
+              </div>
+              <MyButton onClick={() => navigate("/login")}>Login</MyButton>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </Container>
