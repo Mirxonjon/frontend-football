@@ -34,10 +34,7 @@ export const singleCopy = createAsyncThunk(
   "singleCopy",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await FT_API.get(`ShortBooks/one/` + id, {
-        headers: { access_token: localStorage.getItem("token") },
-      });
-      console.log(response);
+      const response = await FT_API.get(`ShortBooks/one/` + id);
       return response?.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -94,4 +91,3 @@ export const { actions: randomCopiesActions, reducer: randomCopiesReducers } =
       },
     },
   });
-

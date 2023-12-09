@@ -39,9 +39,14 @@ const BooksPage = () => {
   return (
     <Container>
       <div className={s.wrapper}>
-        {bookCategory && windowWidth > 990 && (
-          <Aside list={bookCategory} title={content[changaLang("category")]} />
-        )}
+        {bookCategory.length
+          ? windowWidth > 990 && (
+              <Aside
+                list={bookCategory}
+                title={content[changaLang("category")]}
+              />
+            )
+          : ""}
         <BookList
           windowWidth={windowWidth}
           list={bookCategory}

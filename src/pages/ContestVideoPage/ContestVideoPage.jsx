@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import NotFound from "../../components/ui/404/404";
 import { Select } from "antd";
 import { useLocalizedText } from "../../hook/useLocalizedText";
+import YouTube from "react-youtube";
 const ContestVideoPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -57,13 +58,10 @@ const ContestVideoPage = () => {
         {selectedVideo?.video_link?.slice(0, 4) === "http" ? (
           <div className={s.left}>
             <div className={s.video}>
-              <iframe
-                width="100%"
-                height={"320"}
-                src={selectedVideo.video_link}
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              ></iframe>
+              <YouTube
+                style={{ height: "100%", width: '100%' }}
+                videoId={selectedVideo?.video_link?.split("v=")[1]}
+              />
             </div>
             <div className={s.description}>
               {selectedVideo

@@ -46,7 +46,17 @@
   font-size: 16px;
   align-items: center;
 }
-
+.header_account {
+  width: 15px;
+  height: 15px;
+  box-sizing: content-box;
+  padding: 6px;
+  background: #c2b7b7;
+  border-radius: 50%;
+  img {
+    width: 100%;
+  }
+}
 .header_singin {
   color: $lightGreen;
   font-size: 16px;

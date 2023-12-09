@@ -11,8 +11,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const [userData, setUserData] = useState({
-    gmail: "Eshmat@gmail.com",
-    password: "123",
+    gmail: "",
+    password: "",
   });
   const changaLang = useLocalizedText();
   async function LoginFunc(e) {

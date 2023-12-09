@@ -41,6 +41,11 @@
   color: #5e5e5e;
   font-size: 14px;
 }
+.time_icon{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 @media (max-width: 850px) {
   .wrapper {
     width: 100%;
