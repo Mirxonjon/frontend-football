@@ -135,4 +135,3 @@ const CopySinglePage = () => {
 };
 
 export default CopySinglePage;
-

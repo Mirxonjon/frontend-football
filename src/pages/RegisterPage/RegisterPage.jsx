@@ -25,6 +25,7 @@ const RegisterPage = () => {
 
   async function RegisterFunc(e) {
     e.preventDefault();
+
     const res = await FT_API.post("/Auth/register", {
       ...userData,
     }).catch((err) => {
@@ -142,7 +143,9 @@ const RegisterPage = () => {
         <div className={s.label}>Email</div>
         <Input
           type="email"
-          required="this input required"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          title="Введите корректный email"
+          required
           value={userData.gmail}
           onChange={(e) => setUserData({ ...userData, gmail: e.target.value })}
           className={s.input}

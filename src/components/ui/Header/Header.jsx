@@ -15,13 +15,14 @@ import { useEffect } from "react";
 import Container from "../Container/Container";
 import { menu } from "../../../content/pages";
 import { useLocalizedText } from "../../../hook/useLocalizedText";
-
+import img from "./../../../assets/img/acc.svg";
 function Header() {
   const [isOpen, setIsOpen] = useState(true);
   const loyaut = useRef(null);
   const location = useLocation();
   const openIcon = useRef(null);
-
+  const token = localStorage.getItem("token");
+  console.log(token);
   const langChange = useLocalizedText();
   const handleToggleMenu = () => {
     if (isOpen) {
@@ -57,9 +58,15 @@ function Header() {
             <SearchOutlined /> Search
           </div> */}
           <LangChange />
-          <Link className="header_singin" to="/login">
-            Sign In
-          </Link>
+          {!token ? (
+            <Link className="header_singin" to="/login">
+              Sign In
+            </Link>
+          ) : (
+            <Link className="header_account" to="/">
+              <img src={img} alt="account logo" />
+            </Link>
+          )}
           <div
             ref={openIcon}
             className="hamburger_menu"
