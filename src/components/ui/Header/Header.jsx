@@ -62,7 +62,7 @@ function Header() {
               Sign In
             </Link>
           ) : (
-            <Link className="header_account" to="/">
+            <Link className="header_account" to="/user">
               <img src={img} alt="account logo" />
             </Link>
           )}
