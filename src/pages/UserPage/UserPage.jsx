@@ -6,14 +6,13 @@ import { useLocalizedText } from "../../hook/useLocalizedText";
 import Input from "antd/es/input/Input";
 import moment from "moment";
 import MyButton from "../../components/ui/MyButton/MyButton";
-import Upload from "antd/es/upload/Upload";
-import UploadFile from "../../components/ui/Upload/Upload";
 import FT_API from "../../api/api";
 import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
   const navigate = useNavigate();
   const langChange = useLocalizedText();
+  const fileInputRef = useRef();
   const content = {
     surname: "Familiya",
     surname_ru: "Фамилия",
@@ -33,9 +32,9 @@ const UserPage = () => {
     save_ru: "Сохранить",
   };
   const [user, setUser] = useState({
-    create_data: "",
-    email: "",
+    // create_data: "",
     id: "",
+    email: "",
     image: "",
     name: "",
     password: "",
@@ -44,6 +43,22 @@ const UserPage = () => {
     surname: "",
     was_born_date: "",
   });
+  async function submit(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("email", user.email);
+    formData.append("name", user.name);
+    formData.append("password", user.password);
+    formData.append("phone", user.phone);
+    formData.append("role", user.role);
+    formData.append("surname", user.surname);
+    formData.append("was_born_date", user.was_born_date);
+    formData.append("image", fileInputRef.current.files[0]);
+    const res = await FT_API.post("competitionCategories/create", formData);
+
+    console.log(res.data);
+  }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     async function fetch() {
@@ -58,7 +73,7 @@ const UserPage = () => {
       }
     }
     fetch();
-  },[]);
+  }, []);
 
   return (
     <Container>
@@ -66,7 +81,7 @@ const UserPage = () => {
         <div className={s.img}>
           <img width={200} src={img} alt="avatar" />
         </div>
-        <form className={s.info}>
+        <form onSubmit={submit} className={s.info}>
           <div className={s.item}>
             <div className={s.label}> {content[langChange("surname")]}</div>
             <div className={s.value}>
@@ -170,8 +185,12 @@ const UserPage = () => {
           <div className={s.item}>
             <div className={s.label}> {content[langChange("avatar")]}</div>
             <div className={s.value}>
-              {/* <input className="" type="file" ref={fileInputRef} accept="image/*" /> */}
-              <UploadFile />
+              <input
+                className=""
+                type="file"
+                ref={fileInputRef}
+                accept="image/*"
+              />
             </div>
           </div>
           <div className={s.btn}>
