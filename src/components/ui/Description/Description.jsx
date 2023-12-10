@@ -62,7 +62,7 @@ const Description = () => {
           <img src={home1} alt="home img ball" />
         </div>
         <div className={s.content}>
-          <Link to={"/masterclass"} className={s.smTitle}>
+          <Link to={"/training"} className={s.smTitle}>
             {offers[0][langChange("title")]}{" "}
           </Link>
           <p className={s.smDesc}>{offers[0][langChange("desc")]}</p>
@@ -76,7 +76,7 @@ const Description = () => {
         className={s.row}
       >
         <div className={s.content}>
-          <Link to={"/masterclass"} className={s.smTitle}>
+          <Link to={"/training"} className={s.smTitle}>
             {offers[1][langChange("title")]}{" "}
           </Link>
           <p className={s.smDesc}>{offers[1][langChange("desc")]}</p>

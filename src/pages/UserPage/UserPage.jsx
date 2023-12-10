@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Container from "../../components/ui/Container/Container";
 import s from "./UserPage.module.scss";
 import img from "./../../assets/img/acc.svg";
@@ -6,8 +6,13 @@ import { useLocalizedText } from "../../hook/useLocalizedText";
 import Input from "antd/es/input/Input";
 import moment from "moment";
 import MyButton from "../../components/ui/MyButton/MyButton";
+import Upload from "antd/es/upload/Upload";
+import UploadFile from "../../components/ui/Upload/Upload";
+import FT_API from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
+  const navigate = useNavigate();
   const langChange = useLocalizedText();
   const content = {
     surname: "Familiya",
@@ -20,30 +25,40 @@ const UserPage = () => {
     email_ru: "Email",
     password: "Parol",
     password_ru: "Пароль",
-    date: "Tug'ilgan sana",
-    date_ru: "Дата рождения",
+    was_born_date: "Tug'ilgan sana",
+    was_born_date_ru: "Дата рождения",
     avatar: "Rasm",
     avatar_ru: "Фото",
     save: "Saqlash",
     save_ru: "Сохранить",
   };
   const [user, setUser] = useState({
-    surname: "",
-    name: "",
-    phone: "",
+    create_data: "",
     email: "",
+    id: "",
+    image: "",
+    name: "",
     password: "",
-    date: "",
-    avatar: null,
+    phone: "",
+    role: "",
+    surname: "",
+    was_born_date: "",
   });
-  const fileInputRef = useRef(null);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    setUser({ ...user, avatar: file });
-  };
-  console.log(user.avatar);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    async function fetch() {
+      try {
+        const res = await FT_API.get("/Users/one");
+        setUser(await res.data);
+      } catch (error) {
+        if (error.response.status == 400) {
+          localStorage.removeItem("token");
+          navigate("/login");
+        }
+      }
+    }
+    fetch();
+  },[]);
 
   return (
     <Container>
@@ -128,15 +143,20 @@ const UserPage = () => {
             </div>
           </div>
           <div className={s.item}>
-            <div className={s.label}> {content[langChange("date")]}</div>
+            <div className={s.label}>
+              {" "}
+              {content[langChange("was_born_date")]}
+            </div>
             <div className={s.value}>
               <Input
                 required="this input required"
-                value={moment(user.date, "DD.MM.YYYY").format("YYYY-MM-DD")}
+                value={moment(user.was_born_date, "DD.MM.YYYY").format(
+                  "YYYY-MM-DD"
+                )}
                 onChange={(e) =>
                   setUser({
                     ...user,
-                    date: moment(e.target.value, "YYYY-MM-DD").format(
+                    was_born_date: moment(e.target.value, "YYYY-MM-DD").format(
                       "DD.MM.YYYY"
                     ),
                   })
@@ -150,17 +170,13 @@ const UserPage = () => {
           <div className={s.item}>
             <div className={s.label}> {content[langChange("avatar")]}</div>
             <div className={s.value}>
-              <Input
-                // value={user.avatar}
-                required
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                accept="image/*"
-              />
+              {/* <input className="" type="file" ref={fileInputRef} accept="image/*" /> */}
+              <UploadFile />
             </div>
           </div>
-          <MyButton>{content[langChange("save")]}</MyButton>
+          <div className={s.btn}>
+            <MyButton>{content[langChange("save")]}</MyButton>
+          </div>
         </form>
       </div>
     </Container>
