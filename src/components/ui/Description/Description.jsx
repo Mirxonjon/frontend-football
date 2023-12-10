@@ -77,9 +77,9 @@ const Description = () => {
       >
         <div className={s.content}>
           <Link to={"/masterclass"} className={s.smTitle}>
-            {offers[0][langChange("title")]}{" "}
+            {offers[1][langChange("title")]}{" "}
           </Link>
-          <p className={s.smDesc}>{offers[0][langChange("desc")]}</p>
+          <p className={s.smDesc}>{offers[1][langChange("desc")]}</p>
         </div>
         <div className={s.img}>
           <img src={home2} alt="home img ball" />
