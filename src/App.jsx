@@ -14,6 +14,7 @@ import MasterclassSinglePage from "./pages/MasterclassSinglePage/MasterclassSing
 import CopyPage from "./pages/CopyPage/CopyPage";
 import CopySinglePage from "./pages/CopySinglePage/CopySinglePage";
 import UserPage from "./pages/UserPage/UserPage";
+import UserUpdatePage from "./pages/UserUpdatePage/UserUpdatePage";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/contests/:id" element={<ContestVideoPage />} />
               <Route path="/masterclass" element={<MasterclassPage />} />
               <Route path="/user" element={<UserPage />} />
+              <Route path="/userupdate" element={<UserUpdatePage />} />
               <Route
                 path="/masterclass/:id"
                 element={<MasterclassSinglePage />}
