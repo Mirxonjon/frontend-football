@@ -7,6 +7,7 @@ import { Input, message } from "antd";
 import { useState } from "react";
 import FT_API from "../../api/api";
 import { useLocalizedText } from "../../hook/useLocalizedText";
+import { Helmet } from "react-helmet-async";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -55,6 +56,12 @@ const LoginPage = () => {
     password_label_ru: "Пароль",
   };
   return (
+    <>
+        <Helmet>
+            <title> CoachingZona Login</title>
+            <meta name="description" content="CoachingZona login, Coaching Zona login ,CoachingZone login , Coaching Zone login" />
+            <link rel='canonical' href='https://coachingzona.uz/login' />
+          </Helmet>
     <FormWrapper
       title={content[changaLang("title")]}
       subTitle={content[changaLang("subtitle")]}
@@ -91,6 +98,8 @@ const LoginPage = () => {
         </div>
       </form>
     </FormWrapper>
+    </>
+
   );
 };
 

@@ -9,6 +9,7 @@ import {
   getBookWithCategory,
 } from "../../store/books/booksSlice";
 import { useLocalizedText } from "../../hook/useLocalizedText";
+import { Helmet } from "react-helmet-async";
 
 const BooksPage = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -38,6 +39,11 @@ const BooksPage = () => {
   };
   return (
     <Container>
+      <Helmet>
+        <title>CoachingZona Kitoblar</title>
+        <meta name="description" content="CoachingZona Kitoblari ,Coaching Zona Kitoblari , Murabbiylar kitoblari , Futbol haqida kitob " />
+        <link rel='canonical' href='https://coachingzona.uz/books' />
+      </Helmet>
       <div className={s.wrapper}>
         {bookCategory.length
           ? windowWidth > 990 && (

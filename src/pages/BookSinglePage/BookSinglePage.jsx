@@ -13,6 +13,7 @@ import {
 } from "../../store/books/randomBook";
 import { useLocalizedText } from "../../hook/useLocalizedText";
 import { message } from "antd";
+import { Helmet } from "react-helmet-async";
 const BookSinglePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -82,6 +83,11 @@ const BookSinglePage = () => {
   };
   return (
     <Container>
+            <Helmet>
+        <title>CoachingZona Kitob</title>
+        <meta name="description" content="CoachingZona Kitoblari ,Coaching Zona Kitoblari , Murabbiylar kitoblari , Futbol haqida kitob " />
+        <link rel='canonical' href='https://coachingzona.uz/books' />
+      </Helmet>
       <div className={s.wrapper}>
         <div className={s.main}>
           <div className={s.row}>

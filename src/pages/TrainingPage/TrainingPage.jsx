@@ -8,6 +8,7 @@ import { getTreningCategory } from "../../store/trening/treningCategoriesSlice";
 import { useEffect } from "react";
 import { message } from "antd";
 import NotFound from "../../components/ui/404/404";
+import { Helmet } from "react-helmet-async";
 const TrainingPage = () => {
   const dispatch = useDispatch();
   const [messageApi, contextHolder] = message.useMessage();
@@ -27,6 +28,12 @@ const TrainingPage = () => {
   }, []);
   return (
     <Container>
+
+    <Helmet>
+        <title > CoachingZona Mashg‘ulotlar</title>
+        <meta name="description" content="Mashg‘ulotlar bo'limi Murabbiylar uchun Coachingzone futbol kurslar bo'limi Учебный отдел  Футбольные курсы" />
+        <link rel='canonical' href='http://localhost:5173/training' />
+      </Helmet>
       <div className={s.wrapper}>
         <AgesCategory />
 

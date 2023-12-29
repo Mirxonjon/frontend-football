@@ -13,6 +13,7 @@ import NotFound from "../../components/ui/404/404";
 import { Select } from "antd";
 import { useLocalizedText } from "../../hook/useLocalizedText";
 import YouTube from "react-youtube";
+import { Helmet } from "react-helmet-async";
 const ContestVideoPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -54,6 +55,12 @@ const ContestVideoPage = () => {
 
   return (
     <Container>
+
+      <Helmet>
+        <title> CoachingZona Musobaqalar</title>
+        <meta name="description" content="CoachingZona Musobaqalar videolar,Coaching Zona Musobaqalar videolar , Yoshlar Musobaqalari videolar" />
+        <link rel='canonical' href='https://coachingzona.uz/contests' />
+      </Helmet>
       <div className={s.row}>
         {selectedVideo?.video_link?.slice(0, 4) === "http" ? (
           <div className={s.left}>

@@ -12,6 +12,7 @@ import {
 } from "../../store/copy/randomCopy.js";
 import CardCopy from "../../components/ui/CardCopy/CardCopy";
 import { useLocalizedText } from "../../hook/useLocalizedText.jsx";
+import { Helmet } from "react-helmet-async";
 
 const CopySinglePage = () => {
   const dispatch = useDispatch();
@@ -82,6 +83,11 @@ const CopySinglePage = () => {
   };
   return (
     <Container>
+          <Helmet>
+            <title> CoachingZona Konspektlar</title>
+            <meta name="description" content="CoachingZona Konspektlar,Coaching Zona Konspektlar, CoachingZone Konspektlar  ,  Coaching Zone Konspektlar" />
+            <link rel='canonical' href='https://coachingzona.uz/copies' />
+          </Helmet>
       <div className={s.wrapper}>
         <div className={s.main}>
           <div className={s.row}>

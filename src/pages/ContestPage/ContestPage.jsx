@@ -6,6 +6,7 @@ import s from "./ContestPage.module.scss";
 import { useEffect } from "react";
 import { getCompetitionCategory } from "../../store/competion/competitionCatSlice";
 import NotFound from "../../components/ui/404/404";
+import { Helmet } from "react-helmet-async";
 
 const ContestPage = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,12 @@ const ContestPage = () => {
 
   return (
     <Container>
+      
+      <Helmet>
+        <title> CoachingZona Musobaqalar</title>
+        <meta name="description" content="CoachingZona Musobaqalar ,Coaching Zona Musobaqalar , Yoshlar Musobaqalari  " />
+        <link rel='canonical' href='https://coachingzona.uz/contests' />
+      </Helmet>
       <div className={s.wrapper}>
         {competition?.length ? (
           <ContestList category={competition} isLeft={true} />

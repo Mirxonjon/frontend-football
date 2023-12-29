@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import NotFound from "../../components/ui/404/404";
 import { Select } from "antd";
 import { useLocalizedText } from "../../hook/useLocalizedText";
+import { Helmet } from "react-helmet-async";
 const MasterclassSinglePage = () => {
   const { id } = useParams();
   const navigatio = useNavigate();
@@ -51,6 +52,12 @@ const MasterclassSinglePage = () => {
   };
   return (
     <div className={s.wrapper}>
+
+      <Helmet>
+        <title > CoachingZona Masterclasslar Videolar</title>
+        <meta name="description" content="CoachingZona  Masterclasslar Videolar,Coaching Zona Masterclasslar Videolar , Murabbiylardan masterclaslar Videolari, Masterclasslar videolari" />
+        <link rel='canonical' href='https://coachingzona.uz/masterclass' />
+      </Helmet>
       {singleMasterclassCategory ? (
         <div className={s.top}>
           <div className={s.img}>

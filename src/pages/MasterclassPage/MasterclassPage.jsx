@@ -10,6 +10,7 @@ import {
 import NotFound from "../../components/ui/404/404";
 import { Link } from "react-router-dom";
 import { useLocalizedText } from "../../hook/useLocalizedText";
+import { Helmet } from "react-helmet-async";
 // import TrenersList from "../../components/ui/TrenersList/TrenersList";
 
 const MasterclassPage = () => {
@@ -35,6 +36,12 @@ const MasterclassPage = () => {
   };
   return (
     <Container>
+
+      <Helmet>
+        <title > CoachingZona Masterclasslar</title>
+        <meta name="description" content="CoachingZona  Masterclasslar ,Coaching Zona Masterclasslar , Murabbiylardan masterclaslari , Masterclasslar videolari" />
+        <link rel='canonical' href='https://coachingzona.uz/masterclass' />
+      </Helmet>
       <div className={s.wrapper}>
         {treners?.length > 0 ? (
           <div className={s.left}>

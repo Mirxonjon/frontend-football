@@ -9,6 +9,7 @@ import {
 import AsideCopy from "../../components/ui/AsideCopy/AsideCopy";
 import CopyList from "../../components/ui/CopyList/CopyList";
 import { useLocalizedText } from "../../hook/useLocalizedText";
+import { Helmet } from "react-helmet-async";
 
 const CopyPage = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -41,6 +42,11 @@ const CopyPage = () => {
 
   return (
     <Container>
+                <Helmet >
+            <title> CoachingZona Konspektlar</title>
+            <meta name="description" content="CoachingZona Konspektlar,Coaching Zona Konspektlar, CoachingZone Konspektlar  ,  Coaching Zone Konspektlar" />
+            <link rel='canonical' href='https://coachingzona.uz/copies' />
+          </Helmet>
       <div className={s.wrapper}>
         {copyCategory.length
           ? windowWidth > 990 && (

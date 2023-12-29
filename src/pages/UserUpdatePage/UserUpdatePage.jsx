@@ -10,6 +10,7 @@ import FT_API from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { Button, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { Helmet } from "react-helmet-async";
 
 const UserUpdatePage = () => {
   const navigate = useNavigate();
@@ -79,6 +80,11 @@ const UserUpdatePage = () => {
 
   return (
     <Container>
+          <Helmet>
+            <title> CoachingZona Accaunt</title>
+            <meta name="description" content="CoachingZona accaunt , CoachingZona accaunt update" />
+            <link rel='canonical' href='https://coachingzona.uz/user' />
+          </Helmet>
       <div className={s.row}>
         <div className={s.img}>
           <img width={200} src={user.image ? user.image : img} alt="avatar" />

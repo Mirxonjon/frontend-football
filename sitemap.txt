@@ -1,0 +1,9 @@
+https://coachingzona.uz/
+https://coachingzona.uz/training/
+https://coachingzona.uz/contests/
+https://coachingzona.uz/books/
+https://coachingzona.uz/masterclass/
+https://coachingzona.uz/copies/
+https://coachingzona.uz/user/
+http://localhost:5173/register/
+http://localhost:5173/login/

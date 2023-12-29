@@ -8,6 +8,7 @@ import { Input, message } from "antd";
 import moment from "moment";
 import FT_API from "../../api/api";
 import { useLocalizedText } from "../../hook/useLocalizedText";
+import { Helmet } from "react-helmet-async";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -76,11 +77,18 @@ const RegisterPage = () => {
     register_ru: "Регистрация",
   };
   return (
+    <>
+            <Helmet>
+            <title> CoachingZona registor</title>
+            <meta name="description" content="CoachingZona registor, Coaching Zona  registor ,CoachingZone  registor , Coaching Zone registor" />
+            <link rel='canonical' href='https://coachingzona.uz/login' />
+          </Helmet>
+
     <FormWrapper
       title={content[changaLang("title")]}
       subTitle={content[changaLang("subtitle")]}
       img={img}
-    >
+      >
       {contextHolder}
       <form onSubmit={RegisterFunc} className={s.form}>
         <div className={s.label}>{content[changaLang("name_label")]}</div>
@@ -90,7 +98,7 @@ const RegisterPage = () => {
           onChange={(e) => setUserData({ ...userData, name: e.target.value })}
           className={s.input}
           placeholder={content[changaLang("name")]}
-        />
+          />
         <div className={s.label}>{content[changaLang("lastname_label")]}</div>
         <Input
           required="this input required"
@@ -100,7 +108,7 @@ const RegisterPage = () => {
           }
           className={s.input}
           placeholder={content[changaLang("lastname")]}
-        />
+          />
         <div className={s.row}>
           <div>
             <div className={s.label}>{content[changaLang("date")]}</div>
@@ -108,19 +116,19 @@ const RegisterPage = () => {
               required="this input required"
               value={moment(userData.was_born, "DD.MM.YYYY").format(
                 "YYYY-MM-DD"
-              )}
-              onChange={(e) =>
-                setUserData({
-                  ...userData,
-                  was_born: moment(e.target.value, "YYYY-MM-DD").format(
-                    "DD.MM.YYYY"
-                  ),
-                })
-              }
-              className={s.input}
-              type="date"
-              placeholder="00.00.0000"
-            />
+                )}
+                onChange={(e) =>
+                  setUserData({
+                    ...userData,
+                    was_born: moment(e.target.value, "YYYY-MM-DD").format(
+                      "DD.MM.YYYY"
+                      ),
+                    })
+                  }
+                  className={s.input}
+                  type="date"
+                  placeholder="00.00.0000"
+                  />
           </div>
           <div>
             <div className={s.label}>{content[changaLang("number")]}</div>
@@ -137,7 +145,7 @@ const RegisterPage = () => {
               }}
               className={s.input}
               placeholder="+998"
-            />
+              />
           </div>
         </div>
         <div className={s.label}>Email</div>
@@ -150,7 +158,7 @@ const RegisterPage = () => {
           onChange={(e) => setUserData({ ...userData, gmail: e.target.value })}
           className={s.input}
           placeholder={content[changaLang("email")]}
-        />
+          />
 
         <div className={s.label}>{content[changaLang("password_label")]}</div>
         <Input.Password
@@ -161,7 +169,7 @@ const RegisterPage = () => {
           }
           className={s.input}
           placeholder={content[changaLang("password")]}
-        />
+          />
         <div className={s.btn}>
           <MyButton>{content[changaLang("register")]}</MyButton>
         </div>
@@ -171,6 +179,7 @@ const RegisterPage = () => {
         </div>
       </form>
     </FormWrapper>
+          </>
   );
 };
 

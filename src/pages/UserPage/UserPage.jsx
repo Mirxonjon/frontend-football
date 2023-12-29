@@ -7,6 +7,7 @@ import moment from "moment";
 import MyButton from "../../components/ui/MyButton/MyButton";
 import FT_API from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const UserPage = () => {
   const navigate = useNavigate();
@@ -57,6 +58,11 @@ const UserPage = () => {
 
   return (
     <Container>
+          <Helmet>
+            <title> CoachingZona Accaunt</title>
+            <meta name="description" content="CoachingZona accaunt , CoachingZona accaunt update" />
+            <link rel='canonical' href='https://coachingzona.uz/user' />
+          </Helmet>
       <div className={s.row}>
         <div className={s.img}>
           <img width={200} src={user.image ? user.image : img} alt="avatar" />

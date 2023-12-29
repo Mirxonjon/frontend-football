@@ -14,6 +14,7 @@ import { Select, message } from "antd";
 import NotFound from "../../components/ui/404/404";
 import { useLocalizedText } from "../../hook/useLocalizedText";
 import MyButton from "../../components/ui/MyButton/MyButton";
+import { Helmet } from "react-helmet-async";
 const TraningVideoPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -104,6 +105,11 @@ const TraningVideoPage = () => {
   }
   return (
     <Container>
+            <Helmet>
+        <title>CoachingZona Mashg‘ulot videolari</title>
+        <meta name="description" content="CoachingZona Mashg‘ulotlar videolari  Coaching Zona Mashg‘ulotlar videolari" />
+        <link rel='canonical' href='http://localhost:5173/training' />
+      </Helmet>
       <div className={s.row}>
         <div className={s.left}>
           <div className={s.video}>
