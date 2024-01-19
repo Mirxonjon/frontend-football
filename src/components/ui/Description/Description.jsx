@@ -76,7 +76,7 @@ const Description = () => {
         className={s.row}
       >
         <div className={s.content}>
-          <Link to={"/training"} className={s.smTitle}>
+          <Link to={"/individualtraining"} className={s.smTitle}>
             {offers[1][langChange("title")]}{" "}
           </Link>
           <p className={s.smDesc}>{offers[1][langChange("desc")]}</p>

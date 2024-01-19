@@ -4,7 +4,7 @@ export const heroText = {
   desc: "Yaxshi futbol murabbiyi bo’lish yo’li shu erdan boshlanadi. Biz sizga dunyoning eng yaxshi futbol murabbiylarining strategiyalari, taktikasi va amaliy mashg’ulotlari bilan tanishish imkoniyatini beramiz.",
   desc_ru:
     "Путь к тому, чтобы стать хорошим футбольным тренером, начинается здесь. Мы предоставляем вам возможность ознакомиться со стратегиями, тактикой и практическими занятиями лучших футбольных тренеров мира.",
-  btn: "Sign Up Now!",
+  btn: "Hozir roʻyxatdan oʻting!",
   btn_ru: "Зарегистрироваться сейчас!",
 };
 export const offers = [

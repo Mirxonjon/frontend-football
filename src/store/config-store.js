@@ -8,11 +8,15 @@ import { randomBooksReducers } from "./books/randomBook.js";
 import { copiesReducers } from "./copy/copiesSlice.js";
 import { randomCopiesReducers } from "./copy/randomCopy.js";
 import { masterclassCategoryReducers } from "./masterclass/masterclassSlice.js";
+import {  individualtreningCategoryReducers } from "./individualTraining/IndividualTreningCategoriesSlice.js";
+import { IndividualTreningVideoReducers } from "./individualTraining/IndividualTreningVideo.js";
 
 export const store = configureStore({
   reducer: {
     lang: langReducers,
     treningCategory: treningCategoryReducers,
+    individualTreningCategory: individualtreningCategoryReducers,
+    IndividualTreningVideo: IndividualTreningVideoReducers ,
     competition: competitionCategoryReducers,
     treningSubCategory: treningSubCategoryReducers,
     books: booksReducers,

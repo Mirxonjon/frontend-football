@@ -14,8 +14,8 @@ const ContestList = ({ isLeft, category }) => {
   const changeLang = useLocalizedText();
 
   const content = {
-    title: "Barcha Kategoriyalar",
-    title_ru: "Все категории",
+    title: "Barcha Musobaqalar",
+    title_ru: "Все Соревнования",
   };
 
   const paginationParams = useSelector((state) => state.competition.pagination);

@@ -19,7 +19,7 @@ const Aside = ({ title, list }) => {
       <div className={c.title}>{title}</div>
       {list?.length &&
         list.map((i) => (
-          <button
+          <button 
             className={cs(c.item, selectedCategoryId === i.id ? c.active : "")}
             onClick={() => {
               dispatch(booksActions.setSelectedCategory(i.id));

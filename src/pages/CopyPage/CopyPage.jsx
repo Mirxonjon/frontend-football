@@ -34,8 +34,8 @@ const CopyPage = () => {
   }, []);
 
   const content = {
-    title: "Kitoblar",
-    title_ru: "Книги",
+    title: "Konspektlar",
+    title_ru: "Конспекты",
     category: "Kategoriyalar",
     category_ru: "Категории",
   };

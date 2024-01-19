@@ -49,8 +49,8 @@ const ContestVideoPage = () => {
   const content = {
     error: "Bu categoriya uchun video topilmadi",
     error_ru: "Для этой категории видео не найдено",
-    title: "Taktika toifalari",
-    title_ru: "Категории тактики",
+    title: "Tafsiya etiladigan musobaqalar",
+    title_ru: "Рекомендуемое соревнование",
   };
 
   return (

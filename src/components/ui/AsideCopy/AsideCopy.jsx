@@ -18,7 +18,7 @@ const AsideCopy = ({ title, list }) => {
       <div className={c.title}>{title}</div>
       {list?.length &&
         list.map((i) => (
-          <button
+          <button style={{textTransform:"capitalize"}}
             className={cs(c.item, selectedCategoryId === i.id ? c.active : "")}
             onClick={() => {
               dispatch(copiesActions.setSelectedCategory(i.id));

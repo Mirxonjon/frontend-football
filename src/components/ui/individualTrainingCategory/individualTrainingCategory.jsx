@@ -1,29 +1,26 @@
-import s from "./Category.module.scss";
+import s from "./individualTrainingCategory.module.scss";
 import Pagination from "../Pagination/Pagination";
 import cs from "classnames";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getTreningCategoryWithAge,
-  treningCategoryActions,
-} from "../../../store/trening/treningCategoriesSlice";
 import { useLocalizedText } from "../../../hook/useLocalizedText";
+import { getIndividualTreningCategoryWithCategory, individualtreningCategoryActions } from "../../../store/individualTraining/IndividualTreningCategoriesSlice";
 
-const Category = ({ isLeft, category }) => {
+const IndividualTrainingCategory = ({ isLeft, category }) => {
   const dispatch = useDispatch();
   const changeLang = useLocalizedText();
   const paginationParams = useSelector(
-    (state) => state.treningCategory.pagination
+    (state) => state.individualTreningCategory.pagination
   );
-
+console.log(paginationParams);
   const content = {
     title: "Barcha Kategoriyalar",
     title_ru: "Все категории",
   };
 
   function setPaginationParams(paginationParams) {
-    dispatch(treningCategoryActions.setPagination(paginationParams));
-    dispatch(getTreningCategoryWithAge());
+    dispatch(individualtreningCategoryActions.setPagination(paginationParams));
+    dispatch(getIndividualTreningCategoryWithCategory());
   }
 
   return (
@@ -33,7 +30,7 @@ const Category = ({ isLeft, category }) => {
       </h2>
       <div className={cs(s.row, isLeft ? s.left : "")}>
         {category?.length &&
-          category.map((c ,i) => (
+          category.map((c, i) => (
             <Link to={c.id} key={c.id} className={s.category}>
               <div className={s.img}>
                 <img
@@ -48,6 +45,7 @@ const Category = ({ isLeft, category }) => {
             </Link>
           ))}
       </div>
+
       <Pagination
         paginationParams={paginationParams}
         setPaginationParams={setPaginationParams}
@@ -56,5 +54,5 @@ const Category = ({ isLeft, category }) => {
   );
 };
 
-export default Category;
+export default IndividualTrainingCategory;
 

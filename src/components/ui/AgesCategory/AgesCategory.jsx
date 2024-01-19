@@ -8,6 +8,7 @@ import {
   getTreningCategoryWithAge,
   treningCategoryActions,
 } from "../../../store/trening/treningCategoriesSlice";
+import { Link } from "react-router-dom";
 
 const ages = [
   { id: 1, img: img1, value: "5-8", name: { uz: "5-8 yoshdagilar", ru: "5-8 летним" } },
@@ -15,6 +16,10 @@ const ages = [
   { id: 3, img: img3, value: "14-17", name: { uz: "14-17 yoshdagilar", ru: "14-17 летним" } },
   { id: 4, img: img4, value: "18-21", name: { uz: "18-21 yoshdagilar", ru: "18-21 летним" } },
 ];
+const  individualCategoryLang= {
+  name:  { uz: "Individual trenirovka", ru: "Индивидуальное обучение" },
+  value : 'Individual trenirovka'
+}
 
 const AgesCategory = () => {
   const dispatch = useDispatch();
@@ -45,6 +50,20 @@ const AgesCategory = () => {
             <span>{getLocalizedText(age.name)}</span>
           </div>
         ))}
+         <Link
+                    key={11}
+                    to={'/individualtraining'}
+                  >
+         <div
+            className={s.item}
+          >
+            <img src={img2} alt={individualCategoryLang.value} />
+            {/* Используйте getLocalizedText для отображения правильного перевода в зависимости от языка */}
+            {/* <span>Индивидуальный</span> */}
+            <span>{getLocalizedText(individualCategoryLang.name)}</span>
+          </div>
+          </Link>
+
     </div>
   );
 };

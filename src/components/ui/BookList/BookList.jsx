@@ -28,8 +28,8 @@ const BookList = ({ title, list, data, windowWidth }) => {
   }
 
   const content = {
-    error: "Bu categoriya uchun video topilmadi",
-    error_ru: "Для этой категории видео не найдено",
+    error: "Bu categoriya uchun kitob topilmadi",
+    error_ru: "Для этой категории книги не найдено",
   };
   return (
     <div className={s.wrapper}>
@@ -37,13 +37,13 @@ const BookList = ({ title, list, data, windowWidth }) => {
         <div className={s.title}>{title}</div>
         {list.length > 0 && windowWidth <= 990 && (
           <div className={s.select}>
-            <Select
+            <Select 
               className={s.select}
               defaultValue={list[0].id}
               onChange={handleSelect}
               options={list.map((el) => ({
                 value: el.id,
-                label: el[changaLang("title")],
+                label: el[changaLang("title")] ,
               }))}
             />
           </div>

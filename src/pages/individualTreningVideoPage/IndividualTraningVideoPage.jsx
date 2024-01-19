@@ -1,47 +1,48 @@
+
+
+
 import { Helmet } from "react-helmet-async";
 import Container from "../../components/ui/Container/Container";
-import s from "./TraningVideoPage.module.scss";
-import PlayList from "../../components/ui/PlayList/PlayList";
+import s from "./IndividualTraningVideoPage.module.scss";
 import TimeIcon from "../../components/svg/Tiime";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {
-  getTreningSubCatWithCateg,
-  getVideoWithSubCat,
-  treningSubCategoryActions,
-} from "../../store/trening/treningSubCatSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { Select, message } from "antd";
 import NotFound from "../../components/ui/404/404";
 import { useLocalizedText } from "../../hook/useLocalizedText";
 import MyButton from "../../components/ui/MyButton/MyButton";
-// import upperFirstInText from '../../assets/utils'
-const TraningVideoPage = () => {
+import { IndividualTreningVideoActions, getVideoWithCat } from "../../store/individualTraining/IndividualTreningVideo";
+import PlayListIndividualTraining from "../../components/ui/PlaylistIndividualTraining/PlayListIndividualTraining";
+
+const IndividualTraningVideoPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
-  const subCategories = useSelector(
-    (state) => state.treningSubCategory.treningSubCategory
-  );
+  // const subCategories = useSelector(
+  //   (state) => state.IndividualTreningVideo.treningSubCategory
+  // );
 
   const changaLang = useLocalizedText();
-  const selectedSubCat = useSelector(
-    (state) => state.treningSubCategory.subCategory
-  );
-  const loading = useSelector((state) => state.treningSubCategory.loading);
+  // const selectedSubCat = useSelector(
+  //   (state) => state.treningSubCategory.subCategory
+  // );
+  const loading = useSelector((state) => state.IndividualTreningVideo.loading);
   const error_video = useSelector(
-    (state) => state.treningSubCategory.error_video
+    (state) => state.IndividualTreningVideo.error_video
   );
-  const videos = useSelector((state) => state.treningSubCategory.videos);
+  const videos = useSelector((state) => state.IndividualTreningVideo.videos);
   const selectedCategory = useSelector(
-    (state) => state.treningSubCategory.selectedCategory
+    (state) => state.IndividualTreningVideo.selectedCategory
   );
   const selected_video = useSelector(
-    (state) => state.treningSubCategory.selected_video
+    (state) => state.IndividualTreningVideo.selected_video
   );
   const loading_video = useSelector(
-    (state) => state.treningSubCategory.loading_video
+    (state) => state.IndividualTreningVideo.loading_video
   );
+
+  console.log(videos);
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -55,30 +56,11 @@ const TraningVideoPage = () => {
   }, [error_video]);
 
   useEffect(() => {
-    dispatch(getTreningSubCatWithCateg(params.id))
+    dispatch(getVideoWithCat(params.id))
       .unwrap()
-      .then((result) => {
-        const currentSelectedSubCat =
-          result.Training_sub_category.length > 0
-            ? result.Training_sub_category[0].id
-            : null;
-        if (currentSelectedSubCat) {
-          dispatch(treningSubCategoryActions.setSubCat(currentSelectedSubCat));
-          dispatch(getVideoWithSubCat())
-            .unwrap()
-            .then((result) => {
-              if (result.length > 0) {
-                dispatch(treningSubCategoryActions.setSelectedVideo(result[0]));
-              }
+        .then((result) => {
+                dispatch(IndividualTreningVideoActions.setSelectedVideo(result[0]));
             })
-            .catch((error) => {
-              messageApi.info(error.message);
-            });
-        }
-      })
-      .catch((error) => {
-        messageApi.info(error.message);
-      });
   }, [dispatch, params.id]);
 
   const content = {
@@ -88,15 +70,16 @@ const TraningVideoPage = () => {
     title_ru: "Видео сборник упражнений.",
     videos: "Videodarsliklar soni",
     videos_ru: "Количество видеоуроков",
-    count: videos.length + " ta",
-    count_ru: videos.length,
+    count: videos?.length + " ta",
+    count_ru: videos?.length,
     cours_info: "Kurs haqida ma’lumot",
     cours_info_ru: "Информация о курсе",
     login_text: "To'liq videolarni olish uchun tizimga kiring",
-    login_text_ru: "Войдите, чтобы получить полные видео",
+    login_text_individual: "Tizimga kiring",
+    login_text_individual_ru: "Авторизоваться",
   };
 
-  if (!(subCategories.length > 0)) {
+  if (!(videos?.length > 0)) {
     return (
       <NotFound
         style={{ margin: "40px 0px" }}
@@ -158,41 +141,12 @@ const TraningVideoPage = () => {
         </div>
         <div className={s.right}>
           {loading && <p>Loading...</p>}
-          {subCategories.length > 0 && (
-            <Select
-              className={s.select}
-              defaultValue={selectedSubCat}
-              onChange={(selectedValue) => {
-                dispatch(treningSubCategoryActions.setSubCat(selectedValue));
-                dispatch(getVideoWithSubCat())
-                  .unwrap()
-                  .then((result) => {
-                    if (result.length > 0) {
-                      dispatch(
-                        treningSubCategoryActions.setSelectedVideo(result[0])
-                      );
-                    }
-                  })
-                  .catch((error) => {
-                    messageApi.info(error.message);
-                  });
-              }}
-              options={subCategories.map((el) => (
-                // console.log(el)
-                {
-                value: el.id,
-                label:  el[changaLang("title")].charAt(0).toUpperCase() +  el[changaLang("title")].slice(1),
-              }
-              ))
-            }
-            />
-          )}
-
+         
           {loading_video && <p>Loading...</p>}
 
           {contextHolder}
-          {videos.length > 0 && (
-            <PlayList videos={videos} title={content[changaLang("title")]} />
+          {videos?.length > 0 && (
+            <PlayListIndividualTraining videos={videos} title={content[changaLang("title")]} />
           )}
           <div className={s.time}>
             <div className={s.row_time}>
@@ -201,21 +155,21 @@ const TraningVideoPage = () => {
               <div className={s.value}>{content[changaLang("count")]}</div>
             </div>
           </div>
-          {!videos?.[3]?.active ? (
+          {/* {!videos?.[0]?.active ? ( */}
             <div className={s.login}>
               <div className={s.login_label}>
-                {content[changaLang("login_text")]}
+                {content[changaLang("login_text_individual")]}
               </div>
               <MyButton onClick={() => navigate("/login")}>Login</MyButton>
             </div>
-          ) : (
+          {/* ) : (
             ""
-          )}
+          )} */}
         </div>
       </div>
     </Container>
   );
 };
 
-export default TraningVideoPage;
+export default IndividualTraningVideoPage;
 
