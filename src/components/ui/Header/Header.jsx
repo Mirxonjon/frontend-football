@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import LangChange from "../LangChange/LangChange";
 
-import "./header.scss";
+import "./Header.scss";
 import Logo from "./../Logo/Logo";
 import { useRef } from "react";
 import { useEffect } from "react";
