@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import TimeIcon from "../../svg/Tiime";
-import s from "./PlayListindividualTraining.module.scss";
+import s from "./PlayListIndividualTraining.module.scss";
 import cn from "classnames";
 import { treningSubCategoryActions } from "../../../store/trening/treningSubCatSlice";
 import { useLocalizedText } from "../../../hook/useLocalizedText";

@@ -1,4 +1,4 @@
-import "./footer.scss";
+import "./Footer.scss";
 import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import Container from "../Container/Container";

@@ -1,6 +1,6 @@
 import AgesCategory from "../../components/ui/AgesCategory/AgesCategory";
 import Container from "../../components/ui/Container/Container";
-import s from "./individualTrainingPage.module.scss";
+import s from "./IndividualTrainingPage.module.scss";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getTreningCategory } from "../../store/trening/treningCategoriesSlice";
