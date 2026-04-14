@@ -7,8 +7,8 @@ export const menu = [
   },
   {
     id: 2,
-    name: "Musobaqalar",
-    name_ru: "Соревнования",
+    name: "Kurslar",
+    name_ru: "Курсы",
     path: "/contests",
   },
   {
