@@ -5,6 +5,8 @@ import Container from "../Container/Container";
 import { useSelector } from "react-redux";
 import content from "./content";
 
+const ufcLogo = "https://staging.e.ufa.uz/_astro/logo.Ckxx7Njd.svg";
+
 function Footer() {
   const lang = useSelector((state) => state.lang.lang);
 
@@ -21,6 +23,21 @@ function Footer() {
               <p className="footer_conteirner_descrioption">
                 {getLocalizedText(content.description)}
               </p>
+              <div className="footer_partnership">
+                <h3 className="footer_partnership_title">
+                  {getLocalizedText(content.partnership.title)}
+                </h3>
+                <div className="footer_partnership_item">
+                  <img
+                    src={ufcLogo}
+                    alt="Uzbekistan Football Association"
+                    className="footer_partnership_logo"
+                  />
+                  <span className="footer_partnership_name">
+                    {getLocalizedText(content.partnership.name)}
+                  </span>
+                </div>
+              </div>
             </div>
 
             <div className="footer_info">

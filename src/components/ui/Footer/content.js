@@ -60,9 +60,19 @@ const content = {
       { label: "Youtube", icon: YoutubeFilled, href: "/#3" },
     ],
   },
+  partnership: {
+    title: {
+      uz: "Asosiy hamkorlarimiz",
+      ru: "Наши основные партнеры",
+    },
+    name: {
+      uz: "O'zbekiston Futbol Assotsiatsiyasi",
+      ru: "Ассоциация Футбола Узбекистана",
+    },
+  },
   end: {
-    ru: "Авторская права © 2023 Coaching. Все права защищены.",
-    uz: "Copyright © 2023 Coaching. All rights reserved.",
+    ru: "Авторская права © 2024 Coaching. Все права защищены.",
+    uz: "Copyright © 2024 Coaching. All rights reserved.",
   },
 };
 

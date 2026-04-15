@@ -18,7 +18,7 @@ const FormWrapper = ({ img, title, subTitle, children }) => {
           <img src={img} alt="bg img" />
         </div>
       </div>
-      <div className={s.footer}>© 2023 FutbolLab.</div>
+      <div className={s.footer}>© 2024 FutbolLab.</div>
     </div>
   );
 };
