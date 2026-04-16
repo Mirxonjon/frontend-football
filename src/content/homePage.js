@@ -1,5 +1,5 @@
 export const heroText = {
-  hero: "Murabbiylar zonasi platformasiga xush kelibsiz.",
+  hero: "Murabbiylar markazi platformasiga xush kelibsiz.",
   hero_ru: "Добро пожаловать на платформу для тренеров.",
   desc: "Yaxshi futbol murabbiyi bo’lish yo’li shu erdan boshlanadi. Biz sizga dunyoning eng yaxshi futbol murabbiylarining strategiyalari, taktikasi va amaliy mashg’ulotlari bilan tanishish imkoniyatini beramiz.",
   desc_ru:
